@@ -1,0 +1,36 @@
+# Binários Go
+pesquisas/testes/bin/
+*.exe
+*.out
+
+# Python
+pesquisas/visualizacao/.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Dados gerados (regeneráveis via scripts)
+pesquisas/dados/*.json
+!pesquisas/dados/.gitkeep
+
+# Relatórios gerados (regeneráveis)
+pesquisas/relatorios/graficos/
+pesquisas/relatorios/dashboard/
+pesquisas/relatorios/*.md
+!pesquisas/relatorios/.gitkeep
+
+# Profiling Go
+*.prof
+*.test
+*.out
+
+# OS
+.DS_Store
+Thumbs.db
+*~
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
