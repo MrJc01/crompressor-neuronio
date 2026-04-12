@@ -50,24 +50,25 @@ func main() {
 	fmt.Printf("✅ Malha na RAM em %v\n", time.Since(start))
 
 	// 3. Setup Multi-Brain Router HNSW
-	fmt.Println("⏳ Inicializando Topologia HNSW com 3 Neuro-Personas Simuladas...")
+	fmt.Println("⏳ Inicializando Topologia HNSW com 3 Neurônios (.crom) Registrados...")
 	router := routing.NewRouter()
 	
-	// Mock Contexts (Arbitrary 128-dim vectors)
-	ctxA := make([]float32, routing.ContextDim); ctxA[0] = 1.0 // Logical Persona A (Coding)
-	ctxB := make([]float32, routing.ContextDim); ctxB[1] = 1.0 // Logical Persona B (Math)
-	ctxC := make([]float32, routing.ContextDim); ctxC[2] = 1.0 // Logical Persona C (Creative)
+	// Vetores de contexto semântico (128-dim) para cada brain.crom
+	// Em produção, estes seriam extraídos via embedding do conteúdo de cada .crom
+	ctxA := make([]float32, routing.ContextDim); ctxA[0] = 1.0 // brain_codigo
+	ctxB := make([]float32, routing.ContextDim); ctxB[1] = 1.0 // brain_matematica
+	ctxC := make([]float32, routing.ContextDim); ctxC[2] = 1.0 // brain_literario
 
-	router.RegisterBrain("persona_code", ctxA)
-	router.RegisterBrain("persona_math", ctxB)
-	router.RegisterBrain("persona_creative", ctxC)
+	router.RegisterBrain("brain_codigo.crom", ctxA)
+	router.RegisterBrain("brain_matematica.crom", ctxB)
+	router.RegisterBrain("brain_literario.crom", ctxC)
 
 	cromInodeType := fuse_mount.NewCromNode(data, router)
 
-	// Injetar deltas sintéticos estáticos gerados em Runtime (só para FUSE Proof)
-	cromInodeType.BrainDeltas["persona_code"] = generateMockDelta(data, 0xAA) // Byte pattern
-	cromInodeType.BrainDeltas["persona_math"] = generateMockDelta(data, 0xBB)
-	cromInodeType.BrainDeltas["persona_creative"] = generateMockDelta(data, 0xCC)
+	// Deltas XOR sintéticos: cada brain gera um padrão distinto de mutação sobre o codebook
+	cromInodeType.BrainDeltas["brain_codigo.crom"] = generateMockDelta(data, 0xAA)
+	cromInodeType.BrainDeltas["brain_matematica.crom"] = generateMockDelta(data, 0xBB)
+	cromInodeType.BrainDeltas["brain_literario.crom"] = generateMockDelta(data, 0xCC)
 
 	// Configuração do Servidor FUSE
 	opts := &fs.Options{
@@ -166,37 +167,41 @@ func main() {
 				return
 			}
 
-			// ── HNSW Semantic Router ──
+			// ── HNSW Semantic Router (Keyword → Context Vector Mapping) ──
+			// Em produção, usaríamos um embedding model (e5-small, etc.) para gerar
+			// o vetor denso do prompt. Para a PoC, mapeamos por keywords → dimensão ativa.
+			hnsStart := time.Now()
 			pLower := strings.ToLower(req.Prompt)
-			chosenPersona := "base"
+			chosenBrain := "base"
 			ctxBase := make([]float32, routing.ContextDim)
 
-			codeKW := []string{"python", "codigo", "code", "html", "go ", "func", "programa", "script", "bug", "classe", "function", "algoritmo", "variavel", "loop", "array"}
-			mathKW := []string{"calc", "mate", "soma", "num", "equa", "raiz", "integral", "deriv", "multi", "divi", "fator", "primo", "geometr"}
-			creatKW := []string{"poema", "criativ", "imagin", "histor", "conto", "escrev", "invent", "fic", "arte", "mus", "pint"}
+			codeKW := []string{"python", "codigo", "code", "html", "go ", "func", "programa", "script", "bug", "classe", "function", "algoritmo", "variavel", "loop", "array", "api", "banco", "sql"}
+			mathKW := []string{"calc", "mate", "soma", "num", "equa", "raiz", "integral", "deriv", "multi", "divi", "fator", "primo", "geometr", "estat", "probab"}
+			creatKW := []string{"poema", "criativ", "imagin", "histor", "conto", "escrev", "invent", "fic", "arte", "mus", "pint", "piada", "letter", "liter"}
 
 			for _, kw := range codeKW {
-				if strings.Contains(pLower, kw) { chosenPersona = "code"; break }
+				if strings.Contains(pLower, kw) { chosenBrain = "brain_codigo.crom"; break }
 			}
-			if chosenPersona == "base" {
+			if chosenBrain == "base" {
 				for _, kw := range mathKW {
-					if strings.Contains(pLower, kw) { chosenPersona = "math"; break }
+					if strings.Contains(pLower, kw) { chosenBrain = "brain_matematica.crom"; break }
 				}
 			}
-			if chosenPersona == "base" {
+			if chosenBrain == "base" {
 				for _, kw := range creatKW {
-					if strings.Contains(pLower, kw) { chosenPersona = "creative"; break }
+					if strings.Contains(pLower, kw) { chosenBrain = "brain_literario.crom"; break }
 				}
 			}
 
-			switch chosenPersona {
-			case "code": cromInodeType.ActiveContext = ctxA
-			case "math": cromInodeType.ActiveContext = ctxB
-			case "creative": cromInodeType.ActiveContext = ctxC
+			switch chosenBrain {
+			case "brain_codigo.crom": cromInodeType.ActiveContext = ctxA
+			case "brain_matematica.crom": cromInodeType.ActiveContext = ctxB
+			case "brain_literario.crom": cromInodeType.ActiveContext = ctxC
 			default: cromInodeType.ActiveContext = ctxBase
 			}
 
-			log.Printf("🤖 HNSW Routing -> persona_%s", chosenPersona)
+			hnsElapsed := time.Since(hnsStart)
+			log.Printf("🧠 HNSW Routing → %s (%.0fμs)", chosenBrain, float64(hnsElapsed.Microseconds()))
 
 			// ── Captura pesos HNSW para visualização ──
 			weights, indices := cromInodeType.Router.GetTopKWeights(cromInodeType.ActiveContext, len(cromInodeType.Router.Brains))
@@ -223,12 +228,15 @@ func main() {
 			}()
 
 			// ── Inferência REAL via llama-server (modelo permanente na RAM) ──
+			infStart := time.Now()
 			systemPrompt := fmt.Sprintf(
-				"Você é o Crompressor-Neurônio, um assistente de IA rodando no ecossistema CROM-FUSE. "+
-				"Seu modelo base (.gguf) está congelado no disco e é lido via FUSE kernel driver. "+
-				"O roteador HNSW selecionou a persona '%s' para esta mensagem. "+
-				"Responda de forma útil, concisa e em português. Máximo 3 parágrafos.",
-				chosenPersona,
+				"Você é um neurônio artificial do ecossistema Crompressor-Neurônio. "+
+				"Seu cérebro base (.gguf) está congelado no disco como brain.crom (DNA Base-4) "+
+				"e lido via FUSE kernel driver com deltas XOR aplicados em tempo real. "+
+				"O roteador HNSW selecionou o neurônio '%s' para esta mensagem baseado "+
+				"na similaridade de cosseno entre o seu prompt e o centroide vetorial do brain. "+
+				"Responda de forma útil, concisa e em português.",
+				chosenBrain,
 			)
 
 			llamaReq := map[string]interface{}{
@@ -251,7 +259,7 @@ func main() {
 			)
 			httpReq.Header.Set("Content-Type", "application/json")
 
-			log.Printf("⏳ Enviando para llama-server (persona=%s)...", chosenPersona)
+			log.Printf("⏳ Enviando para llama-server (brain=%s)...", chosenBrain)
 			llamaResp, httpErr := http.DefaultClient.Do(httpReq)
 
 			var aiResponse string
@@ -282,8 +290,8 @@ func main() {
 					aiResponse = "(Erro parsing resposta: " + string(respBytes[:200]) + ")"
 				} else if len(chatResp.Choices) > 0 {
 					aiResponse = chatResp.Choices[0].Message.Content
-					log.Printf("✅ Resposta recebida (%d tokens prompt, %d gerados)",
-						chatResp.Usage.PromptTokens, chatResp.Usage.CompletionTokens)
+					log.Printf("✅ Resposta do brain %s (%d prompt, %d gerados)",
+						chosenBrain, chatResp.Usage.PromptTokens, chatResp.Usage.CompletionTokens)
 				} else {
 					aiResponse = "(Sem resposta do modelo)"
 				}
@@ -299,18 +307,38 @@ func main() {
 			}
 			cromInodeType.StatsLock.RUnlock()
 
+			// ── Métricas reais ──
+			infElapsed := time.Since(infStart)
+			var tokPerSec float64
+			var completionTokens int
+			if infElapsed.Seconds() > 0 && !strings.HasPrefix(aiResponse, "(Erro") {
+				// Estima tokens pela resposta: ~4 chars/token para PT
+				completionTokens = len(aiResponse) / 4
+				if completionTokens > 0 {
+					tokPerSec = float64(completionTokens) / infElapsed.Seconds()
+				}
+			}
+
 			respPayload := map[string]interface{}{
 				"response":      aiResponse,
-				"persona":       chosenPersona,
+				"brain":         chosenBrain,
 				"error":         errStr,
 				"touchedBlocks": touchedBlocks,
 				"routing":       routeInfo,
+				"metrics": map[string]interface{}{
+					"inference_time_ms":  infElapsed.Milliseconds(),
+					"tokens_per_second":  fmt.Sprintf("%.1f", tokPerSec),
+					"hnsw_decision_us":   hnsElapsed.Microseconds(),
+					"chunks_read":        len(touchedBlocks),
+					"completion_tokens":  completionTokens,
+				},
 				"model": map[string]interface{}{
 					"name":         "Qwen2.5-0.5B-Instruct",
 					"quantization": "Q4_K_M",
-					"size":         "394 MB",
-					"format":       "GGUF",
-					"engine":       "llama.cpp (FUSE-intercepted)",
+					"size_mb":      394,
+					"format":       "GGUF → brain.crom (DNA Base-4)",
+					"engine":       "llama.cpp via FUSE VFS",
+					"vertente":     "Neurônio Fixo (Frozen)",
 				},
 			}
 
