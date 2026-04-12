@@ -1,0 +1,160 @@
+[0;35m[1m
+╔═══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║   🧠 CROMPRESSOR-NEURÔNIO — NEURAL MONITOR                   ║
+║   O neurônio que comprime é o neurônio que pensa.            ║
+║                                                              ║
+╚═══════════════════════════════════════════════════════════════╝
+[0m
+
+  [0;36m━━━ TESTES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[1][0m  🧪 Rodar Suite Completa (pesquisar.sh)
+  [0;32m[2][0m  🔬 Rodar Testes Unitários (go test)
+  [0;32m[3][0m  ⚡ Rodar Benchmarks (go test -bench)
+  [0;32m[4][0m  🧠 Rodar Multi-Brain Routing
+  [0;32m[5][0m  🛡️  Rodar Teste P2P Security
+
+  [0;36m━━━ FUSE / LIVE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[6][0m  🚀 Iniciar FUSE Daemon + Cockpit ao Vivo
+  [0;32m[7][0m  📊 Ver Heatmap Cerebral (requer FUSE ativo)
+  [0;32m[8][0m  🔄 Teste Empírico FUSE (md5sum por persona)
+
+  [0;36m━━━ VISUALIZAÇÃO E ANÁLISE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[9][0m  📈 Gerar Gráficos (matplotlib)
+  [0;32m[10][0m 🎯 Abrir Dashboard Interativo (plotly)
+  [0;32m[11][0m 📋 Abrir Relatório Narrativo (HTML)
+  [0;32m[12][0m 📊 Ver Dados JSON (resumo rápido)
+  [0;32m[13][0m 🗂️  Git Status / Limpeza
+
+  [0;36m━━━ EXPERIÊNCIA & INTERAÇÃO ━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[14][0m 📖 Modo RPG: Jornada de Entendimento (Tutorial Interativo)
+  [0;32m[15][0m 💬 Chat Neural Interativo (Converse com o Cérebro)
+
+  [0;31m[q][0m  Sair
+
+  [1mEscolha: [0m
+
+[0;36m━━━ Resumo dos Dados ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+  [0;35m📦 Compressão:[0m
+    Qwen2.5-0.5B (sim): ratio=1.60x  dedup=39.8%  chunks=2000
+    Qwen2.5-1.5B (sim): ratio=1.60x  dedup=39.9%  chunks=6000
+    LLaMA-3.2-1B (sim): ratio=1.60x  dedup=39.9%  chunks=4000
+    Phi-3-mini (sim): ratio=2.05x  dedup=54.6%  chunks=15000
+
+  [0;35m📈 Entropia:[0m
+    qwen05b: μ=6.870  σ=0.719  [6.000, 7.709]
+    qwen15b: μ=6.871  σ=0.719  [6.000, 7.709]
+    llama1b: μ=6.871  σ=0.719  [6.000, 7.709]
+    phi3mini: μ=6.871  σ=0.720  [6.000, 7.709]
+
+  [0;35m🧠 Routing Multi-Brain:[0m
+    1 brains: routing=8μs  compose=4897μs  throughput=204.2 MB/s
+    2 brains: routing=7μs  compose=8493μs  throughput=117.7 MB/s
+    3 brains: routing=7μs  compose=4380μs  throughput=228.3 MB/s
+    4 brains: routing=7μs  compose=4967μs  throughput=201.3 MB/s
+    5 brains: routing=8μs  compose=8463μs  throughput=118.2 MB/s
+
+  [0;35m⚡ Benchmarks XOR:[0m
+    xor_delta_qwen05b: 11073 ns/op  (46.2 MB/s)
+    xor_delta_qwen15b: 8530 ns/op  (60.0 MB/s)
+    xor_delta_llama1b: 11177 ns/op  (45.8 MB/s)
+    xor_delta_phi3mini: 8900 ns/op  (57.5 MB/s)
+
+[0;32mPressione ENTER para voltar ao menu...[0m
+[0;35m[1m
+╔═══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║   🧠 CROMPRESSOR-NEURÔNIO — NEURAL MONITOR                   ║
+║   O neurônio que comprime é o neurônio que pensa.            ║
+║                                                              ║
+╚═══════════════════════════════════════════════════════════════╝
+[0m
+
+  [0;36m━━━ TESTES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[1][0m  🧪 Rodar Suite Completa (pesquisar.sh)
+  [0;32m[2][0m  🔬 Rodar Testes Unitários (go test)
+  [0;32m[3][0m  ⚡ Rodar Benchmarks (go test -bench)
+  [0;32m[4][0m  🧠 Rodar Multi-Brain Routing
+  [0;32m[5][0m  🛡️  Rodar Teste P2P Security
+
+  [0;36m━━━ FUSE / LIVE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[6][0m  🚀 Iniciar FUSE Daemon + Cockpit ao Vivo
+  [0;32m[7][0m  📊 Ver Heatmap Cerebral (requer FUSE ativo)
+  [0;32m[8][0m  🔄 Teste Empírico FUSE (md5sum por persona)
+
+  [0;36m━━━ VISUALIZAÇÃO E ANÁLISE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[9][0m  📈 Gerar Gráficos (matplotlib)
+  [0;32m[10][0m 🎯 Abrir Dashboard Interativo (plotly)
+  [0;32m[11][0m 📋 Abrir Relatório Narrativo (HTML)
+  [0;32m[12][0m 📊 Ver Dados JSON (resumo rápido)
+  [0;32m[13][0m 🗂️  Git Status / Limpeza
+
+  [0;36m━━━ EXPERIÊNCIA & INTERAÇÃO ━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[14][0m 📖 Modo RPG: Jornada de Entendimento (Tutorial Interativo)
+  [0;32m[15][0m 💬 Chat Neural Interativo (Converse com o Cérebro)
+
+  [0;31m[q][0m  Sair
+
+  [1mEscolha: [0m
+
+[0;31m[!] Ejetando do Neural Monitor...[0m
+[0;35m[1m
+╔═══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║   🧠 CROMPRESSOR-NEURÔNIO — NEURAL MONITOR                   ║
+║   O neurônio que comprime é o neurônio que pensa.            ║
+║                                                              ║
+╚═══════════════════════════════════════════════════════════════╝
+[0m
+
+  [0;36m━━━ TESTES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[1][0m  🧪 Rodar Suite Completa (pesquisar.sh)
+  [0;32m[2][0m  🔬 Rodar Testes Unitários (go test)
+  [0;32m[3][0m  ⚡ Rodar Benchmarks (go test -bench)
+  [0;32m[4][0m  🧠 Rodar Multi-Brain Routing
+  [0;32m[5][0m  🛡️  Rodar Teste P2P Security
+
+  [0;36m━━━ FUSE / LIVE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[6][0m  🚀 Iniciar FUSE Daemon + Cockpit ao Vivo
+  [0;32m[7][0m  📊 Ver Heatmap Cerebral (requer FUSE ativo)
+  [0;32m[8][0m  🔄 Teste Empírico FUSE (md5sum por persona)
+
+  [0;36m━━━ VISUALIZAÇÃO E ANÁLISE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[9][0m  📈 Gerar Gráficos (matplotlib)
+  [0;32m[10][0m 🎯 Abrir Dashboard Interativo (plotly)
+  [0;32m[11][0m 📋 Abrir Relatório Narrativo (HTML)
+  [0;32m[12][0m 📊 Ver Dados JSON (resumo rápido)
+  [0;32m[13][0m 🗂️  Git Status / Limpeza
+
+  [0;36m━━━ EXPERIÊNCIA & INTERAÇÃO ━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+  [0;32m[14][0m 📖 Modo RPG: Jornada de Entendimento (Tutorial Interativo)
+  [0;32m[15][0m 💬 Chat Neural Interativo (Converse com o Cérebro)
+
+  [0;31m[q][0m  Sair
+
+  [1mEscolha: [0m
+[0;35m[1m
+╔═══════════════════════════════════════════════════════════════╗
+║            📖 MODO RPG: O DESPERTAR DO NEURÔNIO               ║
+╚═══════════════════════════════════════════════════════════════╝
+[0m
+Você se encontra diante do Terminal Central do Lab Crompressor...
+[1;33m[SISTEMA] Conexão neural estabelecida. Nível de permissão: ARQUITETO.[0m
+
+
+[0;36m>>> O GRANDE GARGALO DA IA ATUAL <<<[0m
+O paradigma legado exige o download de modelos inteiros (14GB, 70GB, 400GB) toda vez que uma nova vertente cognitiva precisa ser ativada.
+A rede carrega parâmetros redundantes. O disco queima. A RAM sofre.
+[0;31m[!] Diagnóstico: Arquitetura monolítica estática identificada. Plasticidade: ZERO.[0m
+
+
+[0;36m>>> A NOSSA TESE DE MUTAÇÃO <<<[0m
+Como a biologia resolve isso? Ela não baixa um novo cérebro. Ela altera as sinapses.
+[0;32m"O neurônio que comprime é o neurônio que pensa."[0m
+Nós faremos o modelo base (o Brain) ficar congelado no disco. Ele nunca sai do HD.
+Em cima dele, vamos projetar Deltas Neurais — uma injeção matemática de CTerminado
+
+[0;31m[!] Ejetando do Neural Monitor...[0m
+
+[0;31m[!] Ejetando do Neural Monitor...[0m

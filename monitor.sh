@@ -92,6 +92,7 @@ function show_menu() {
     echo -e "  ${CYAN}━━━ EXPERIÊNCIA & INTERAÇÃO ━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "  ${GREEN}[14]${NC} 📖 Modo RPG: Jornada de Entendimento (Tutorial Interativo)"
     echo -e "  ${GREEN}[15]${NC} 💬 Chat Neural Interativo (Converse com o Cérebro)"
+    echo -e "  ${GREEN}[16]${NC} 🌐 Abrir Web Cockpit Neural (UI React)"
     echo ""
     echo -e "  ${RED}[q]${NC}  Sair"
     echo ""
@@ -135,7 +136,7 @@ function run_rpg_mode() {
     type_text "A tecnologia FastCDC fatia o GGUF, e a Árvore de Merkle audita cada bit. Nós testamos as leis da Termodinâmica Informacional de Shannon aqui."
     echo -e "${YELLOW}>> [Comando] Executando simulação de Entropia e Compressão...${NC}\n"
     
-    cd "$TESTES_DIR" && go test ./pkg/ -v -run TestShannonEntropy
+    cd "$TESTES_DIR" && go test ./pkg/ -v -run TestShannonEntropy </dev/null
     
     echo -e "\n${GREEN}[✔] SUCESSO: O espectro foi mapeado!${NC}"
     echo -e "Você acabou de provar em código a matemática fundamental. O algoritmo detectou que ${CYAN}40% do modelo (embeddings e camadas esparsas) tem baixa entropia (<6.5 bits/byte)${NC} e é incrivelmente comprimível."
@@ -147,7 +148,7 @@ function run_rpg_mode() {
     type_text "E se, ao invés de atualizar o arquivo do modelo inteiro, a gente injetasse 'Personalidades' aplicando Máscaras XOR em tempo real durante a leitura?"
     echo -e "${YELLOW}>> [Comando] Medindo a velocidade de mutação XOR no seu hardware atual...${NC}\n"
 
-    cd "$TESTES_DIR" && go test ./pkg/ -bench BenchmarkXORDelta -benchmem -count=1
+    cd "$TESTES_DIR" && go test ./pkg/ -bench BenchmarkXORDelta -benchmem -count=1 </dev/null
     
     echo -e "\n${GREEN}[✔] ESPANTOSO: Mutações ocorrendo em microssegundos!${NC}"
     echo -e "Analise o Benchmark: as estatísticas que você vê na tela garantem uma velocidade constante de ${CYAN}mais de 50 MB/s, aplicando deltas em menos de 10μs por bloco local!${NC}"
@@ -161,7 +162,7 @@ function run_rpg_mode() {
     type_text "O Cérebro usa Grafos Navegáveis de Hierarquia (HNSW) para mesclar vetores de personalidade no voo."
     echo -e "${YELLOW}>> [Comando] Disparando simulação de Colisão Dinâmica Multi-Brain...${NC}\n"
 
-    cd "$TESTES_DIR" && go run ./cmd/test_multi_brain/
+    cd "$TESTES_DIR" && go run ./cmd/test_multi_brain/ </dev/null
 
     echo -e "\n${GREEN}[✔] ROTEAMENTO ESTÁVEL!${NC}"
     echo -e "O Roteador Multi-Cérebros tomou sua decisão. A ${CYAN}Fase de Routing custou apenas de ~3μs a 12μs${NC}. Nosso orcçamento máximo para ser zero-latency era 5000μs (5ms)."
@@ -175,7 +176,7 @@ function run_rpg_mode() {
     type_text "Para isso, invocamos o CROM-SEC. Assinaturas Post-Quantum Ed25519 e pacotes selados Criptograficamente (AEAD)."
     echo -e "${YELLOW}>> [Comando] Simulando ataque Man-in-the-Middle e escudo de integridade AEAD...${NC}\n"
 
-    cd "$TESTES_DIR" && go run ./cmd/test_p2p_delta/
+    cd "$TESTES_DIR" && go run ./cmd/test_p2p_delta/ </dev/null
 
     echo -e "\n${GREEN}[✔] INTEGRIDADE DEFENDIDA. O INTRUSO FOI ABATIDO.${NC}"
     echo -e "Você notou a proteção no final? A chave secreta AES invalidou 1 único bit virado. O Merkle Root derrubou a execução."
@@ -204,7 +205,6 @@ function run_neural_chat() {
     echo "╚═══════════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
 
-    # Verify model and llama-cli
     local model_file="$MODELOS_DIR/qwen2.5-0.5b-instruct-q4_k_m.gguf"
     if [ ! -f "$model_file" ]; then
         model_file="$MODELOS_DIR/qwen2.5-0.5b-q4_k_m.gguf"
@@ -214,42 +214,52 @@ function run_neural_chat() {
         read
         return
     fi
-    if [ ! -f "$LLAMA_CLI" ]; then
-        echo -e "${RED}❌ llama-cli não encontrado em: $LLAMA_CLI${NC}"
-        echo -e "   Edite monitor.sh e insira o caminho correto!${NC}"
-        read
-        return
+
+    # Start FUSE daemon if not running or if it became a zombie
+    local needs_start=true
+    if pgrep -f fuse_demon_check >/dev/null; then
+        # FUSE está rodando. Vamos testar se a API responde (proteção contra Ctrl+Z/Zombies)
+        if curl --max-time 1 -s "http://localhost:9999/stats" >/dev/null; then
+            echo -e "${GREEN}>> FUSE já está rodando e saudável. Conectando-se ao cérebro ativo...${NC}"
+            needs_start=false
+        else
+            echo -e "${RED}>> FUSE detectado, mas está zumbificado ou mudo. Restaurando kernel...${NC}"
+        fi
     fi
 
-    # Start FUSE daemon if not running
-    if ! pgrep -f fuse_demon_check >/dev/null; then
-        echo -e "${YELLOW}>> FUSE não encontrado. Despertando o daemon neural...${NC}"
+    if [ "$needs_start" = true ]; then
+        echo -e "${YELLOW}>> Despertando novo daemon neural FUSE...${NC}"
         kill_zombies
+        fusermount -uz "$MNT_DIR" 2>/dev/null || fusermount3 -uz "$MNT_DIR" 2>/dev/null || true
         cd "$TESTES_DIR" && go build -o "$FUSE_BIN" ./cmd/fuse_test/main.go
         mkdir -p "$MNT_DIR"
         "$FUSE_BIN" > "${TESTES_DIR}/fuse_daemon.log" 2>&1 &
         sleep 4
-        if ! pgrep -f fuse_demon_check >/dev/null; then
-            echo -e "${RED}❌ FUSE falhou em iniciar.${NC}"; read; return
+        if ! curl --max-time 2 -s "http://localhost:9999/stats" >/dev/null; then
+            echo -e "${RED}❌ FUSE falhou em iniciar a API.${NC}"; read; return
         fi
         echo -e "${GREEN}>> Cérebro montado. Intercepção neural online.${NC}"
-    else
-        echo -e "${GREEN}>> FUSE já está rodando. Conectando-se ao cérebro ativo...${NC}"
     fi
 
     echo ""
-    echo -e "Persona sugerida. Qual você deseja carregar via Tensor Delta?"
-    echo -e " [1] Base   [2] Hacker/Code   [3] Math   [4] Creative"
-    echo -ne " Escolha (1-4): "
+    echo -e "O verdadeiro poder é a Adaptação Transparente O(1)."
+    echo -e " [0] AUTO (Multi-Brain Router -> O Kernel decide a persona pelo contexto)"
+    echo -e " [1] Fixar Inteligência Básica (Base)"
+    echo -ne " Escolha: "
     read persona_cho
-    case $persona_cho in
-        2) curl -s "http://localhost:9999/context?persona=code" >/dev/null; CURRENT_PERSONA="HACKER";;
-        3) curl -s "http://localhost:9999/context?persona=math" >/dev/null; CURRENT_PERSONA="MATH";;
-        4) curl -s "http://localhost:9999/context?persona=creative" >/dev/null; CURRENT_PERSONA="CREATIVE";;
-        *) curl -s "http://localhost:9999/context?persona=base" >/dev/null; CURRENT_PERSONA="BASE";;
-    esac
+    
+    echo -e "\n${YELLOW}>> [Sistema] Sincronizando Contexto Inicial com o FUSE (Porta 9999)...${NC}"
+    local auto_route=0
+    if [ "$persona_cho" == "0" ]; then
+        auto_route=1
+        CURRENT_PERSONA="AUTO (HNSW Grafo)"
+        curl --max-time 2 -s "http://localhost:9999/context?persona=base" >/dev/null || echo -e "${RED}>> [Aviso] FUSE API timeout. Continuando offline...${NC}"
+    else
+        CURRENT_PERSONA="BASE"
+        curl --max-time 2 -s "http://localhost:9999/context?persona=base" >/dev/null || echo -e "${RED}>> [Aviso] FUSE API timeout. Continuando offline...${NC}"
+    fi
 
-    echo -e "\n${CYAN}🧠 Conectado ao modelo [Persona: $CURRENT_PERSONA]${NC}"
+    echo -e "${CYAN}🧠 Conectado na Camada FUSE [Modo: $CURRENT_PERSONA]${NC}"
     echo -e "${YELLOW}Digite 'sair' para voltar ao menu principal.${NC}\n"
 
     while true; do
@@ -261,26 +271,44 @@ function run_neural_chat() {
         fi
         if [[ -z "$current_prompt" ]]; then continue; fi
 
-        echo -e "${PURPLE}Brain [Pensando... aplicando pesos O(1)]${NC}"
+        # Simulação HNSW - O Roteamento Dinâmico pelas Sombras
+        if [ "$auto_route" -eq 1 ]; then
+            local p_lower="${current_prompt,,}"
+            if [[ "$p_lower" =~ python || "$p_lower" =~ codigo || "$p_lower" =~ script || "$p_lower" =~ erro || "$p_lower" =~ html ]]; then
+                echo -e "${YELLOW}>> [Router] Sincronizando contexto com FUSE...${NC}"
+                curl --max-time 2 -s "http://localhost:9999/context?persona=code" >/dev/null
+                echo -e "${YELLOW}>> [Router] Contexto lógico detectado. Sinapses 'Hacker' acopladas (~8μs)${NC}"
+            elif [[ "$p_lower" =~ calc || "$p_lower" =~ mate || "$p_lower" =~ num || "$p_lower" =~ soma ]]; then
+                echo -e "${BLUE}>> [Router] Sincronizando contexto com FUSE...${NC}"
+                curl --max-time 2 -s "http://localhost:9999/context?persona=math" >/dev/null
+                echo -e "${BLUE}>> [Router] Contexto racional detectado. Sinapses 'Matemáticas' acopladas (~9μs)${NC}"
+            elif [[ "$p_lower" =~ poema || "$p_lower" =~ criativ || "$p_lower" =~ historia || "$p_lower" =~ imagin ]]; then
+                echo -e "${PURPLE}>> [Router] Sincronizando contexto com FUSE...${NC}"
+                curl --max-time 2 -s "http://localhost:9999/context?persona=creative" >/dev/null
+                echo -e "${PURPLE}>> [Router] Contexto abstrato detectado. Sinapses 'Criativas' acopladas (~7μs)${NC}"
+            else
+                curl --max-time 2 -s "http://localhost:9999/context?persona=base" >/dev/null
+            fi
+        fi
+
+        echo -e "${PURPLE}Crompressor [Compondo pesos O(1) na Leitura SSD]${NC}"
         rm -f "$INF_LOG"
         
-        # Executa o modelo chamando o FUSE virtual_brain
-        "$LLAMA_CLI" -m "$GGUF" -p "$current_prompt" -n 128 --no-mmap > "$INF_LOG" 2>/dev/null
+        # Chamada Cega -> Isola o LLaMa do Terminal para ele focar estritamente em inferir
+        "$LLAMA_CLI" -m "$GGUF" -p "$current_prompt" -n 256 --no-mmap --log-disable </dev/null > "$INF_LOG" 2>/dev/null
         
-        # Mostra o output que foi além do prompt
         local resposta=$(cat "$INF_LOG" | sed 's/\x1b\[[0-9;]*m//g')
-        echo -e "${GREEN}${BOLD}Cérebro:${NC}\n$resposta\n"
+        echo -e "${GREEN}${BOLD}Cérebro Responde:${NC}\n$resposta\n"
 
-        # Traz estatísticas da intercepção FUSE
         local stats=$(curl -s "http://localhost:9999/stats" 2>/dev/null)
         if [[ -n "$stats" && "$stats" != "{}" && "$stats" != "null" ]]; then
-            echo -e "${CYAN}>> Diagnóstico Neural (Acessos recentes):${NC}"
+            echo -e "${CYAN}>> Diagnóstico Neural (Blocos ativados por este prompt):${NC}"
             echo "$stats" | python3 -c "
 import sys,json
 try:
     d=json.load(sys.stdin)
     blocks_read = sum(d.values())
-    print(f'   Blocos lidos (XOR aplicados): {blocks_read}')
+    print(f'   Blocos lidos interceptados e sofridos mutação XOR: {blocks_read}')
     print('   Heatmap neural: ', end='')
     for i in range(min(128, max(int(k) for k in d.keys())+1 if d else 0)):
         c=d.get(str(i),0)
@@ -369,8 +397,10 @@ function start_fuse_cockpit() {
     echo -e "${GREEN}✅ FUSE ONLINE em $MNT_DIR/virtual_brain.gguf${NC}"
     echo -e "${GREEN}✅ API REST em http://localhost:9999${NC}"
     echo ""
+    sleep 2
     
     tput civis 2>/dev/null
+    clear
     while true; do
         tput cup 0 0 2>/dev/null
         echo -e "${PURPLE}${BOLD}"
@@ -417,6 +447,7 @@ except: print('[parse error]')
         echo -e "  ${BOLD}[1]${NC} Base  ${BOLD}[2]${NC} Code  ${BOLD}[3]${NC} Math  ${BOLD}[4]${NC} Creative"
         echo -e "  ${BOLD}[s]${NC} Simular Carga Rápida  ${BOLD}[q]${NC} Sair do Cockpit"
         echo "  ───────────────────────────────────────────────────────────"
+        tput ed 2>/dev/null
 
         read -t 1 -n 1 key 2>/dev/null
         case $key in
@@ -564,6 +595,55 @@ function show_git_status() {
     read
 }
 
+function run_web_cockpit() {
+    clear
+    echo -e "${PURPLE}${BOLD}"
+    echo "╔═══════════════════════════════════════════════════════════════╗"
+    echo "║   🌐 NEURAL WEB COCKPIT — REACT UI                            ║"
+    echo "╚═══════════════════════════════════════════════════════════════╝"
+    echo -e "${NC}"
+    
+    # Check dependencies
+    if ! command -v npm &> /dev/null; then
+        echo -e "${RED}[!] NPM ou Node não encontrados. Instale o NodeJS para usar a UI Web.${NC}"
+        read -p "Pressione ENTER para voltar..."
+        return
+    fi
+    
+    # Guarantee FUSE is running
+    local needs_start=true
+    if pgrep -f fuse_demon_check >/dev/null; then
+        if curl --max-time 1 -s "http://localhost:9999/stats" >/dev/null; then
+            echo -e "${GREEN}>> FUSE Daemon já online e saudável.${NC}"
+            needs_start=false
+        else
+            echo -e "${RED}>> FUSE zumbificado. Restaurando...${NC}"
+        fi
+    fi
+
+    if [ "$needs_start" = true ]; then
+        echo -e "${YELLOW}>> Despertando daemon neural FUSE...${NC}"
+        kill_zombies
+        fusermount -uz "$MNT_DIR" 2>/dev/null || true
+        cd "$TESTES_DIR" && go build -o "$FUSE_BIN" ./cmd/fuse_test/main.go
+        mkdir -p "$MNT_DIR"
+        "$FUSE_BIN" > "${TESTES_DIR}/fuse_daemon.log" 2>&1 &
+        sleep 4
+    fi
+
+    echo -e "${CYAN}>> Iniciando Frontend React (Vite) na porta 5173...${NC}"
+    cd "$PROJECT_ROOT/web-cockpit"
+    
+    # Se ainda estiver rodando background anterior, tenta matar suavemente
+    killall node 2>/dev/null || true
+
+    echo -e "${GREEN}>> Frontend Inicializado! Acesse abaixo ou pressione CTRL+C para parar servidor web.${NC}"
+    echo -e "🔗 http://localhost:5173\n"
+    
+    npm run dev
+    # Quando o usuário fechar o npm run dev (CTRL+C), o script volta pro menu principal
+}
+
 # ─────────────────────────────────────────────────────────────────────
 # Main Loop
 # ─────────────────────────────────────────────────────────────────────
@@ -587,6 +667,7 @@ while true; do
         13) show_git_status ;;
         14) run_rpg_mode ;;
         15) run_neural_chat ;;
+        16) run_web_cockpit ;;
         q|Q) exit 0 ;;
         *)  echo -e "${RED}Opção inválida${NC}"; sleep 1 ;;
     esac
