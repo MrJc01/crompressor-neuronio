@@ -26,9 +26,13 @@ pesquisas/relatorios/*.md
 
 # Binários e Logs de Debug
 pesquisas/testes/fuse_demon_check
+pesquisas/testes/fuse_test_bin
 pesquisas/testes/test_multi_brain
 pesquisas/testes/test_p2p_delta
+pesquisas/testes/run_all
 pesquisas/testes/*.log
+pesquisas/testes/inference.tmp
+pesquisas/testes/bin/
 
 # Pontos de Montagem VFS
 pesquisas/fuse_mnt/
