@@ -74,10 +74,10 @@ echo -e "  ${GREEN}✓${NC} Binário: $TESTES_DIR/bin/run_all"
 # =============================================================================
 echo -e "\n${BLUE}━━━ [3/5] Execução dos Testes ━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
-cd "$PROJECT_ROOT"
+cd "$TESTES_DIR"
 START_TIME=$(date +%s)
 
-"$TESTES_DIR/bin/run_all"
+go run ./cmd/run_all/
 
 END_TIME=$(date +%s)
 DURATION=$((END_TIME - START_TIME))

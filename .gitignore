@@ -24,13 +24,26 @@ pesquisas/relatorios/*.md
 *.test
 *.out
 
-# OS
+# Binários e Logs de Debug
+pesquisas/testes/fuse_demon_check
+pesquisas/testes/test_multi_brain
+pesquisas/testes/test_p2p_delta
+pesquisas/testes/*.log
+
+# Pontos de Montagem VFS
+pesquisas/fuse_mnt/
+pesquisas/modelos/fuse_mnt/
+
+# Modelos Pesados
+pesquisas/modelos/*.gguf
+pesquisas/modelos/*.crom
+
+# OS/IDE
 .DS_Store
 Thumbs.db
 *~
-
-# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+.gemini/

@@ -1,0 +1,8 @@
+{
+  "chunks": 66655,
+  "compression_ratio": 0.25005932874677744,
+  "dedup_rate": 0.21903833170804893,
+  "model": "qwen2.5-0.5b-q4",
+  "original_mb": 260.3706932067871,
+  "projected_mb": 1041.2356719970703
+}

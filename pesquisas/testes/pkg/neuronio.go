@@ -6,6 +6,7 @@ package neuronio
 import (
 	"crypto/rand"
 	"crypto/sha256"
+	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"math"
@@ -20,10 +21,10 @@ import (
 // BrainCrom representa um "cérebro" congelado (neurônio fixo).
 // Simula o formato .crom com chunks, codebook e merkle.
 type BrainCrom struct {
-	Header   CromHeader   `json:"header"`
-	Chunks   []Chunk      `json:"chunks"`
-	Codebook []CodeEntry  `json:"codebook"`
-	Merkle   MerkleTree   `json:"merkle"`
+	Header   CromHeader  `json:"header"`
+	Chunks   []Chunk     `json:"chunks"`
+	Codebook []CodeEntry `json:"codebook"`
+	Merkle   MerkleTree  `json:"merkle"`
 }
 
 // CromHeader contém metadados do arquivo .crom
@@ -41,13 +42,13 @@ type CromHeader struct {
 
 // Chunk representa um bloco CDC de dados
 type Chunk struct {
-	ID       int    `json:"id"`
-	Hash     string `json:"hash"`
-	Data     []byte `json:"-"`
-	Size     int    `json:"size"`
+	ID       int     `json:"id"`
+	Hash     string  `json:"hash"`
+	Data     []byte  `json:"-"`
+	Size     int     `json:"size"`
 	Entropy  float64 `json:"entropy"`
-	IsDelta  bool   `json:"is_delta"`   // true se é referência XOR
-	DeltaRef int    `json:"delta_ref"`  // ID do chunk referenciado
+	IsDelta  bool    `json:"is_delta"`  // true se é referência dedup
+	DeltaRef int     `json:"delta_ref"` // ID do chunk referenciado
 }
 
 // CodeEntry representa uma entrada no codebook DNA
@@ -81,11 +82,13 @@ type TensorDelta struct {
 // CompressionMetrics contém métricas de compressão
 type CompressionMetrics struct {
 	Timestamp       string  `json:"timestamp"`
+	ModelName       string  `json:"model_name"`
 	OriginalSize    int64   `json:"original_size_bytes"`
 	CompressedSize  int64   `json:"compressed_size_bytes"`
 	Ratio           float64 `json:"compression_ratio"`
 	ChunkCount      int     `json:"chunk_count"`
 	UniqueChunks    int     `json:"unique_chunks"`
+	DedupChunks     int     `json:"dedup_chunks"`
 	DedupRate       float64 `json:"dedup_rate_percent"`
 	CodebookSize    int     `json:"codebook_size"`
 	MerkleOverhead  int     `json:"merkle_overhead_bytes"`
@@ -94,14 +97,14 @@ type CompressionMetrics struct {
 
 // DeltaMetrics contém métricas do tensor delta
 type DeltaMetrics struct {
-	Timestamp     string  `json:"timestamp"`
-	DeltaType     string  `json:"delta_type"`
-	DeltaSize     int     `json:"delta_size_bytes"`
-	BrainSize     int64   `json:"brain_size_bytes"`
-	DeltaRatio    float64 `json:"delta_brain_ratio_percent"`
-	NonZeroBytes  int     `json:"non_zero_bytes"`
-	Sparsity      float64 `json:"sparsity_percent"`
-	ApplyLatency  int64   `json:"apply_latency_ns"`
+	Timestamp    string  `json:"timestamp"`
+	DeltaType    string  `json:"delta_type"`
+	DeltaSize    int     `json:"delta_size_bytes"`
+	BrainSize    int64   `json:"brain_size_bytes"`
+	DeltaRatio   float64 `json:"delta_brain_ratio_percent"`
+	NonZeroBytes int     `json:"non_zero_bytes"`
+	Sparsity     float64 `json:"sparsity_percent"`
+	ApplyLatency int64   `json:"apply_latency_ns"`
 }
 
 // EntropyMetrics contém medições de entropia de Shannon
@@ -127,21 +130,24 @@ type RoutingMetrics struct {
 
 // BenchmarkResult é o resultado completo de um benchmark
 type BenchmarkResult struct {
-	TestName    string      `json:"test_name"`
-	Timestamp   string      `json:"timestamp"`
-	Duration    int64       `json:"duration_ns"`
-	Iterations  int         `json:"iterations"`
-	NsPerOp     float64     `json:"ns_per_op"`
-	MBPerSec    float64     `json:"mb_per_sec"`
-	ExtraData   interface{} `json:"extra_data,omitempty"`
+	TestName   string      `json:"test_name"`
+	Timestamp  string      `json:"timestamp"`
+	Duration   int64       `json:"duration_ns"`
+	Iterations int         `json:"iterations"`
+	NsPerOp    float64     `json:"ns_per_op"`
+	MBPerSec   float64     `json:"mb_per_sec"`
+	ExtraData  interface{} `json:"extra_data,omitempty"`
 }
 
 // ============================================================================
-// FUNÇÕES CORE — SIMULAÇÃO
+// FUNÇÕES CORE — SIMULAÇÃO REALISTA
 // ============================================================================
 
-// GenerateSyntheticBrain cria um brain.crom sintético para testes.
-// numChunks: número de chunks CDC, chunkSize: tamanho médio de cada chunk em bytes.
+// GenerateSyntheticBrain cria um brain.crom sintético com padrões de deduplicação
+// realistas. Simula como modelos GGUF reais produzem chunks repetitivos:
+//   - ~40% dos chunks são blocos de "embedding" (padrão repetitivo → dedup alto)
+//   - ~30% dos chunks são blocos de "atenção" (entropia média)
+//   - ~30% dos chunks são blocos de "FFN" (alta entropia, pouca dedup)
 func GenerateSyntheticBrain(numChunks int, chunkSize int) *BrainCrom {
 	brain := &BrainCrom{
 		Header: CromHeader{
@@ -158,41 +164,77 @@ func GenerateSyntheticBrain(numChunks int, chunkSize int) *BrainCrom {
 	totalOriginal := int64(numChunks * chunkSize)
 	totalCompressed := int64(0)
 	leaves := make([]string, numChunks)
-	codebookMap := make(map[uint64]int)
+	// Mapa de hash→chunkID para deduplicação
+	dedupMap := make(map[string]int)
+	uniqueCount := 0
+	dedupCount := 0
+
+	// Gera um set finito de "templates" para simular padrões repetitivos
+	numEmbedTemplates := 10  // apenas 10 padrões únicos de embedding
+	numAttnTemplates := 30   // 30 padrões de atenção
+	embedTemplates := make([][]byte, numEmbedTemplates)
+	attnTemplates := make([][]byte, numAttnTemplates)
+
+	for i := 0; i < numEmbedTemplates; i++ {
+		t := make([]byte, chunkSize)
+		// Embedding: padrão muito repetitivo (baixa entropia ~3-4 bits/byte)
+		for j := 0; j < chunkSize; j++ {
+			t[j] = byte((i*17 + j*3) % 64) // usa apenas 64 valores → ~6 bits/byte
+		}
+		embedTemplates[i] = t
+	}
+	for i := 0; i < numAttnTemplates; i++ {
+		t := make([]byte, chunkSize)
+		// Atenção: padrão com variação moderada (entropia ~5-6 bits/byte)
+		for j := 0; j < chunkSize; j++ {
+			t[j] = byte((i*31 + j*7) % 160) // usa 160 valores → ~7 bits/byte
+		}
+		attnTemplates[i] = t
+	}
 
 	for i := 0; i < numChunks; i++ {
 		data := make([]byte, chunkSize)
-		// Simula dados com padrões (não puramente aleatório)
-		// ~70% dos bytes seguem padrão, ~30% são "ruído"
-		for j := 0; j < chunkSize; j++ {
-			if j%3 != 0 {
-				data[j] = byte((i * 7 + j * 13) % 256)
-			} else {
-				b := make([]byte, 1)
-				rand.Read(b)
-				data[j] = b[0]
+
+		// Decidir tipo de chunk com proporções realistas
+		chunkType := i % 10
+		switch {
+		case chunkType < 4: // 40% embedding (alta dedup — cópias exatas dos templates)
+			templateIdx := i % numEmbedTemplates
+			copy(data, embedTemplates[templateIdx])
+			// SEM variação → gera dedup real (hash idêntico ao template)
+		case chunkType < 7: // 30% atenção (dedup moderada — variação por posição)
+			templateIdx := i % numAttnTemplates
+			copy(data, attnTemplates[templateIdx])
+			data[0] = byte(i / numAttnTemplates) // variação leve → poucos duplicados
+		default: // 30% FFN (alta entropia, pouca dedup)
+			// Dados pseudo-aleatórios baseados em seed determinístico
+			seed := uint64(i * 6364136223846793005)
+			for j := 0; j < chunkSize; j++ {
+				seed = seed*6364136223846793005 + 1442695040888963407
+				data[j] = byte(seed >> 33)
 			}
 		}
 
 		hash := sha256.Sum256(data)
-		hashStr := fmt.Sprintf("%x", hash[:8])
+		hashStr := fmt.Sprintf("%x", hash[:16])
 		entropy := ShannonEntropy(data)
 
-		// Simula deduplicação: ~30% dos chunks são referências
+		// Deduplicação real: se hash já existe, é uma referência
 		isDelta := false
 		deltaRef := -1
 		compressedChunkSize := int64(chunkSize)
 
-		hashKey := uint64(hash[0])<<56 | uint64(hash[1])<<48 | uint64(hash[2])<<40
-		if _, exists := codebookMap[hashKey]; exists && i > 0 {
+		if existing, exists := dedupMap[hashStr]; exists {
 			isDelta = true
-			deltaRef = codebookMap[hashKey]
-			compressedChunkSize = int64(chunkSize / 10) // XOR delta é muito menor
+			deltaRef = existing
+			compressedChunkSize = 32 // apenas o hash de referência
+			dedupCount++
 		} else {
-			codebookMap[hashKey] = i
-			dna := bytesToDNA(data[:min(16, len(data))])
+			dedupMap[hashStr] = i
+			uniqueCount++
+			dna := BytesToDNA(data[:minInt(32, len(data))])
 			brain.Codebook = append(brain.Codebook, CodeEntry{
-				Hash:     hashKey,
+				Hash:     binary.BigEndian.Uint64(hash[:8]),
 				DNA:      dna,
 				RefCount: 1,
 			})
@@ -217,7 +259,7 @@ func GenerateSyntheticBrain(numChunks int, chunkSize int) *BrainCrom {
 	brain.Header.CodebookSize = len(brain.Codebook)
 
 	// Merkle Tree
-	root := computeMerkleRoot(leaves)
+	root := ComputeMerkleRoot(leaves)
 	brain.Merkle = MerkleTree{
 		Root:   root,
 		Leaves: leaves,
@@ -233,29 +275,28 @@ func FreezeBrain(brain *BrainCrom) {
 	brain.Header.Frozen = true
 }
 
-// GenerateXORDelta gera um tensor delta XOR aleatório
+// GenerateXORDelta gera um tensor delta XOR com esparsificação controlada.
 // sparsity: fração de bytes que são zero (0.0 a 1.0)
+// targetRatio: tamanho do delta como fração do brain (ex: 0.05 = 5%)
 func GenerateXORDelta(brain *BrainCrom, sparsity float64) *TensorDelta {
-	totalSize := 0
-	for _, c := range brain.Chunks {
-		totalSize += c.Size
+	// Delta é ~5% do brain comprimido
+	deltaSize := int(brain.Header.CompressedSize / 20)
+	if deltaSize < 64 {
+		deltaSize = 64
 	}
-
-	// Gera delta com esparsificação controlada
-	deltaSize := totalSize / 20 // ~5% do brain
 	data := make([]byte, deltaSize)
 	nonZero := 0
 
+	// Gera delta usando buffer de random mais eficiente
+	randBuf := make([]byte, deltaSize)
+	rand.Read(randBuf)
+
+	threshold := byte(sparsity * 255)
 	for i := 0; i < deltaSize; i++ {
-		b := make([]byte, 1)
-		rand.Read(b)
-		// Aplica esparsificação
-		threshold := byte(sparsity * 255)
-		if b[0] > threshold {
-			data[i] = b[0]
+		if randBuf[i] > threshold {
+			data[i] = randBuf[i]
 			nonZero++
 		}
-		// else: mantém 0
 	}
 
 	nonZeroRatio := float64(nonZero) / float64(deltaSize)
@@ -270,20 +311,31 @@ func GenerateXORDelta(brain *BrainCrom, sparsity float64) *TensorDelta {
 	}
 }
 
-// GenerateVQDelta gera um tensor delta no espaço Vector Quantization
+// GenerateVQDelta gera um tensor delta no espaço Vector Quantization.
+// Em vez de operar bit-a-bit como XOR, opera no espaço do codebook:
+// cada offset modifica um centroide do codebook.
 func GenerateVQDelta(brain *BrainCrom, dimension int) *TensorDelta {
-	// Delta VQ é um vetor de offsets sobre centroides do codebook
+	// VQ delta: apenas OFFSETS no codebook, não dados raw
+	// Cada entrada = (codebook_index uint16, offset_vector []float16)
+	// Muito mais compacto: ~20% das entradas são modificadas
 	numEntries := len(brain.Codebook)
-	deltaSize := numEntries * dimension * 4 // float32 por dimensão
+	modifiedEntries := numEntries / 5 // modifica 20% do codebook
+	if modifiedEntries < 1 {
+		modifiedEntries = 1
+	}
+
+	// Cada modificação: 2 bytes (index) + dimension/4 bytes (quantized offsets)
+	entrySize := 2 + dimension/4
+	deltaSize := modifiedEntries * entrySize
 	data := make([]byte, deltaSize)
 
 	nonZero := 0
+	randBuf := make([]byte, deltaSize)
+	rand.Read(randBuf)
+
 	for i := 0; i < deltaSize; i++ {
-		b := make([]byte, 1)
-		rand.Read(b)
-		// VQ deltas são mais esparsos que XOR
-		if b[0] > 200 { // ~78% zero
-			data[i] = b[0]
+		if randBuf[i] > 180 { // ~29% não-zero
+			data[i] = randBuf[i]
 			nonZero++
 		}
 	}
@@ -298,7 +350,8 @@ func GenerateVQDelta(brain *BrainCrom, dimension int) *TensorDelta {
 	}
 }
 
-// ApplyXORDelta aplica um delta XOR sobre chunks e retorna o resultado
+// ApplyXORDelta aplica um delta XOR sobre um chunk e retorna o resultado.
+// Propriedade fundamental: A ⊕ B ⊕ B = A (reversível)
 func ApplyXORDelta(chunk []byte, delta []byte) []byte {
 	result := make([]byte, len(chunk))
 	for i := range chunk {
@@ -307,11 +360,48 @@ func ApplyXORDelta(chunk []byte, delta []byte) []byte {
 	return result
 }
 
+// ComposeDeltas combina dois deltas XOR via associatividade: (A⊕B)⊕C = A⊕(B⊕C)
+// Isso permite acumular deltas sem precisar do brain original.
+func ComposeDeltas(delta1, delta2 *TensorDelta) *TensorDelta {
+	// Usa o maior como base
+	maxLen := len(delta1.Data)
+	if len(delta2.Data) > maxLen {
+		maxLen = len(delta2.Data)
+	}
+
+	composed := make([]byte, maxLen)
+	nonZero := 0
+	for i := 0; i < maxLen; i++ {
+		var b1, b2 byte
+		if i < len(delta1.Data) {
+			b1 = delta1.Data[i]
+		}
+		if i < len(delta2.Data) {
+			b2 = delta2.Data[i]
+		}
+		composed[i] = b1 ^ b2
+		if composed[i] != 0 {
+			nonZero++
+		}
+	}
+
+	return &TensorDelta{
+		Type:         "composed",
+		TargetHash:   delta1.TargetHash,
+		Data:         composed,
+		Size:         maxLen,
+		NonZeroRatio: float64(nonZero) / float64(maxLen),
+		Sparsity:     1.0 - float64(nonZero)/float64(maxLen),
+	}
+}
+
 // ============================================================================
 // FUNÇÕES DE MEDIÇÃO
 // ============================================================================
 
-// ShannonEntropy calcula a entropia de Shannon de um bloco de bytes (bits/byte)
+// ShannonEntropy calcula a entropia de Shannon de um bloco de bytes (bits/byte).
+// H = -Σ p(x) log₂ p(x), onde p(x) é a frequência do byte x.
+// Máximo teórico: 8 bits/byte (distribuição uniforme sobre 256 valores).
 func ShannonEntropy(data []byte) float64 {
 	if len(data) == 0 {
 		return 0
@@ -334,29 +424,31 @@ func ShannonEntropy(data []byte) float64 {
 }
 
 // MeasureCompressionMetrics calcula métricas de compressão do brain
-func MeasureCompressionMetrics(brain *BrainCrom) CompressionMetrics {
+func MeasureCompressionMetrics(brain *BrainCrom, modelName string) CompressionMetrics {
 	uniqueChunks := 0
-	deltaChunks := 0
+	dedupChunks := 0
 	for _, c := range brain.Chunks {
 		if !c.IsDelta {
 			uniqueChunks++
 		} else {
-			deltaChunks++
+			dedupChunks++
 		}
 	}
 
-	dedupRate := float64(deltaChunks) / float64(brain.Header.ChunkCount) * 100
+	dedupRate := float64(dedupChunks) / float64(brain.Header.ChunkCount) * 100
 	ratio := float64(brain.Header.OriginalSize) / float64(brain.Header.CompressedSize)
 	merkleOverhead := brain.Merkle.Depth * len(brain.Merkle.Leaves) * 32 // 32 bytes por hash
-	dnaOverhead := float64(len(brain.Codebook)*16) / float64(brain.Header.CompressedSize) * 100
+	dnaOverhead := float64(len(brain.Codebook)*32) / float64(brain.Header.CompressedSize) * 100
 
 	return CompressionMetrics{
 		Timestamp:      time.Now().Format(time.RFC3339),
+		ModelName:      modelName,
 		OriginalSize:   brain.Header.OriginalSize,
 		CompressedSize: brain.Header.CompressedSize,
 		Ratio:          ratio,
 		ChunkCount:     brain.Header.ChunkCount,
 		UniqueChunks:   uniqueChunks,
+		DedupChunks:    dedupChunks,
 		DedupRate:      dedupRate,
 		CodebookSize:   brain.Header.CodebookSize,
 		MerkleOverhead: merkleOverhead,
@@ -373,13 +465,13 @@ func MeasureDeltaMetrics(delta *TensorDelta, brain *BrainCrom) DeltaMetrics {
 		}
 	}
 
-	// Mede latência de aplicação do delta
+	// Mede latência de aplicação do delta (1000 iterações → média)
 	testChunk := brain.Chunks[0].Data
 	start := time.Now()
 	for i := 0; i < 1000; i++ {
 		ApplyXORDelta(testChunk, delta.Data)
 	}
-	elapsed := time.Since(start).Nanoseconds() / 1000 // por aplicação
+	elapsed := time.Since(start).Nanoseconds() / 1000
 
 	return DeltaMetrics{
 		Timestamp:    time.Now().Format(time.RFC3339),
@@ -414,7 +506,6 @@ func MeasureEntropyMetrics(brain *BrainCrom, source string) EntropyMetrics {
 
 	mean := sum / float64(len(entropies))
 
-	// Desvio padrão
 	variance := 0.0
 	for _, e := range entropies {
 		diff := e - mean
@@ -434,24 +525,28 @@ func MeasureEntropyMetrics(brain *BrainCrom, source string) EntropyMetrics {
 }
 
 // ============================================================================
-// UTILIDADES
+// MERKLE — VERIFICAÇÃO DE INTEGRIDADE
 // ============================================================================
 
-// bytesToDNA converte bytes para DNA Base-4 (A=00, T=01, C=10, G=11)
-func bytesToDNA(data []byte) string {
-	bases := []byte{'A', 'T', 'C', 'G'}
-	dna := make([]byte, len(data)*4)
-	for i, b := range data {
-		dna[i*4+0] = bases[(b>>6)&0x03]
-		dna[i*4+1] = bases[(b>>4)&0x03]
-		dna[i*4+2] = bases[(b>>2)&0x03]
-		dna[i*4+3] = bases[b&0x03]
+// VerifyMerkleRoot recalcula o Merkle root e verifica contra o armazenado
+func VerifyMerkleRoot(brain *BrainCrom) bool {
+	leaves := make([]string, len(brain.Chunks))
+	for i, c := range brain.Chunks {
+		hash := sha256.Sum256(c.Data)
+		leaves[i] = fmt.Sprintf("%x", hash[:16])
 	}
-	return string(dna)
+	computed := ComputeMerkleRoot(leaves)
+	return computed == brain.Header.MerkleRoot
 }
 
-// computeMerkleRoot calcula a raiz da Merkle Tree a partir das folhas
-func computeMerkleRoot(leaves []string) string {
+// VerifyChunk verifica integridade de um chunk individual
+func VerifyChunk(chunk *Chunk) bool {
+	hash := sha256.Sum256(chunk.Data)
+	return fmt.Sprintf("%x", hash[:16]) == chunk.Hash
+}
+
+// ComputeMerkleRoot calcula a raiz da Merkle Tree a partir das folhas
+func ComputeMerkleRoot(leaves []string) string {
 	if len(leaves) == 0 {
 		return ""
 	}
@@ -463,7 +558,7 @@ func computeMerkleRoot(leaves []string) string {
 	copy(current, leaves)
 
 	for len(current) > 1 {
-		next := make([]string, 0)
+		next := make([]string, 0, (len(current)+1)/2)
 		for i := 0; i < len(current); i += 2 {
 			var combined string
 			if i+1 < len(current) {
@@ -472,11 +567,86 @@ func computeMerkleRoot(leaves []string) string {
 				combined = current[i] + current[i]
 			}
 			hash := sha256.Sum256([]byte(combined))
-			next = append(next, fmt.Sprintf("%x", hash[:8]))
+			next = append(next, fmt.Sprintf("%x", hash[:16]))
 		}
 		current = next
 	}
 	return current[0]
+}
+
+// ============================================================================
+// SERIALIZAÇÃO .crom
+// ============================================================================
+
+// WriteCrom serializa um brain para arquivo JSON (simulação do formato .crom)
+func WriteCrom(filename string, brain *BrainCrom) error {
+	// Salva header + codebook + merkle (sem dados dos chunks)
+	type CromFile struct {
+		Header   CromHeader  `json:"header"`
+		Codebook []CodeEntry `json:"codebook"`
+		Merkle   MerkleTree  `json:"merkle"`
+		ChunkMeta []struct {
+			ID      int     `json:"id"`
+			Hash    string  `json:"hash"`
+			Size    int     `json:"size"`
+			Entropy float64 `json:"entropy"`
+			IsDelta bool    `json:"is_delta"`
+			DeltaRef int    `json:"delta_ref"`
+		} `json:"chunk_meta"`
+	}
+
+	cf := CromFile{
+		Header:   brain.Header,
+		Codebook: brain.Codebook,
+		Merkle:   brain.Merkle,
+	}
+	for _, c := range brain.Chunks {
+		cf.ChunkMeta = append(cf.ChunkMeta, struct {
+			ID      int     `json:"id"`
+			Hash    string  `json:"hash"`
+			Size    int     `json:"size"`
+			Entropy float64 `json:"entropy"`
+			IsDelta bool    `json:"is_delta"`
+			DeltaRef int    `json:"delta_ref"`
+		}{c.ID, c.Hash, c.Size, c.Entropy, c.IsDelta, c.DeltaRef})
+	}
+
+	return SaveJSON(filename, cf)
+}
+
+// ============================================================================
+// UTILIDADES
+// ============================================================================
+
+// BytesToDNA converte bytes para DNA Base-4 (A=00, T=01, C=10, G=11)
+func BytesToDNA(data []byte) string {
+	bases := []byte{'A', 'T', 'C', 'G'}
+	dna := make([]byte, len(data)*4)
+	for i, b := range data {
+		dna[i*4+0] = bases[(b>>6)&0x03]
+		dna[i*4+1] = bases[(b>>4)&0x03]
+		dna[i*4+2] = bases[(b>>2)&0x03]
+		dna[i*4+3] = bases[b&0x03]
+	}
+	return string(dna)
+}
+
+// DNAToBytes converte DNA Base-4 de volta para bytes
+func DNAToBytes(dna string) []byte {
+	if len(dna)%4 != 0 {
+		return nil
+	}
+	result := make([]byte, len(dna)/4)
+	baseMap := map[byte]byte{'A': 0, 'T': 1, 'C': 2, 'G': 3}
+	for i := 0; i < len(dna); i += 4 {
+		var b byte
+		b |= baseMap[dna[i+0]] << 6
+		b |= baseMap[dna[i+1]] << 4
+		b |= baseMap[dna[i+2]] << 2
+		b |= baseMap[dna[i+3]]
+		result[i/4] = b
+	}
+	return result
 }
 
 // SaveJSON salva dados em JSON para o diretório de saída
@@ -492,7 +662,7 @@ func SaveJSON(filename string, data interface{}) error {
 	return enc.Encode(data)
 }
 
-func min(a, b int) int {
+func minInt(a, b int) int {
 	if a < b {
 		return a
 	}

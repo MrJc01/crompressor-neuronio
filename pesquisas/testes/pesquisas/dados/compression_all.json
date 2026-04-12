@@ -1,0 +1,58 @@
+[
+  {
+    "timestamp": "2026-04-12T01:33:11-03:00",
+    "model_name": "Qwen2.5-0.5B (sim)",
+    "original_size_bytes": 1024000,
+    "compressed_size_bytes": 641920,
+    "compression_ratio": 1.5952143569292123,
+    "chunk_count": 2000,
+    "unique_chunks": 1204,
+    "dedup_chunks": 796,
+    "dedup_rate_percent": 39.800000000000004,
+    "codebook_size": 1204,
+    "merkle_overhead_bytes": 704000,
+    "dna_overhead_percent": 6.001994017946162
+  },
+  {
+    "timestamp": "2026-04-12T01:33:16-03:00",
+    "model_name": "Qwen2.5-1.5B (sim)",
+    "original_size_bytes": 3072000,
+    "compressed_size_bytes": 1921920,
+    "compression_ratio": 1.5984015984015985,
+    "chunk_count": 6000,
+    "unique_chunks": 3604,
+    "dedup_chunks": 2396,
+    "dedup_rate_percent": 39.93333333333333,
+    "codebook_size": 3604,
+    "merkle_overhead_bytes": 2496000,
+    "dna_overhead_percent": 6.000666000666001
+  },
+  {
+    "timestamp": "2026-04-12T01:33:20-03:00",
+    "model_name": "LLaMA-3.2-1B (sim)",
+    "original_size_bytes": 2048000,
+    "compressed_size_bytes": 1281920,
+    "compression_ratio": 1.5976035946080878,
+    "chunk_count": 4000,
+    "unique_chunks": 2404,
+    "dedup_chunks": 1596,
+    "dedup_rate_percent": 39.900000000000006,
+    "codebook_size": 2404,
+    "merkle_overhead_bytes": 1536000,
+    "dna_overhead_percent": 6.00099850224663
+  },
+  {
+    "timestamp": "2026-04-12T01:33:26-03:00",
+    "model_name": "Phi-3-mini (sim)",
+    "original_size_bytes": 7680000,
+    "compressed_size_bytes": 3747840,
+    "compression_ratio": 2.0491803278688523,
+    "chunk_count": 15000,
+    "unique_chunks": 6808,
+    "dedup_chunks": 8192,
+    "dedup_rate_percent": 54.61333333333334,
+    "codebook_size": 6808,
+    "merkle_overhead_bytes": 6720000,
+    "dna_overhead_percent": 5.812841530054644
+  }
+]

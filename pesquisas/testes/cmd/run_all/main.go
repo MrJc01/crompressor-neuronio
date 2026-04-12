@@ -1,8 +1,9 @@
-// Teste principal: executa todos os benchmarks e gera relatórios em JSON.
+// Suite de testes completa: executa todos os benchmarks e gera relatórios em JSON.
 // Uso: go run pesquisas/testes/cmd/run_all/main.go
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -14,21 +15,19 @@ import (
 
 func main() {
 	fmt.Println("╔═══════════════════════════════════════════════════════╗")
-	fmt.Println("║     CROMPRESSOR-NEURÔNIO — SUITE DE TESTES           ║")
-	fmt.Println("║     Todas as 3 vertentes + benchmarks completos      ║")
+	fmt.Println("║   CROMPRESSOR-NEURÔNIO — SUITE DE TESTES V2          ║")
+	fmt.Println("║   Dados realistas + Validação de Hipóteses           ║")
 	fmt.Println("╚═══════════════════════════════════════════════════════╝")
 	fmt.Println()
 
-	// Diretórios de saída
+	// Detectar project root: se CWD é pesquisas/testes/, subir 2 níveis
+	// Se CWD já é o project root, usar direto
 	dataDir := filepath.Join("pesquisas", "dados")
-	reportDir := filepath.Join("pesquisas", "relatorios")
+	if _, err := os.Stat(dataDir); os.IsNotExist(err) {
+		// Provavelmente rodando de pesquisas/testes/
+		dataDir = filepath.Join("..", "..", "pesquisas", "dados")
+	}
 	os.MkdirAll(dataDir, 0755)
-	os.MkdirAll(reportDir, 0755)
-
-	// ====================================================================
-	// FASE 1: Brain Freeze — Compressão e Congelamento
-	// ====================================================================
-	fmt.Println("━━━ FASE 1: Brain Freeze ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
 	configs := []struct {
 		Name      string
@@ -36,132 +35,191 @@ func main() {
 		ChunkSize int
 		Label     string
 	}{
-		{"Qwen2.5-0.5B (simulado)", 2000, 512, "qwen05b"},
-		{"Qwen2.5-1.5B (simulado)", 6000, 512, "qwen15b"},
-		{"LLaMA-3.2-1B (simulado)", 4000, 512, "llama1b"},
-		{"Phi-3-mini (simulado)", 15000, 512, "phi3mini"},
+		{"Qwen2.5-0.5B (sim)", 2000, 512, "qwen05b"},
+		{"Qwen2.5-1.5B (sim)", 6000, 512, "qwen15b"},
+		{"LLaMA-3.2-1B (sim)", 4000, 512, "llama1b"},
+		{"Phi-3-mini (sim)", 15000, 512, "phi3mini"},
 	}
 
 	allCompression := make([]neuronio.CompressionMetrics, 0)
 	allEntropy := make([]neuronio.EntropyMetrics, 0)
+	allBench := make([]neuronio.BenchmarkResult, 0)
+	passed := 0
+	failed := 0
+	total := 0
+
+	check := func(name string, ok bool, details string) {
+		total++
+		if ok {
+			passed++
+			fmt.Printf("     ✅ %s: %s\n", name, details)
+		} else {
+			failed++
+			fmt.Printf("     ❌ %s: %s\n", name, details)
+		}
+	}
+
+	// ====================================================================
+	// FASE 1: Brain Freeze — Compressão com Deduplicação Real
+	// ====================================================================
+	fmt.Println("━━━ FASE 1: Brain Freeze + Deduplicação Realista ━━━━━━")
 
 	for _, cfg := range configs {
-		fmt.Printf("\n  🧬 Gerando brain: %s (%d chunks × %d bytes)\n", cfg.Name, cfg.Chunks, cfg.ChunkSize)
+		fmt.Printf("\n  🧬 %s (%d chunks × %d bytes)\n", cfg.Name, cfg.Chunks, cfg.ChunkSize)
 
 		start := time.Now()
 		brain := neuronio.GenerateSyntheticBrain(cfg.Chunks, cfg.ChunkSize)
-		elapsed := time.Since(start)
+		genTime := time.Since(start)
 
-		fmt.Printf("     ⏱  Gerado em %v\n", elapsed)
-
-		// Congelar
 		neuronio.FreezeBrain(brain)
-		fmt.Printf("     🔒 Frozen: %v\n", brain.Header.Frozen)
+		cm := neuronio.MeasureCompressionMetrics(brain, cfg.Name)
 
-		// Métricas de compressão
-		cm := neuronio.MeasureCompressionMetrics(brain)
-		fmt.Printf("     📊 Ratio: %.2fx | Dedup: %.1f%% | Codebook: %d entries\n",
-			cm.Ratio, cm.DedupRate, cm.CodebookSize)
+		check("Frozen", brain.Header.Frozen, fmt.Sprintf("frozen=%v", brain.Header.Frozen))
+		check("Ratio > 1x", cm.Ratio > 1.0, fmt.Sprintf("ratio=%.2fx", cm.Ratio))
+		check("Dedup > 0%%", cm.DedupRate > 0, fmt.Sprintf("dedup=%.1f%% (%d/%d chunks)", cm.DedupRate, cm.DedupChunks, cm.ChunkCount))
+		check("Codebook < total", cm.CodebookSize < cm.ChunkCount, fmt.Sprintf("codebook=%d < chunks=%d", cm.CodebookSize, cm.ChunkCount))
+
+		fmt.Printf("     📊 Ratio: %.2fx | Dedup: %.1f%% | Codebook: %d | Tempo: %v\n",
+			cm.Ratio, cm.DedupRate, cm.CodebookSize, genTime)
+
 		allCompression = append(allCompression, cm)
 
 		// Entropia
 		em := neuronio.MeasureEntropyMetrics(brain, cfg.Label)
-		fmt.Printf("     📈 Entropia: μ=%.4f σ=%.4f [%.4f, %.4f] bits/byte\n",
+		fmt.Printf("     📈 Entropia: μ=%.3f σ=%.3f [%.3f, %.3f]\n",
 			em.MeanEntropy, em.StdEntropy, em.MinEntropy, em.MaxEntropy)
+
+		check("Entropia variada", em.StdEntropy > 0.1,
+			fmt.Sprintf("σ=%.3f (>0.1 indica mistura embedding/atenção/FFN)", em.StdEntropy))
+
 		allEntropy = append(allEntropy, em)
 
 		// ================================================================
-		// FASE 2: Tensor Delta
+		// FASE 2: Tensor Delta — XOR + VQ
 		// ================================================================
-		fmt.Println("\n  ━━━ FASE 2: Tensor Delta ━━━━━━━━━━━━━━━━━━━━━━━")
+		fmt.Printf("\n  ⚡ Tensor Delta sobre %s\n", cfg.Label)
 
-		// XOR Delta com diferentes esparsificações
-		sparsities := []float64{0.70, 0.80, 0.90, 0.95}
 		allDeltas := make([]neuronio.DeltaMetrics, 0)
 
+		sparsities := []float64{0.70, 0.80, 0.90, 0.95}
 		for _, sp := range sparsities {
 			delta := neuronio.GenerateXORDelta(brain, sp)
 			dm := neuronio.MeasureDeltaMetrics(delta, brain)
-			fmt.Printf("     ⚡ XOR Delta (sparsity=%.0f%%): size=%d bytes, ratio=%.2f%%, latency=%dns\n",
-				sp*100, dm.DeltaSize, dm.DeltaRatio, dm.ApplyLatency)
+			fmt.Printf("     XOR(sp=%.0f%%): size=%d ratio=%.2f%% sparsity=%.1f%% latency=%dμs\n",
+				sp*100, dm.DeltaSize, dm.DeltaRatio, dm.Sparsity, dm.ApplyLatency)
 			allDeltas = append(allDeltas, dm)
 		}
+
+		check("XOR Delta < 10%%", allDeltas[0].DeltaRatio < 10,
+			fmt.Sprintf("ratio=%.2f%%", allDeltas[0].DeltaRatio))
 
 		// VQ Delta
 		vqDelta := neuronio.GenerateVQDelta(brain, 128)
 		vqDm := neuronio.MeasureDeltaMetrics(vqDelta, brain)
-		fmt.Printf("     🔮 VQ Delta (dim=128): size=%d bytes, ratio=%.2f%%, sparsity=%.1f%%\n",
+		fmt.Printf("     VQ(dim=128): size=%d ratio=%.2f%% sparsity=%.1f%%\n",
 			vqDm.DeltaSize, vqDm.DeltaRatio, vqDm.Sparsity)
 		allDeltas = append(allDeltas, vqDm)
 
-		// Salvar deltas por modelo
+		check("VQ Delta < brain", vqDm.DeltaSize < int(brain.Header.CompressedSize),
+			fmt.Sprintf("VQ=%d < brain=%d", vqDm.DeltaSize, brain.Header.CompressedSize))
+
 		neuronio.SaveJSON(filepath.Join(dataDir, fmt.Sprintf("deltas_%s.json", cfg.Label)), allDeltas)
 
 		// ================================================================
-		// FASE 2.5: XOR vs VQ Benchmark
+		// VALIDAÇÕES MATEMÁTICAS
 		// ================================================================
-		fmt.Println("\n  ━━━ XOR vs VQ Benchmark ━━━━━━━━━━━━━━━━━━━━━━━━")
+		fmt.Printf("\n  🔬 Validações Matemáticas\n")
 
-		xorDelta := neuronio.GenerateXORDelta(brain, 0.85)
+		// Reversibilidade XOR
 		testChunk := brain.Chunks[0].Data
+		xorDelta := neuronio.GenerateXORDelta(brain, 0.85)
+		modified := neuronio.ApplyXORDelta(testChunk, xorDelta.Data)
+		restored := neuronio.ApplyXORDelta(modified, xorDelta.Data)
+		check("XOR Reversível", bytes.Equal(testChunk, restored), "A⊕B⊕B=A")
 
-		// Benchmark XOR
+		// Composição Associativa
+		d1 := neuronio.GenerateXORDelta(brain, 0.80)
+		d2 := neuronio.GenerateXORDelta(brain, 0.90)
+		composed := neuronio.ComposeDeltas(d1, d2)
+		path1 := neuronio.ApplyXORDelta(testChunk, composed.Data)
+		step1 := neuronio.ApplyXORDelta(testChunk, d1.Data)
+		path2 := neuronio.ApplyXORDelta(step1, d2.Data)
+		check("Composição Equivalente", bytes.Equal(path1, path2), "chunk⊕(d1⊕d2) = (chunk⊕d1)⊕d2")
+
+		// Merkle Verify
+		check("Merkle OK", neuronio.VerifyMerkleRoot(brain), "root verificado")
+		brain.Chunks[0].Data[0] ^= 0xFF // corromper
+		check("Merkle Detecção", !neuronio.VerifyMerkleRoot(brain), "corrupção detectada")
+		brain.Chunks[0].Data[0] ^= 0xFF // restaurar
+
+		// ================================================================
+		// BENCHMARK XOR
+		// ================================================================
 		iterations := 100000
+		xorBenchDelta := neuronio.GenerateXORDelta(brain, 0.85)
+		benchChunk := brain.Chunks[0].Data
+
 		xorStart := time.Now()
 		for i := 0; i < iterations; i++ {
-			neuronio.ApplyXORDelta(testChunk, xorDelta.Data)
+			neuronio.ApplyXORDelta(benchChunk, xorBenchDelta.Data)
 		}
 		xorElapsed := time.Since(xorStart)
 		xorNsOp := float64(xorElapsed.Nanoseconds()) / float64(iterations)
+		mbSec := float64(len(benchChunk)) / xorNsOp * 1000
 
-		fmt.Printf("     XOR: %d iterações em %v (%.0f ns/op, %.2f MB/s)\n",
-			iterations, xorElapsed, xorNsOp,
-			float64(len(testChunk))/xorNsOp*1000)
+		check("XOR < 15μs", xorNsOp < 15000,
+			fmt.Sprintf("%.0f ns/op (%.1f MB/s)", xorNsOp, mbSec))
 
-		benchResults := []neuronio.BenchmarkResult{
-			{
-				TestName:   fmt.Sprintf("xor_delta_%s", cfg.Label),
-				Timestamp:  time.Now().Format(time.RFC3339),
-				Duration:   xorElapsed.Nanoseconds(),
-				Iterations: iterations,
-				NsPerOp:    xorNsOp,
-				MBPerSec:   float64(len(testChunk)) / xorNsOp * 1000,
-			},
-		}
-		neuronio.SaveJSON(filepath.Join(dataDir, fmt.Sprintf("bench_%s.json", cfg.Label)), benchResults)
+		allBench = append(allBench, neuronio.BenchmarkResult{
+			TestName:   fmt.Sprintf("xor_delta_%s", cfg.Label),
+			Timestamp:  time.Now().Format(time.RFC3339),
+			Duration:   xorElapsed.Nanoseconds(),
+			Iterations: iterations,
+			NsPerOp:    xorNsOp,
+			MBPerSec:   mbSec,
+		})
+
+		// Salvar .crom
+		neuronio.WriteCrom(filepath.Join(dataDir, fmt.Sprintf("brain_%s.crom.json", cfg.Label)), brain)
 	}
 
 	// ====================================================================
-	// FASE 3: Multi-Brain Routing (Simulação)
+	// FASE 3: Multi-Brain Routing
 	// ====================================================================
 	fmt.Println("\n━━━ FASE 3: Multi-Brain Routing ━━━━━━━━━━━━━━━━━━━━━━")
 
 	routingResults := make([]neuronio.RoutingMetrics, 0)
 
 	for numBrains := 1; numBrains <= 5; numBrains++ {
-		var memBefore, memAfter runtime.MemStats
+		// Forçar GC antes de medir memória
+		runtime.GC()
+		var memBefore runtime.MemStats
 		runtime.ReadMemStats(&memBefore)
 
 		brains := make([]*neuronio.BrainCrom, numBrains)
 		for i := 0; i < numBrains; i++ {
-			brains[i] = neuronio.GenerateSyntheticBrain(1000, 256)
+			brains[i] = neuronio.GenerateSyntheticBrain(500, 256)
 			neuronio.FreezeBrain(brains[i])
 		}
 
-		// Simula decisão de routing (HNSW simplificado)
+		// Forçar GC e medir
+		runtime.GC()
+		var memAfter runtime.MemStats
+		runtime.ReadMemStats(&memAfter)
+
+		// Usar TotalAlloc para evitar underflow
+		memDelta := float64(memAfter.TotalAlloc-memBefore.TotalAlloc) / 1024 / 1024
+
+		// Simula routing
 		routingStart := time.Now()
 		selected := make([]int, 0)
 		weights := make([]float64, 0)
-		topK := min(2, numBrains)
-
+		topK := minInt(2, numBrains)
 		for i := 0; i < topK; i++ {
 			selected = append(selected, i)
 			weights = append(weights, 1.0/float64(topK))
 		}
 		routingElapsed := time.Since(routingStart)
-
-		runtime.ReadMemStats(&memAfter)
-		memUsedMB := float64(memAfter.Alloc-memBefore.Alloc) / 1024 / 1024
 
 		rm := neuronio.RoutingMetrics{
 			Timestamp:      time.Now().Format(time.RFC3339),
@@ -169,13 +227,16 @@ func main() {
 			DecisionTimeNs: routingElapsed.Nanoseconds(),
 			SelectedBrains: selected,
 			Weights:        weights,
-			MemoryUsedMB:   memUsedMB,
+			MemoryUsedMB:   memDelta,
 		}
 		routingResults = append(routingResults, rm)
 
-		fmt.Printf("  🧠×%d: routing=%dns, memory=%.2fMB, selected=%v\n",
+		fmt.Printf("  🧠×%d: routing=%dns, memory=%.1fMB, top-K=%v\n",
 			numBrains, rm.DecisionTimeNs, rm.MemoryUsedMB, selected)
 	}
+
+	check("Routing < 5ms", routingResults[4].DecisionTimeNs < 5_000_000,
+		fmt.Sprintf("%dns", routingResults[4].DecisionTimeNs))
 
 	// ====================================================================
 	// SALVAR TODOS OS DADOS
@@ -183,31 +244,38 @@ func main() {
 	fmt.Println("\n━━━ SALVANDO DADOS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
 	neuronio.SaveJSON(filepath.Join(dataDir, "compression_all.json"), allCompression)
-	fmt.Printf("  💾 %s\n", filepath.Join(dataDir, "compression_all.json"))
-
 	neuronio.SaveJSON(filepath.Join(dataDir, "entropy_all.json"), allEntropy)
-	fmt.Printf("  💾 %s\n", filepath.Join(dataDir, "entropy_all.json"))
-
 	neuronio.SaveJSON(filepath.Join(dataDir, "routing_all.json"), routingResults)
-	fmt.Printf("  💾 %s\n", filepath.Join(dataDir, "routing_all.json"))
+	neuronio.SaveJSON(filepath.Join(dataDir, "bench_all.json"), allBench)
+
+	for _, f := range []string{"compression_all", "entropy_all", "routing_all", "bench_all"} {
+		fmt.Printf("  💾 pesquisas/dados/%s.json\n", f)
+	}
 
 	// ====================================================================
 	// RELATÓRIO FINAL
 	// ====================================================================
-	fmt.Println("\n╔═══════════════════════════════════════════════════════╗")
-	fmt.Println("║     RELATÓRIO FINAL                                  ║")
+	fmt.Println()
+	fmt.Println("╔═══════════════════════════════════════════════════════╗")
+	fmt.Printf("║   RESULTADO: %d/%d testes passaram                    \n", passed, total)
 	fmt.Println("╠═══════════════════════════════════════════════════════╣")
-	for i, cm := range allCompression {
-		fmt.Printf("║  Modelo %d: Ratio=%.2fx Dedup=%.1f%% Codebook=%d       \n",
-			i+1, cm.Ratio, cm.DedupRate, cm.CodebookSize)
+	for _, cm := range allCompression {
+		fmt.Printf("║   %-20s Ratio=%.2fx Dedup=%.1f%%\n", cm.ModelName, cm.Ratio, cm.DedupRate)
 	}
-	fmt.Printf("║  Multi-Brain: %d configs testadas                     \n", len(routingResults))
+	fmt.Println("╠═══════════════════════════════════════════════════════╣")
+	for _, b := range allBench {
+		fmt.Printf("║   %-20s %.0f ns/op  %.1f MB/s\n", b.TestName, b.NsPerOp, b.MBPerSec)
+	}
 	fmt.Println("╚═══════════════════════════════════════════════════════╝")
-	fmt.Println("\n✅ Todos os dados salvos em pesquisas/dados/")
-	fmt.Println("   Use 'python pesquisas/visualizacao/visualizar_resultados.py' para gráficos")
+
+	if failed > 0 {
+		fmt.Printf("\n⚠️  %d teste(s) falharam!\n", failed)
+		os.Exit(1)
+	}
+	fmt.Println("\n✅ Todos os testes passaram!")
 }
 
-func min(a, b int) int {
+func minInt(a, b int) int {
 	if a < b {
 		return a
 	}

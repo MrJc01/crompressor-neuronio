@@ -1,0 +1,34 @@
+[
+  {
+    "test_name": "xor_delta_qwen05b",
+    "timestamp": "2026-04-12T01:33:15-03:00",
+    "duration_ns": 3302217432,
+    "iterations": 100000,
+    "ns_per_op": 33022.17432,
+    "mb_per_sec": 15.504733123824174
+  },
+  {
+    "test_name": "xor_delta_qwen15b",
+    "timestamp": "2026-04-12T01:33:20-03:00",
+    "duration_ns": 2819540965,
+    "iterations": 100000,
+    "ns_per_op": 28195.40965,
+    "mb_per_sec": 18.15898425863091
+  },
+  {
+    "test_name": "xor_delta_llama1b",
+    "timestamp": "2026-04-12T01:33:25-03:00",
+    "duration_ns": 3805531465,
+    "iterations": 100000,
+    "ns_per_op": 38055.31465,
+    "mb_per_sec": 13.454099767901932
+  },
+  {
+    "test_name": "xor_delta_phi3mini",
+    "timestamp": "2026-04-12T01:33:32-03:00",
+    "duration_ns": 4346128157,
+    "iterations": 100000,
+    "ns_per_op": 43461.28157,
+    "mb_per_sec": 11.780600605975183
+  }
+]

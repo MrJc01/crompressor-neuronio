@@ -1,0 +1,9 @@
+{
+  "cdc_strategy": "fastcdc",
+  "chunks": 60608,
+  "compression_ratio": 0.9941431522070663,
+  "dedup_rate": 0.05774815205913411,
+  "model": "qwen2.5-0.5b-q4",
+  "original_mb": 260.3706932067871,
+  "projected_mb": 261.9046287536621
+}

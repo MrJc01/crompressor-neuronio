@@ -1,0 +1,52 @@
+[
+  {
+    "timestamp": "2026-04-12T01:33:12-03:00",
+    "delta_type": "xor",
+    "delta_size_bytes": 32096,
+    "brain_size_bytes": 641920,
+    "delta_brain_ratio_percent": 5,
+    "non_zero_bytes": 9647,
+    "sparsity_percent": 69.94329511465604,
+    "apply_latency_ns": 23345
+  },
+  {
+    "timestamp": "2026-04-12T01:33:12-03:00",
+    "delta_type": "xor",
+    "delta_size_bytes": 32096,
+    "brain_size_bytes": 641920,
+    "delta_brain_ratio_percent": 5,
+    "non_zero_bytes": 6344,
+    "sparsity_percent": 80.23429710867399,
+    "apply_latency_ns": 34928
+  },
+  {
+    "timestamp": "2026-04-12T01:33:12-03:00",
+    "delta_type": "xor",
+    "delta_size_bytes": 32096,
+    "brain_size_bytes": 641920,
+    "delta_brain_ratio_percent": 5,
+    "non_zero_bytes": 3343,
+    "sparsity_percent": 89.58437188434696,
+    "apply_latency_ns": 23757
+  },
+  {
+    "timestamp": "2026-04-12T01:33:12-03:00",
+    "delta_type": "xor",
+    "delta_size_bytes": 32096,
+    "brain_size_bytes": 641920,
+    "delta_brain_ratio_percent": 5,
+    "non_zero_bytes": 1610,
+    "sparsity_percent": 94.98379860418744,
+    "apply_latency_ns": 24572
+  },
+  {
+    "timestamp": "2026-04-12T01:33:12-03:00",
+    "delta_type": "vq",
+    "delta_size_bytes": 8160,
+    "brain_size_bytes": 641920,
+    "delta_brain_ratio_percent": 1.2711864406779663,
+    "non_zero_bytes": 2346,
+    "sparsity_percent": 71.25,
+    "apply_latency_ns": 46275
+  }
+]
