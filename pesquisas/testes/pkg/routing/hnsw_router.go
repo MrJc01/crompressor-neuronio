@@ -8,7 +8,7 @@ import (
 )
 
 // Constantes estipuladas para a PoC laboratorial de Roteamento Dinâmico.
-const ContextDim = 128
+const ContextDim = 896 // Alinhado com o Qwen2.5-0.5B-Instruct
 
 // BrainNode representa um Cérebro Congelado e seu vetor de conhecimento principal.
 type BrainNode struct {
@@ -20,7 +20,7 @@ type BrainNode struct {
 // HNSWRouter simula um orquestrador sub-simbólico.
 // Mantém as referências aos arquivos FUSE mapeados para ponderar "Quem assume o volante".
 type HNSWRouter struct {
-	mu     sync.RWMutex
+	Mu     sync.RWMutex
 	Brains []BrainNode
 }
 
@@ -33,8 +33,8 @@ func NewRouter() *HNSWRouter {
 
 // RegisterBrain registra um novo cérebro especialista na malha semântica.
 func (r *HNSWRouter) RegisterBrain(id string, contextVector []float32) error {
-	r.mu.Lock()
-	defer r.mu.Unlock()
+	r.Mu.Lock()
+	defer r.Mu.Unlock()
 
 	if len(contextVector) != ContextDim {
 		return errors.New("vetor de contexto inválido para a topologia HNSW")
@@ -57,8 +57,8 @@ type distanceResult struct {
 // GetTopKWeights avalia o Prompt (contextVector) contra todos os cérebros
 // usando similaridade por cosseno. Retorna os Ponderadores (Pesos) ordenados.
 func (r *HNSWRouter) GetTopKWeights(contextVector []float32, topK int) ([]float32, []int) {
-	r.mu.RLock()
-	defer r.mu.RUnlock()
+	r.Mu.RLock()
+	defer r.Mu.RUnlock()
 
 	if len(r.Brains) == 0 {
 		return nil, nil
