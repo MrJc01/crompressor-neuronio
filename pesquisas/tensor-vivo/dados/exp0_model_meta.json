@@ -1,0 +1,60 @@
+{
+  "model": "SimpleMLP_784_256_128_10",
+  "dataset": "MNIST",
+  "accuracy": 97.53,
+  "total_params": 235146,
+  "total_bytes": 940584,
+  "layers": [
+    {
+      "name": "layers.0.weight",
+      "shape": [
+        256,
+        784
+      ],
+      "params": 200704,
+      "bytes": 802816
+    },
+    {
+      "name": "layers.0.bias",
+      "shape": [
+        256
+      ],
+      "params": 256,
+      "bytes": 1024
+    },
+    {
+      "name": "layers.2.weight",
+      "shape": [
+        128,
+        256
+      ],
+      "params": 32768,
+      "bytes": 131072
+    },
+    {
+      "name": "layers.2.bias",
+      "shape": [
+        128
+      ],
+      "params": 128,
+      "bytes": 512
+    },
+    {
+      "name": "layers.4.weight",
+      "shape": [
+        10,
+        128
+      ],
+      "params": 1280,
+      "bytes": 5120
+    },
+    {
+      "name": "layers.4.bias",
+      "shape": [
+        10
+      ],
+      "params": 10,
+      "bytes": 40
+    }
+  ]
+}

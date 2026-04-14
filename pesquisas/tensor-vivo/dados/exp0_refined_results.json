@@ -1,0 +1,261 @@
+{
+  "strategies": [
+    {
+      "label": "A_layers.0.weight_avg256",
+      "chunks": 3165,
+      "unique": 3165,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 802816,
+      "strategy": "A_varied_chunks",
+      "avg_size": 256,
+      "layer": "layers.0.weight"
+    },
+    {
+      "label": "A_layers.0.weight_avg512",
+      "chunks": 1579,
+      "unique": 1579,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 802816,
+      "strategy": "A_varied_chunks",
+      "avg_size": 512,
+      "layer": "layers.0.weight"
+    },
+    {
+      "label": "A_layers.0.weight_avg1024",
+      "chunks": 793,
+      "unique": 793,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 802816,
+      "strategy": "A_varied_chunks",
+      "avg_size": 1024,
+      "layer": "layers.0.weight"
+    },
+    {
+      "label": "A_layers.0.weight_avg2048",
+      "chunks": 403,
+      "unique": 403,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 802816,
+      "strategy": "A_varied_chunks",
+      "avg_size": 2048,
+      "layer": "layers.0.weight"
+    },
+    {
+      "label": "A_layers.2.weight_avg256",
+      "chunks": 511,
+      "unique": 511,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 131072,
+      "strategy": "A_varied_chunks",
+      "avg_size": 256,
+      "layer": "layers.2.weight"
+    },
+    {
+      "label": "A_layers.2.weight_avg512",
+      "chunks": 254,
+      "unique": 254,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 131072,
+      "strategy": "A_varied_chunks",
+      "avg_size": 512,
+      "layer": "layers.2.weight"
+    },
+    {
+      "label": "A_layers.2.weight_avg1024",
+      "chunks": 126,
+      "unique": 126,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 131072,
+      "strategy": "A_varied_chunks",
+      "avg_size": 1024,
+      "layer": "layers.2.weight"
+    },
+    {
+      "label": "A_layers.2.weight_avg2048",
+      "chunks": 62,
+      "unique": 62,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 131072,
+      "strategy": "A_varied_chunks",
+      "avg_size": 2048,
+      "layer": "layers.2.weight"
+    },
+    {
+      "label": "A_layers.4.weight_avg256",
+      "chunks": 19,
+      "unique": 19,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 5120,
+      "strategy": "A_varied_chunks",
+      "avg_size": 256,
+      "layer": "layers.4.weight"
+    },
+    {
+      "label": "A_layers.4.weight_avg512",
+      "chunks": 10,
+      "unique": 10,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 5120,
+      "strategy": "A_varied_chunks",
+      "avg_size": 512,
+      "layer": "layers.4.weight"
+    },
+    {
+      "label": "A_layers.4.weight_avg1024",
+      "chunks": 5,
+      "unique": 5,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 5120,
+      "strategy": "A_varied_chunks",
+      "avg_size": 1024,
+      "layer": "layers.4.weight"
+    },
+    {
+      "label": "A_layers.4.weight_avg2048",
+      "chunks": 3,
+      "unique": 3,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 5120,
+      "strategy": "A_varied_chunks",
+      "avg_size": 2048,
+      "layer": "layers.4.weight"
+    },
+    {
+      "label": "B_layers.0.weight_8bit",
+      "chunks": 785,
+      "unique": 785,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 200704,
+      "strategy": "B_quantize_8bit",
+      "bits": 8,
+      "layer": "layers.0.weight"
+    },
+    {
+      "label": "B_layers.2.weight_8bit",
+      "chunks": 125,
+      "unique": 125,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 32768,
+      "strategy": "B_quantize_8bit",
+      "bits": 8,
+      "layer": "layers.2.weight"
+    },
+    {
+      "label": "B_layers.4.weight_8bit",
+      "chunks": 6,
+      "unique": 6,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 1280,
+      "strategy": "B_quantize_8bit",
+      "bits": 8,
+      "layer": "layers.4.weight"
+    },
+    {
+      "label": "B_global_8bit",
+      "chunks": 915,
+      "unique": 915,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 234752,
+      "strategy": "B_quantize_8bit_global",
+      "bits": 8
+    },
+    {
+      "label": "B_layers.0.weight_4bit",
+      "chunks": 380,
+      "unique": 380,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 100352,
+      "strategy": "B_quantize_4bit",
+      "bits": 4,
+      "layer": "layers.0.weight"
+    },
+    {
+      "label": "B_layers.2.weight_4bit",
+      "chunks": 62,
+      "unique": 62,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 16384,
+      "strategy": "B_quantize_4bit",
+      "bits": 4,
+      "layer": "layers.2.weight"
+    },
+    {
+      "label": "B_layers.4.weight_4bit",
+      "chunks": 3,
+      "unique": 3,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 640,
+      "strategy": "B_quantize_4bit",
+      "bits": 4,
+      "layer": "layers.4.weight"
+    },
+    {
+      "label": "B_global_4bit",
+      "chunks": 444,
+      "unique": 444,
+      "dedup": 0,
+      "dedup_pct": 0.0,
+      "bytes": 117376,
+      "strategy": "B_quantize_4bit_global",
+      "bits": 4
+    },
+    {
+      "strategy": "C_per_neuron",
+      "layer": "layers.0.weight",
+      "neurons": 256,
+      "dims": 784,
+      "unique_f32": 256,
+      "dedup_f32": 0,
+      "unique_q8": 256,
+      "dedup_q8": 0,
+      "similar_095": 0,
+      "similar_099": 0,
+      "total_pairs": 32640
+    },
+    {
+      "strategy": "C_per_neuron",
+      "layer": "layers.2.weight",
+      "neurons": 128,
+      "dims": 256,
+      "unique_f32": 128,
+      "dedup_f32": 0,
+      "unique_q8": 128,
+      "dedup_q8": 0,
+      "similar_095": 0,
+      "similar_099": 0,
+      "total_pairs": 8128
+    },
+    {
+      "strategy": "C_per_neuron",
+      "layer": "layers.4.weight",
+      "neurons": 10,
+      "dims": 128,
+      "unique_f32": 10,
+      "dedup_f32": 0,
+      "unique_q8": 10,
+      "dedup_q8": 0,
+      "similar_095": 0,
+      "similar_099": 0,
+      "total_pairs": 45
+    }
+  ]
+}
