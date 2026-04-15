@@ -1,0 +1,1071 @@
+{
+  "baseline_accuracy": 79.91,
+  "baseline_params": 1070794,
+  "experiments": [
+    {
+      "K": 32,
+      "block_size": 8,
+      "accuracy": 18.81,
+      "accuracy_loss": 61.1,
+      "compression_ratio": 15.76,
+      "conv_mse": 0.00429767,
+      "fc_mse": 0.00162677,
+      "avg_codebook_utilization": 100.0,
+      "original_bytes": 4281728,
+      "compressed_bytes": 271704,
+      "time_seconds": 35.36,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 32,
+          "blocks": 108,
+          "mse": 0.00520236,
+          "ratio": 2.79,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 32,
+          "blocks": 2304,
+          "mse": 0.00339298,
+          "ratio": 13.09,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 32,
+          "blocks": 131072,
+          "mse": 0.0009192,
+          "ratio": 15.94,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 32,
+          "blocks": 320,
+          "mse": 0.00233434,
+          "ratio": 6.15,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 64,
+      "block_size": 8,
+      "accuracy": 36.1,
+      "accuracy_loss": 43.81,
+      "compression_ratio": 15.52,
+      "conv_mse": 0.00234628,
+      "fc_mse": 0.00114786,
+      "avg_codebook_utilization": 100.0,
+      "original_bytes": 4281728,
+      "compressed_bytes": 275800,
+      "time_seconds": 20.79,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 64,
+          "blocks": 108,
+          "mse": 0.00194281,
+          "ratio": 1.53,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 64,
+          "blocks": 2304,
+          "mse": 0.00274974,
+          "ratio": 11.08,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 64,
+          "blocks": 131072,
+          "mse": 0.00079305,
+          "ratio": 15.88,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 64,
+          "blocks": 320,
+          "mse": 0.00150268,
+          "ratio": 3.81,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 128,
+      "block_size": 8,
+      "accuracy": 59.74,
+      "accuracy_loss": 20.17,
+      "compression_ratio": 15.11,
+      "conv_mse": 0.00108909,
+      "fc_mse": 0.00073158,
+      "avg_codebook_utilization": 100.0,
+      "original_bytes": 4281728,
+      "compressed_bytes": 283352,
+      "time_seconds": 21.85,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 108,
+          "blocks": 108,
+          "mse": 0.0,
+          "ratio": 0.94,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 128,
+          "blocks": 2304,
+          "mse": 0.00217817,
+          "ratio": 8.47,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 128,
+          "blocks": 131072,
+          "mse": 0.00072185,
+          "ratio": 15.75,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 128,
+          "blocks": 320,
+          "mse": 0.00074131,
+          "ratio": 2.16,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 256,
+      "block_size": 8,
+      "accuracy": 71.15,
+      "accuracy_loss": 8.76,
+      "compression_ratio": 14.48,
+      "conv_mse": 0.00082555,
+      "fc_mse": 0.00033913,
+      "avg_codebook_utilization": 100.0,
+      "original_bytes": 4281728,
+      "compressed_bytes": 295640,
+      "time_seconds": 25.27,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 108,
+          "blocks": 108,
+          "mse": 0.0,
+          "ratio": 0.94,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 256,
+          "blocks": 2304,
+          "mse": 0.00165111,
+          "ratio": 5.76,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 256,
+          "blocks": 131072,
+          "mse": 0.00058008,
+          "ratio": 15.52,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 256,
+          "blocks": 320,
+          "mse": 9.818e-05,
+          "ratio": 1.16,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 512,
+      "block_size": 8,
+      "accuracy": 73.56,
+      "accuracy_loss": 6.35,
+      "compression_ratio": 13.63,
+      "conv_mse": 0.0005503,
+      "fc_mse": 0.00027949,
+      "avg_codebook_utilization": 99.8,
+      "original_bytes": 4281728,
+      "compressed_bytes": 314072,
+      "time_seconds": 23.83,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 108,
+          "blocks": 108,
+          "mse": 0.0,
+          "ratio": 0.94,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 512,
+          "blocks": 2304,
+          "mse": 0.0011006,
+          "ratio": 3.51,
+          "utilization": 99.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 512,
+          "blocks": 131072,
+          "mse": 0.00055898,
+          "ratio": 15.06,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 320,
+          "blocks": 320,
+          "mse": 0.0,
+          "ratio": 0.94,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 32,
+      "block_size": 16,
+      "accuracy": 22.26,
+      "accuracy_loss": 57.65,
+      "compression_ratio": 30.15,
+      "conv_mse": 0.00406791,
+      "fc_mse": 0.00202755,
+      "avg_codebook_utilization": 100.0,
+      "original_bytes": 4281728,
+      "compressed_bytes": 141996,
+      "time_seconds": 18.97,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 32,
+          "blocks": 54,
+          "mse": 0.00365575,
+          "ratio": 1.6,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 32,
+          "blocks": 1152,
+          "mse": 0.00448006,
+          "ratio": 16.94,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 32,
+          "blocks": 65536,
+          "mse": 0.00122965,
+          "ratio": 31.51,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 32,
+          "blocks": 160,
+          "mse": 0.00282545,
+          "ratio": 4.32,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 64,
+      "block_size": 16,
+      "accuracy": 43.28,
+      "accuracy_loss": 36.63,
+      "compression_ratio": 28.63,
+      "conv_mse": 0.00191413,
+      "fc_mse": 0.00133955,
+      "avg_codebook_utilization": 100.0,
+      "original_bytes": 4281728,
+      "compressed_bytes": 149548,
+      "time_seconds": 23.3,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 54,
+          "blocks": 54,
+          "mse": 0.0,
+          "ratio": 0.97,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 64,
+          "blocks": 1152,
+          "mse": 0.00382827,
+          "ratio": 11.52,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 64,
+          "blocks": 65536,
+          "mse": 0.00109605,
+          "ratio": 31.03,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 64,
+          "blocks": 160,
+          "mse": 0.00158305,
+          "ratio": 2.32,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 128,
+      "block_size": 16,
+      "accuracy": 57.85,
+      "accuracy_loss": 22.06,
+      "compression_ratio": 26.46,
+      "conv_mse": 0.0015613,
+      "fc_mse": 0.00064961,
+      "avg_codebook_utilization": 100.0,
+      "original_bytes": 4281728,
+      "compressed_bytes": 161836,
+      "time_seconds": 27.15,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 54,
+          "blocks": 54,
+          "mse": 0.0,
+          "ratio": 0.97,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 128,
+          "blocks": 1152,
+          "mse": 0.0031226,
+          "ratio": 7.02,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 128,
+          "blocks": 65536,
+          "mse": 0.00102464,
+          "ratio": 30.12,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 128,
+          "blocks": 160,
+          "mse": 0.00027457,
+          "ratio": 1.2,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 256,
+      "block_size": 16,
+      "accuracy": 58.33,
+      "accuracy_loss": 21.58,
+      "compression_ratio": 23.75,
+      "conv_mse": 0.00116197,
+      "fc_mse": 0.0004538,
+      "avg_codebook_utilization": 99.8,
+      "original_bytes": 4281728,
+      "compressed_bytes": 180268,
+      "time_seconds": 32.46,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 54,
+          "blocks": 54,
+          "mse": 0.0,
+          "ratio": 0.97,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 256,
+          "blocks": 1152,
+          "mse": 0.00232394,
+          "ratio": 3.95,
+          "utilization": 99.2
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 256,
+          "blocks": 65536,
+          "mse": 0.0009076,
+          "ratio": 28.44,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 160,
+          "blocks": 160,
+          "mse": 0.0,
+          "ratio": 0.97,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 512,
+      "block_size": 16,
+      "accuracy": 74.15,
+      "accuracy_loss": 5.76,
+      "compression_ratio": 20.1,
+      "conv_mse": 0.00074661,
+      "fc_mse": 0.00041487,
+      "avg_codebook_utilization": 98.5,
+      "original_bytes": 4281728,
+      "compressed_bytes": 213036,
+      "time_seconds": 28.36,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 54,
+          "blocks": 54,
+          "mse": 0.0,
+          "ratio": 0.97,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 512,
+          "blocks": 1152,
+          "mse": 0.00149322,
+          "ratio": 2.1,
+          "utilization": 93.8
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 512,
+          "blocks": 65536,
+          "mse": 0.00082975,
+          "ratio": 25.6,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 160,
+          "blocks": 160,
+          "mse": 0.0,
+          "ratio": 0.97,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 32,
+      "block_size": 32,
+      "accuracy": 23.9,
+      "accuracy_loss": 56.01,
+      "compression_ratio": 51.81,
+      "conv_mse": 0.00261531,
+      "fc_mse": 0.00193194,
+      "avg_codebook_utilization": 100.0,
+      "original_bytes": 4281728,
+      "compressed_bytes": 82646,
+      "time_seconds": 23.79,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 27,
+          "blocks": 27,
+          "mse": 0.0,
+          "ratio": 0.98,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 32,
+          "blocks": 576,
+          "mse": 0.00523062,
+          "ratio": 14.05,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 32,
+          "blocks": 32768,
+          "mse": 0.00153506,
+          "ratio": 60.24,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 32,
+          "blocks": 80,
+          "mse": 0.00232882,
+          "ratio": 2.41,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 64,
+      "block_size": 32,
+      "accuracy": 28.49,
+      "accuracy_loss": 51.42,
+      "compression_ratio": 45.1,
+      "conv_mse": 0.00220056,
+      "fc_mse": 0.00094557,
+      "avg_codebook_utilization": 100.0,
+      "original_bytes": 4281728,
+      "compressed_bytes": 94934,
+      "time_seconds": 20.85,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 27,
+          "blocks": 27,
+          "mse": 0.0,
+          "ratio": 0.98,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 64,
+          "blocks": 576,
+          "mse": 0.00440112,
+          "ratio": 7.89,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 64,
+          "blocks": 32768,
+          "mse": 0.00142618,
+          "ratio": 56.89,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 64,
+          "blocks": 80,
+          "mse": 0.00046497,
+          "ratio": 1.23,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 128,
+      "block_size": 32,
+      "accuracy": 35.42,
+      "accuracy_loss": 44.49,
+      "compression_ratio": 37.77,
+      "conv_mse": 0.00176056,
+      "fc_mse": 0.00066603,
+      "avg_codebook_utilization": 100.0,
+      "original_bytes": 4281728,
+      "compressed_bytes": 113366,
+      "time_seconds": 30.05,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 27,
+          "blocks": 27,
+          "mse": 0.0,
+          "ratio": 0.98,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 128,
+          "blocks": 576,
+          "mse": 0.00352111,
+          "ratio": 4.2,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 128,
+          "blocks": 32768,
+          "mse": 0.00133206,
+          "ratio": 51.2,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 80,
+          "blocks": 80,
+          "mse": 0.0,
+          "ratio": 0.98,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 256,
+      "block_size": 32,
+      "accuracy": 49.76,
+      "accuracy_loss": 30.15,
+      "compression_ratio": 29.3,
+      "conv_mse": 0.00116582,
+      "fc_mse": 0.00061659,
+      "avg_codebook_utilization": 98.7,
+      "original_bytes": 4281728,
+      "compressed_bytes": 146134,
+      "time_seconds": 47.33,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 27,
+          "blocks": 27,
+          "mse": 0.0,
+          "ratio": 0.98,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 256,
+          "blocks": 576,
+          "mse": 0.00233164,
+          "ratio": 2.17,
+          "utilization": 94.9
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 256,
+          "blocks": 32768,
+          "mse": 0.00123319,
+          "ratio": 42.67,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 80,
+          "blocks": 80,
+          "mse": 0.0,
+          "ratio": 0.98,
+          "utilization": 100.0
+        }
+      ]
+    },
+    {
+      "K": 512,
+      "block_size": 32,
+      "accuracy": 68.44,
+      "accuracy_loss": 11.47,
+      "compression_ratio": 20.23,
+      "conv_mse": 0.00052537,
+      "fc_mse": 0.00058041,
+      "avg_codebook_utilization": 95.3,
+      "original_bytes": 4281728,
+      "compressed_bytes": 211670,
+      "time_seconds": 55.05,
+      "layer_details": [
+        {
+          "name": "features.0.weight",
+          "type": "Conv2d",
+          "shape": [
+            32,
+            3,
+            3,
+            3
+          ],
+          "K_actual": 27,
+          "blocks": 27,
+          "mse": 0.0,
+          "ratio": 0.98,
+          "utilization": 100.0
+        },
+        {
+          "name": "features.3.weight",
+          "type": "Conv2d",
+          "shape": [
+            64,
+            32,
+            3,
+            3
+          ],
+          "K_actual": 512,
+          "blocks": 576,
+          "mse": 0.00105073,
+          "ratio": 1.11,
+          "utilization": 81.1
+        },
+        {
+          "name": "classifier.0.weight",
+          "type": "Linear",
+          "shape": [
+            256,
+            4096
+          ],
+          "K_actual": 512,
+          "blocks": 32768,
+          "mse": 0.00116082,
+          "ratio": 32.0,
+          "utilization": 100.0
+        },
+        {
+          "name": "classifier.2.weight",
+          "type": "Linear",
+          "shape": [
+            10,
+            256
+          ],
+          "K_actual": 80,
+          "blocks": 80,
+          "mse": 0.0,
+          "ratio": 0.98,
+          "utilization": 100.0
+        }
+      ]
+    }
+  ]
+}

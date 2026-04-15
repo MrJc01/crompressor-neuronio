@@ -1,0 +1,273 @@
+{
+  "model": "SimpleCNN_CIFAR10",
+  "architecture": "Conv2d(3\u219232\u219264) + Linear(4096\u2192256\u219210)",
+  "dataset": "CIFAR-10",
+  "accuracy": 79.91,
+  "total_params": 1070794,
+  "total_bytes": 4283176,
+  "epochs_trained": 30,
+  "layers": [
+    {
+      "name": "features.0.weight",
+      "shape": [
+        32,
+        3,
+        3,
+        3
+      ],
+      "params": 864,
+      "bytes": 3456,
+      "type": "Conv2d"
+    },
+    {
+      "name": "features.0.bias",
+      "shape": [
+        32
+      ],
+      "params": 32,
+      "bytes": 128,
+      "type": "Bias"
+    },
+    {
+      "name": "features.3.weight",
+      "shape": [
+        64,
+        32,
+        3,
+        3
+      ],
+      "params": 18432,
+      "bytes": 73728,
+      "type": "Conv2d"
+    },
+    {
+      "name": "features.3.bias",
+      "shape": [
+        64
+      ],
+      "params": 64,
+      "bytes": 256,
+      "type": "Bias"
+    },
+    {
+      "name": "classifier.0.weight",
+      "shape": [
+        256,
+        4096
+      ],
+      "params": 1048576,
+      "bytes": 4194304,
+      "type": "Linear"
+    },
+    {
+      "name": "classifier.0.bias",
+      "shape": [
+        256
+      ],
+      "params": 256,
+      "bytes": 1024,
+      "type": "Bias"
+    },
+    {
+      "name": "classifier.2.weight",
+      "shape": [
+        10,
+        256
+      ],
+      "params": 2560,
+      "bytes": 10240,
+      "type": "Linear"
+    },
+    {
+      "name": "classifier.2.bias",
+      "shape": [
+        10
+      ],
+      "params": 10,
+      "bytes": 40,
+      "type": "Bias"
+    }
+  ],
+  "epoch_history": [
+    {
+      "epoch": 1,
+      "loss": 1.5541,
+      "accuracy": 56.44,
+      "lr": 0.001
+    },
+    {
+      "epoch": 2,
+      "loss": 1.2072,
+      "accuracy": 64.79,
+      "lr": 0.001
+    },
+    {
+      "epoch": 3,
+      "loss": 1.0596,
+      "accuracy": 66.41,
+      "lr": 0.001
+    },
+    {
+      "epoch": 4,
+      "loss": 0.9725,
+      "accuracy": 70.25,
+      "lr": 0.001
+    },
+    {
+      "epoch": 5,
+      "loss": 0.9046,
+      "accuracy": 72.23,
+      "lr": 0.001
+    },
+    {
+      "epoch": 6,
+      "loss": 0.8573,
+      "accuracy": 70.23,
+      "lr": 0.001
+    },
+    {
+      "epoch": 7,
+      "loss": 0.8257,
+      "accuracy": 73.99,
+      "lr": 0.001
+    },
+    {
+      "epoch": 8,
+      "loss": 0.7881,
+      "accuracy": 73.8,
+      "lr": 0.001
+    },
+    {
+      "epoch": 9,
+      "loss": 0.7568,
+      "accuracy": 74.84,
+      "lr": 0.001
+    },
+    {
+      "epoch": 10,
+      "loss": 0.7422,
+      "accuracy": 75.26,
+      "lr": 0.001
+    },
+    {
+      "epoch": 11,
+      "loss": 0.7177,
+      "accuracy": 76.28,
+      "lr": 0.001
+    },
+    {
+      "epoch": 12,
+      "loss": 0.6951,
+      "accuracy": 76.4,
+      "lr": 0.001
+    },
+    {
+      "epoch": 13,
+      "loss": 0.6811,
+      "accuracy": 76.73,
+      "lr": 0.001
+    },
+    {
+      "epoch": 14,
+      "loss": 0.672,
+      "accuracy": 76.45,
+      "lr": 0.001
+    },
+    {
+      "epoch": 15,
+      "loss": 0.657,
+      "accuracy": 76.8,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 16,
+      "loss": 0.5918,
+      "accuracy": 78.87,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 17,
+      "loss": 0.5777,
+      "accuracy": 78.97,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 18,
+      "loss": 0.5662,
+      "accuracy": 79.17,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 19,
+      "loss": 0.5643,
+      "accuracy": 79.12,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 20,
+      "loss": 0.5599,
+      "accuracy": 79.04,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 21,
+      "loss": 0.5528,
+      "accuracy": 79.25,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 22,
+      "loss": 0.5499,
+      "accuracy": 79.34,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 23,
+      "loss": 0.5548,
+      "accuracy": 79.57,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 24,
+      "loss": 0.5422,
+      "accuracy": 79.75,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 25,
+      "loss": 0.5433,
+      "accuracy": 79.79,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 26,
+      "loss": 0.5401,
+      "accuracy": 79.79,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 27,
+      "loss": 0.5368,
+      "accuracy": 79.76,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 28,
+      "loss": 0.534,
+      "accuracy": 79.61,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 29,
+      "loss": 0.5357,
+      "accuracy": 79.72,
+      "lr": 0.0001
+    },
+    {
+      "epoch": 30,
+      "loss": 0.5289,
+      "accuracy": 79.91,
+      "lr": 1e-05
+    }
+  ]
+}

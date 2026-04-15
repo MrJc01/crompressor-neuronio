@@ -20,6 +20,7 @@ __pycache__/
 pesquisas/modelos/*.gguf
 pesquisas/modelos/*.crom
 pesquisas/tensor-vivo/dados/mnist/
+pesquisas/tensor-vivo/dados/cifar10/
 pesquisas/tensor-vivo/dados/*.pt
 pesquisas/tensor-vivo/dados/_tmp_*
 pesquisas/dados/*.json
