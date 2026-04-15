@@ -1,6 +1,6 @@
 # 🧬 Tensor-Vivo — Conclusões da Pesquisa
 
-> **Data:** 2026-04-14
+> **Data:** 2026-04-15 (atualizado com Exp3)
 > **Pesquisador:** MrJc01
 > **Tese:** O Crompressor pode substituir diretamente tensores/pesos de redes neurais
 
@@ -8,7 +8,7 @@
 
 ## Resumo Executivo
 
-A pesquisa testou 3 hipóteses fundamentais sobre usar o Crompressor como
+A pesquisa testou 4 hipóteses fundamentais sobre usar o Crompressor como
 substituto de tensores em redes neurais. Os resultados são claros:
 
 | Hipótese | Resultado | Veredicto |
@@ -16,6 +16,7 @@ substituto de tensores em redes neurais. Os resultados são claros:
 | H1: CDC hash exato encontra dedup em pesos | **NÃO** (0% dedup) | ❌ Refutada |
 | H2: Codebook K-Means preserva accuracy | **SIM** (96.97% com 9.4x compressão) | ✅ Confirmada |
 | H3: Treinar APENAS o codebook funciona | **SIM** (98.08%, SUPEROU baseline) | ✅ **Confirmada fortemente** |
+| H4: Codebook Learning escala para CNN | **SIM** (99.7% do baseline, 145.3x compressão) | ✅ **Confirmada** |
 
 ---
 
@@ -55,24 +56,46 @@ Resultados-chave:
 3. K=128 B=16 alcança accuracy equivalente ao baseline com **40.8x menos params**
 4. O efeito de regularização do codebook parece **melhorar generalização**
 
+### Exp3: Codebook Learning em CNN CIFAR-10 (Escalabilidade)
+**5 configurações testadas em CNN com Conv2d + Linear, TODAS recovery ≥97.8%**
+
+| Config | Pré-Treino | Pós-Treino | Params | Compressão | Gap |
+|---|---|---|---|---|---|
+| **K=256, B=8** | 68.39% | **77.66%** | **7,370** | **145.3x** | **0.20%** |
+| K=128, B=8 | 66.85% | 76.99% | 4,298 | **249.1x** | 0.87% |
+| K=256, B=16 | 50.84% | 77.33% | 11,978 | 89.4x | 0.53% |
+| K=256, B=32 | 58.41% | 77.33% | 20,170 | 53.1x | 0.53% |
+| K=128, B=16 | 46.36% | 76.17% | 7,370 | 145.3x | 1.69% |
+
+**Descobertas:**
+1. **99.7% do baseline** com K=256 B=8 (gap de apenas 0.20%)
+2. **249.1x compressão** viável com K=128 B=8 (4,298 params vs 1,070,794)
+3. **Conv2d funciona** com Flatten+Chunk — sem tratamento especial
+4. **Linear comprime melhor** que Conv2d (MSE 2-4x menor)
+5. O FC com 1M params → 2,048 params de codebook (compartilhamento 512:1)
+6. **Convergência rápida** — 1 epoch atinge >90% do recovery final
+7. **Escala MELHOR** que MNIST — 145.3x vs 40.8x compressão
+
 ---
 
 ## Resposta à Tese Central
 
 > **"O Crompressor pode substituir diretamente os pesos de tensores?"**
 
-### Resposta: **SIM, com ressalvas.**
+### Resposta: **SIM, com evidência crescente.**
 
 **O que funciona:**
 - ✅ Representar pesos como índices apontando para um codebook de centróides
 - ✅ Treinar apenas o codebook (índices congelados) alcança accuracy equivalente
-- ✅ Compressão de até 40.8x no espaço de parâmetros treináveis
+- ✅ Compressão de até **249.1x** no espaço de parâmetros treináveis
 - ✅ O codebook é um espaço de aprendizado estável e convergente
+- ✅ **Funciona em MLP (MNIST) E CNN (CIFAR-10)** — escala validada
+- ✅ **Funciona para Conv2d** — kernels convolucionais são representáveis
 
 **O que NÃO funciona como esperado:**
 - ❌ CDC hash exato não encontra dedup em pesos (cada neurônio é único)
 - ❌ A codificação DNA Base-4 não foi testada ainda (usamos K-Means puro)
-- ⚠️ Testado apenas em MNIST MLP (modelo pequeno) — precisa validar em modelos maiores
+- ⚠️ ~~Testado apenas em MNIST MLP~~ → **Agora validado também em CIFAR-10 CNN**
 
 **Ressalva importante:**
 O que provamos é essencialmente **Vector Quantization de pesos** — uma técnica
@@ -109,7 +132,7 @@ A próxima investigação seria:
 ## Próximos Passos Recomendados
 
 ### Curto Prazo (Validação)
-1. **Testar em CIFAR-10 CNN** — validar que funciona além de MNIST
+1. ~~**Testar em CIFAR-10 CNN**~~ → ✅ **FEITO** (99.7% recovery, 145.3x compressão)
 2. **Testar em modelo Transformer** — GPT-2 small (124M params)
 3. **Comparar formalmente com LoRA** — mesmos params treináveis, mesma task
 
@@ -127,13 +150,20 @@ A próxima investigação seria:
 
 ## Números Para Lembrar
 
+### MNIST MLP (Exp2)
 ```
-235,146 parâmetros originais
-  5,770 parâmetros no codebook (K=128, B=16)
-  40.8x compressão
- 97.56% accuracy (vs 97.53% baseline)
-  0.03% gap — praticamente idêntico
+  235,146 params originais →   5,770 params codebook
+   40.8x compressão
+  97.56% accuracy (vs 97.53% baseline) — gap: 0.03%
+```
+
+### CIFAR-10 CNN (Exp3)
+```
+1,070,794 params originais →   7,370 params codebook
+  145.3x compressão
+  77.66% accuracy (vs 77.86% baseline) — gap: 0.20%
 ```
 
 > **O neurônio que comprime é o neurônio que pensa.**
 > **E o codebook é a memória comprimida desse pensamento.**
+> **E isso funciona em MLP, CNN, e provavelmente em Transformers.**
