@@ -1,0 +1,88 @@
+{
+  "baseline_accuracy": 90.59633027522935,
+  "total_params": 124441344,
+  "target_params": 84934656,
+  "experiments": [
+    {
+      "K": 256,
+      "block_size": 16,
+      "accuracy": 49.1972,
+      "accuracy_loss": 41.3991,
+      "compression_ratio": 29.79,
+      "attn_mse": 0.009654946,
+      "mlp_mse": 0.0094324969
+    },
+    {
+      "K": 512,
+      "block_size": 16,
+      "accuracy": 49.0826,
+      "accuracy_loss": 41.5138,
+      "compression_ratio": 27.87,
+      "attn_mse": 0.0088064783,
+      "mlp_mse": 0.0086498193
+    },
+    {
+      "K": 1024,
+      "block_size": 16,
+      "accuracy": 49.656,
+      "accuracy_loss": 40.9404,
+      "compression_ratio": 24.69,
+      "attn_mse": 0.0078785863,
+      "mlp_mse": 0.0078764165
+    },
+    {
+      "K": 256,
+      "block_size": 32,
+      "accuracy": 49.0826,
+      "accuracy_loss": 41.5138,
+      "compression_ratio": 49.37,
+      "attn_mse": 0.0123905601,
+      "mlp_mse": 0.0121836944
+    },
+    {
+      "K": 512,
+      "block_size": 32,
+      "accuracy": 49.0826,
+      "accuracy_loss": 41.5138,
+      "compression_ratio": 40.19,
+      "attn_mse": 0.0117527486,
+      "mlp_mse": 0.0115897323
+    },
+    {
+      "K": 1024,
+      "block_size": 32,
+      "accuracy": 49.0826,
+      "accuracy_loss": 41.5138,
+      "compression_ratio": 29.29,
+      "attn_mse": 0.0107586306,
+      "mlp_mse": 0.0109303257
+    },
+    {
+      "K": 256,
+      "block_size": 64,
+      "accuracy": 49.0826,
+      "accuracy_loss": 41.5138,
+      "compression_ratio": 58.58,
+      "attn_mse": 0.0141469677,
+      "mlp_mse": 0.0141740696
+    },
+    {
+      "K": 512,
+      "block_size": 64,
+      "accuracy": 49.0826,
+      "accuracy_loss": 41.5138,
+      "compression_ratio": 37.98,
+      "attn_mse": 0.0135166668,
+      "mlp_mse": 0.0137893536
+    },
+    {
+      "K": 1024,
+      "block_size": 64,
+      "accuracy": 49.0826,
+      "accuracy_loss": 41.5138,
+      "compression_ratio": 22.3,
+      "attn_mse": 0.012775055,
+      "mlp_mse": 0.0132889634
+    }
+  ]
+}

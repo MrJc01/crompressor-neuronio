@@ -1,0 +1,29 @@
+{
+  "target_params_from_codebook": 122880,
+  "experiments": [
+    {
+      "rank": 2,
+      "trainable_params": 204288,
+      "accuracy": 92.0872,
+      "training_time_seconds": 1356.8
+    },
+    {
+      "rank": 4,
+      "trainable_params": 407040,
+      "accuracy": 91.3991,
+      "training_time_seconds": 1355.8
+    },
+    {
+      "rank": 8,
+      "trainable_params": 812544,
+      "accuracy": 91.8578,
+      "training_time_seconds": 1355.9
+    },
+    {
+      "rank": 16,
+      "trainable_params": 1623552,
+      "accuracy": 92.2018,
+      "training_time_seconds": 1380.4
+    }
+  ]
+}

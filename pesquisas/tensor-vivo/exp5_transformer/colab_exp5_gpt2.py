@@ -549,3 +549,27 @@ for fname in ["exp5_quantize_results.json", "exp5_learning_results.json", "exp5_
     if os.path.exists(fpath):
         files.download(fpath)
 print("\n✅ Arquivos baixados! Cole-os em pesquisas/tensor-vivo/dados/")
+
+# %% ════════════════════════════════════════════════════════════
+# CÉLULA 8: Salvar no Google Drive (persistência)
+# ════════════════════════════════════════════════════════════
+from google.colab import drive
+drive.mount('/content/drive')
+
+DRIVE_DIR = "/content/drive/MyDrive/tensor-vivo-resultados"
+os.makedirs(DRIVE_DIR, exist_ok=True)
+
+saved = []
+for fname in ["exp5_quantize_results.json", "exp5_learning_results.json",
+              "exp5_lora_comparison.json", "gpt2_sst2_baseline.pt"]:
+    src = f"{DATA_DIR}/{fname}"
+    dst = f"{DRIVE_DIR}/{fname}"
+    if os.path.exists(src):
+        import shutil
+        shutil.copy2(src, dst)
+        size = os.path.getsize(dst)
+        saved.append((fname, size))
+        print(f"  ✅ {fname} → Drive ({size/1024:.1f} KB)")
+
+print(f"\n📁 {len(saved)} arquivos salvos em: {DRIVE_DIR}")
+print("   Mesmo se o runtime desconectar, os dados estão seguros no Drive!")
