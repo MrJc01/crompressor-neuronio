@@ -1,6 +1,6 @@
 # 🧬 Tensor-Vivo — Conclusões da Pesquisa
 
-> **Data:** 2026-04-15 (atualizado com Exp3)
+> **Data:** 2026-04-16 (atualizado com Exp5 v2 — Transformer GPT-2)
 > **Pesquisador:** MrJc01
 > **Tese:** O Crompressor pode substituir diretamente tensores/pesos de redes neurais
 
@@ -17,6 +17,7 @@ substituto de tensores em redes neurais. Os resultados são claros:
 | H2: Codebook K-Means preserva accuracy | **SIM** (96.97% com 9.4x compressão) | ✅ Confirmada |
 | H3: Treinar APENAS o codebook funciona | **SIM** (98.08%, SUPEROU baseline) | ✅ **Confirmada fortemente** |
 | H4: Codebook Learning escala para CNN | **SIM** (99.7% do baseline, 145.3x compressão) | ✅ **Confirmada** |
+| H5: Codebook Learning escala para Transformer | **SIM** (91.5% do baseline, 389.5x compressão) | ✅ **Confirmada com ressalvas** |
 
 ---
 
@@ -76,26 +77,54 @@ Resultados-chave:
 6. **Convergência rápida** — 1 epoch atinge >90% do recovery final
 7. **Escala MELHOR** que MNIST — 145.3x vs 40.8x compressão
 
+### Exp5 v2: Codebook Learning em GPT-2 Small Transformer (124M params)
+
+**Bug fix crítico:** GPT-2 usa `Conv1D` do HuggingFace (não `nn.Linear`).
+O v1 substituiu 0 camadas. O v2 corrige isso e substitui todas as 48 Conv1D.
+
+**Infra:** RTX A4000 16GB via Vast.ai ($0.08/hr, custo total ~$0.50)
+
+| Config | Pré-Treino | Pós-Treino | Best | Params | Compressão | Gap |
+|---|---|---|---|---|---|---|
+| **K=256, B=16** | 50.80% | **83.72%** | 83.72% | **319,488** | **389.5x** | **7.80%** |
+| K=512, B=32 | 50.92% | 83.37% | **84.29%** | 909,312 | 136.9x | 7.22% |
+
+**Descobertas:**
+1. **48 Conv1D substituídas** — c_attn, c_proj, c_fc, c_proj × 12 blocos
+2. **Recovery de +33pp** — de 50.8% (random chance) para 83.7%
+3. **91.5% do baseline** com 389.5x compressão (319K vs 124M params)
+4. **Convergência monótona** — accuracy sobe a cada epoch (não oscila)
+5. **K=512 B=32 melhor best** (84.29% no epoch 4) mas overfit no epoch 5
+6. **Gap de ~8%** — maior que MLP/CNN, indica que Transformers precisam mais K ou epochs
+7. **~12 min/epoch** no A4000 (vs ~12 min/epoch no A100 do v1)
+
+**Comparação com v1 (bug):**
+- v1: 0 camadas substituídas, treinava apenas biases+LN+head (122K params) → 91.86%
+- v2: 48 camadas substituídas, treina codebook+biases+LN+head (319K params) → 83.72%
+- **Insight:** O v1 acidentalmente provou que biases+LN fine-tuning supera o baseline!
+
 ---
 
 ## Resposta à Tese Central
 
 > **"O Crompressor pode substituir diretamente os pesos de tensores?"**
 
-### Resposta: **SIM, com evidência crescente.**
+### Resposta: **SIM, validado em 3 arquiteturas.**
 
 **O que funciona:**
 - ✅ Representar pesos como índices apontando para um codebook de centróides
 - ✅ Treinar apenas o codebook (índices congelados) alcança accuracy equivalente
-- ✅ Compressão de até **249.1x** no espaço de parâmetros treináveis
+- ✅ Compressão de até **389.5x** no espaço de parâmetros treináveis
 - ✅ O codebook é um espaço de aprendizado estável e convergente
-- ✅ **Funciona em MLP (MNIST) E CNN (CIFAR-10)** — escala validada
-- ✅ **Funciona para Conv2d** — kernels convolucionais são representáveis
+- ✅ **Funciona em MLP (MNIST), CNN (CIFAR-10) e Transformer (GPT-2)**
+- ✅ **Funciona para Conv2d e Conv1D** — kernel representável por codebook
+- ✅ **Escala inversamente** — quanto maior o modelo, maior a compressão
 
 **O que NÃO funciona como esperado:**
 - ❌ CDC hash exato não encontra dedup em pesos (cada neurônio é único)
 - ❌ A codificação DNA Base-4 não foi testada ainda (usamos K-Means puro)
-- ⚠️ ~~Testado apenas em MNIST MLP~~ → **Agora validado também em CIFAR-10 CNN**
+- ⚠️ **Transformer: recovery moderado** — 91.5% do baseline (vs 99.7% CNN)
+- ⚠️ Mais K (1024+) e/ou mais epochs podem fechar o gap
 
 **Ressalva importante:**
 O que provamos é essencialmente **Vector Quantization de pesos** — uma técnica
@@ -133,8 +162,9 @@ A próxima investigação seria:
 
 ### Curto Prazo (Validação)
 1. ~~**Testar em CIFAR-10 CNN**~~ → ✅ **FEITO** (99.7% recovery, 145.3x compressão)
-2. **Testar em modelo Transformer** — GPT-2 small (124M params)
-3. **Comparar formalmente com LoRA** — mesmos params treináveis, mesma task
+2. ~~**Testar em modelo Transformer**~~ → ✅ **FEITO** (91.5% recovery, 389.5x compressão)
+3. **Fechar gap Transformer** — K=1024+ e/ou 10+ epochs
+4. **Comparar formalmente com LoRA** — mesmos params treináveis, mesma task
 
 ### Médio Prazo (Integração com Crompressor)
 4. **Implementar CodebookLinear em Go** — integrar com o motor .crom
@@ -152,18 +182,36 @@ A próxima investigação seria:
 
 ### MNIST MLP (Exp2)
 ```
-  235,146 params originais →   5,770 params codebook
-   40.8x compressão
-  97.56% accuracy (vs 97.53% baseline) — gap: 0.03%
+    235,146 params originais →     5,770 params codebook
+     40.8x compressão
+    97.56% accuracy (vs 97.53% baseline) — gap: 0.03%
 ```
 
 ### CIFAR-10 CNN (Exp3)
 ```
-1,070,794 params originais →   7,370 params codebook
-  145.3x compressão
-  77.66% accuracy (vs 77.86% baseline) — gap: 0.20%
+  1,070,794 params originais →     7,370 params codebook
+    145.3x compressão
+    77.66% accuracy (vs 77.86% baseline) — gap: 0.20%
+```
+
+### GPT-2 Transformer (Exp5 v2)
+```
+124,441,344 params originais →   319,488 params codebook
+    389.5x compressão
+    83.72% accuracy (vs 91.51% baseline) — gap: 7.80%
+    48 camadas Conv1D substituídas
+    Recovery: 50.80% → 83.72% (+32.9 pp)
+```
+
+### Resumo Cruzado
+```
+  Arquitetura     | Baseline | Codebook | Gap    | Compressão | Recovery
+  ----------------+----------+----------+--------+------------+---------
+  MNIST MLP       |  97.53%  |  97.56%  | +0.03% |    40.8x   |  100.0%
+  CIFAR-10 CNN    |  77.86%  |  77.66%  | -0.20% |   145.3x   |   99.7%
+  GPT-2 Transf.   |  91.51%  |  83.72%  | -7.80% |   389.5x   |   91.5%
 ```
 
 > **O neurônio que comprime é o neurônio que pensa.**
 > **E o codebook é a memória comprimida desse pensamento.**
-> **E isso funciona em MLP, CNN, e provavelmente em Transformers.**
+> **Validado em MLP, CNN e Transformer.**

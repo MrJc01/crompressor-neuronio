@@ -1,0 +1,216 @@
+Welcome to vast.ai. If authentication fails, try again after a few seconds, and double check your ssh key.
+Have fun!
+{
+  "baseline_accuracy": 91.5137614678899,
+  "total_params": 124441344,
+  "target_params": 84934656,
+  "model": "GPT2ForSequenceClassification",
+  "task": "SST-2",
+  "version": "v2-conv1d-fixed",
+  "experiments": [
+    {
+      "K": 256,
+      "block_size": 16,
+      "pre_train_accuracy": 50.8028,
+      "post_train_accuracy": 83.7156,
+      "best_epoch_accuracy": 83.7156,
+      "recovery": 32.9128,
+      "gap_to_baseline": 7.7982,
+      "trainable_params": 319488,
+      "param_compression": 389.5,
+      "codebook_params": 196608,
+      "layers_replaced": 48,
+      "training_time_seconds": 3685.6,
+      "layer_info": [
+        {
+          "name": "transformer.h.0.attn.c_attn",
+          "K": 256,
+          "blocks": 110592,
+          "block_size": 16,
+          "cb_params": 4096,
+          "shape": [
+            768,
+            2304
+          ]
+        },
+        {
+          "name": "transformer.h.0.attn.c_proj",
+          "K": 256,
+          "blocks": 36864,
+          "block_size": 16,
+          "cb_params": 4096,
+          "shape": [
+            768,
+            768
+          ]
+        },
+        {
+          "name": "transformer.h.0.mlp.c_fc",
+          "K": 256,
+          "blocks": 147456,
+          "block_size": 16,
+          "cb_params": 4096,
+          "shape": [
+            768,
+            3072
+          ]
+        },
+        {
+          "name": "transformer.h.0.mlp.c_proj",
+          "K": 256,
+          "blocks": 147456,
+          "block_size": 16,
+          "cb_params": 4096,
+          "shape": [
+            3072,
+            768
+          ]
+        }
+      ],
+      "epochs": [
+        {
+          "epoch": 1,
+          "accuracy": 78.555,
+          "loss": 0.427465,
+          "delta_pre": 27.7523,
+          "delta_base": -12.9587,
+          "epoch_seconds": 736.7
+        },
+        {
+          "epoch": 2,
+          "accuracy": 82.2248,
+          "loss": 0.326034,
+          "delta_pre": 31.422,
+          "delta_base": -9.289,
+          "epoch_seconds": 736.1
+        },
+        {
+          "epoch": 3,
+          "accuracy": 81.1927,
+          "loss": 0.2912,
+          "delta_pre": 30.3899,
+          "delta_base": -10.3211,
+          "epoch_seconds": 737.3
+        },
+        {
+          "epoch": 4,
+          "accuracy": 82.9128,
+          "loss": 0.257963,
+          "delta_pre": 32.1101,
+          "delta_base": -8.6009,
+          "epoch_seconds": 737.5
+        },
+        {
+          "epoch": 5,
+          "accuracy": 83.7156,
+          "loss": 0.237311,
+          "delta_pre": 32.9128,
+          "delta_base": -7.7982,
+          "epoch_seconds": 738.0
+        }
+      ]
+    },
+    {
+      "K": 512,
+      "block_size": 32,
+      "pre_train_accuracy": 50.9174,
+      "post_train_accuracy": 83.3716,
+      "best_epoch_accuracy": 84.289,
+      "recovery": 32.4542,
+      "gap_to_baseline": 8.1422,
+      "trainable_params": 909312,
+      "param_compression": 136.85,
+      "codebook_params": 786432,
+      "layers_replaced": 48,
+      "training_time_seconds": 3575.7,
+      "layer_info": [
+        {
+          "name": "transformer.h.0.attn.c_attn",
+          "K": 512,
+          "blocks": 55296,
+          "block_size": 32,
+          "cb_params": 16384,
+          "shape": [
+            768,
+            2304
+          ]
+        },
+        {
+          "name": "transformer.h.0.attn.c_proj",
+          "K": 512,
+          "blocks": 18432,
+          "block_size": 32,
+          "cb_params": 16384,
+          "shape": [
+            768,
+            768
+          ]
+        },
+        {
+          "name": "transformer.h.0.mlp.c_fc",
+          "K": 512,
+          "blocks": 73728,
+          "block_size": 32,
+          "cb_params": 16384,
+          "shape": [
+            768,
+            3072
+          ]
+        },
+        {
+          "name": "transformer.h.0.mlp.c_proj",
+          "K": 512,
+          "blocks": 73728,
+          "block_size": 32,
+          "cb_params": 16384,
+          "shape": [
+            3072,
+            768
+          ]
+        }
+      ],
+      "epochs": [
+        {
+          "epoch": 1,
+          "accuracy": 81.422,
+          "loss": 0.43502,
+          "delta_pre": 30.5046,
+          "delta_base": -10.0917,
+          "epoch_seconds": 714.7
+        },
+        {
+          "epoch": 2,
+          "accuracy": 83.3716,
+          "loss": 0.327426,
+          "delta_pre": 32.4541,
+          "delta_base": -8.1422,
+          "epoch_seconds": 714.9
+        },
+        {
+          "epoch": 3,
+          "accuracy": 82.2248,
+          "loss": 0.281783,
+          "delta_pre": 31.3073,
+          "delta_base": -9.289,
+          "epoch_seconds": 714.9
+        },
+        {
+          "epoch": 4,
+          "accuracy": 84.289,
+          "loss": 0.244782,
+          "delta_pre": 33.3716,
+          "delta_base": -7.2248,
+          "epoch_seconds": 715.2
+        },
+        {
+          "epoch": 5,
+          "accuracy": 83.3716,
+          "loss": 0.220223,
+          "delta_pre": 32.4541,
+          "delta_base": -8.1422,
+          "epoch_seconds": 716.0
+        }
+      ]
+    }
+  ]
+}

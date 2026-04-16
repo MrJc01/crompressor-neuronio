@@ -1,0 +1,134 @@
+Welcome to vast.ai. If authentication fails, try again after a few seconds, and double check your ssh key.
+Have fun!
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+🖥️  Device: cuda
+    GPU: NVIDIA RTX A4000
+    VRAM: 16.9 GB
+
+======================================================================
+  FASE 1: Preparar dados e modelo baseline
+======================================================================
+  Train: 67,349 amostras, 2105 batches/epoch
+  Val:   872 amostras
+[1mGPT2ForSequenceClassification LOAD REPORT[0m from: gpt2
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+
+  🔧 Treinando baseline (3 epochs)...
+      step 500/2105 loss=0.3949
+      step 1000/2105 loss=0.3411
+      step 1500/2105 loss=0.3116
+      step 2000/2105 loss=0.2932
+    Epoch 1: loss=0.2901 acc=89.22% (747s)
+      step 500/2105 loss=0.1807
+      step 1000/2105 loss=0.1832
+      step 1500/2105 loss=0.1795
+      step 2000/2105 loss=0.1773
+    Epoch 2: loss=0.1769 acc=91.06% (751s)
+      step 500/2105 loss=0.1377
+      step 1000/2105 loss=0.1363
+      step 1500/2105 loss=0.1361
+      step 2000/2105 loss=0.1343
+    Epoch 3: loss=0.1350 acc=91.51% (751s)
+  ✅ Baseline salvo: 91.51%
+  Total params:  124,441,344
+  Target params: 84,934,656 (68.3%)
+  Tipo da camada: Conv1D (weight: torch.Size([768, 2304]))
+
+======================================================================
+  FASE 2: Codebook Learning (Conv1D corrigido)
+======================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  K=256, Block=16
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[1mGPT2ForSequenceClassification LOAD REPORT[0m from: gpt2
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  Layers replaced: 48
+  Codebook params: 196,608
+  Total trainable: 319,488 (389.5x compressão)
+  Pré-treino: 50.80%
+    transformer.h.0.attn.c_attn              K=  256 blocks= 110592 cb=   4,096
+    transformer.h.0.attn.c_proj              K=  256 blocks=  36864 cb=   4,096
+    transformer.h.0.mlp.c_fc                 K=  256 blocks= 147456 cb=   4,096
+    ... +45 camadas
+
+    Ep     Acc%       Loss    Δ Pre   Δ Base   Time
+  --------------------------------------------------
+     1    78.56     0.4275  +27.75%  -12.96%   737s
+     2    82.22     0.3260  +31.42%   -9.29%   736s
+     3    81.19     0.2912  +30.39%  -10.32%   737s
+     4    82.91     0.2580  +32.11%   -8.60%   738s
+     5    83.72     0.2373  +32.91%   -7.80%   738s
+
+  📊 pré=50.80% → pós=83.72% (best=83.72%)
+     Params: 319,488 (389.5x) | Tempo: 3686s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  K=512, Block=32
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[1mGPT2ForSequenceClassification LOAD REPORT[0m from: gpt2
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  Layers replaced: 48
+  Codebook params: 786,432
+  Total trainable: 909,312 (136.9x compressão)
+  Pré-treino: 50.92%
+    transformer.h.0.attn.c_attn              K=  512 blocks=  55296 cb=  16,384
+    transformer.h.0.attn.c_proj              K=  512 blocks=  18432 cb=  16,384
+    transformer.h.0.mlp.c_fc                 K=  512 blocks=  73728 cb=  16,384
+    ... +45 camadas
+
+    Ep     Acc%       Loss    Δ Pre   Δ Base   Time
+  --------------------------------------------------
+     1    81.42     0.4350  +30.50%  -10.09%   715s
+     2    83.37     0.3274  +32.45%   -8.14%   715s
+     3    82.22     0.2818  +31.31%   -9.29%   715s
+     4    84.29     0.2448  +33.37%   -7.22%   715s
+     5    83.37     0.2202  +32.45%   -8.14%   716s
+
+  📊 pré=50.92% → pós=83.37% (best=84.29%)
+     Params: 909,312 (136.9x) | Tempo: 3576s
+
+======================================================================
+  🏆 VEREDICTO — CODEBOOK LEARNING EM GPT-2 TRANSFORMER
+======================================================================
+
+  Baseline:    91.51% (124,441,344 params)
+  Codebook:    83.72% (319,488 params)
+  Compressão:  389.5x
+  Gap:         +7.80%
+  Layers:      48 Conv1D substituídas
+  CB params:   196,608
+
+  📊 Evolução da Tese:
+    Exp                     Base      CB     Gap     Comp
+    ----------------------------------------------------
+    MNIST MLP             97.53%  97.56%  +0.03%    40.8x
+    CIFAR-10 CNN          77.86%  77.66%  -0.20%   145.3x
+    GPT-2 Transformer     91.51%  83.72%  +7.80%   389.5x
+
+  ⚠️  Recovery moderado (91.5% do baseline)
+
+      K   B    Pre%   Post%   Best%   Params    Comp  Layers
+  ------------------------------------------------------------
+    256  16   50.80   83.72   83.72  319,488  389.5x      48
+    512  32   50.92   83.37   84.29  909,312  136.8x      48
+
+💾 Resultados salvos em: ./resultados/exp5_learning_results_v2.json
+
+📋 Para copiar resultados:
+   cat ./resultados/exp5_learning_results_v2.json
