@@ -25,6 +25,7 @@ pesquisas/tensor-vivo/dados/*.pt
 pesquisas/tensor-vivo/dados/_tmp_*
 pesquisas/dados/*.json
 !pesquisas/dados/.gitkeep
+!pesquisas/dados/relatorios/*
 
 # ── Resultados Experimentais (manter JSONs de resultado) ──
 # Os .json de resultados SÃO versionados (dados científicos)
