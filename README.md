@@ -21,6 +21,7 @@
 | Componente | O Que Funciona | O Que é PoC/Stub |
 |:---|:---|:---|
 | **Tensor-Vivo** (pesquisa ativa) | ✅ Codebook Learning: 97.56% acc com 40.8x compressão | CDC hash exato (não encontra dedup) |
+| **Pesquisa0** (5D Neural) | ✅ 12/12 labs, 103/124 items, GPU validado | Migração Go pendente |
 | **Cérebro-FUSE** (pausado) | ✅ FUSE driver real, FastCDC sobre GGUF, UI cockpit | Formato .crom binário, FUSE lazy read |
 | **Testes Go** | ✅ 17 testes + 5 benchmarks (Shannon, XOR, Merkle) | VQ Delta (fake), "HNSW" (é brute-force) |
 | **Segurança** | ✅ Ed25519 sign/seal funcional | Dilithium PQC (placeholder) |
@@ -44,13 +45,29 @@
 
 > **Veredicto:** O Codebook do Crompressor **é um espaço de aprendizado viável**. Funciona como um "LoRA no espaço comprimido".
 
+### 🔬 Pesquisa0 — *Motor 5D de Inferência Ativa* `[ATIVO — 83% completo]`
+
+> **Pergunta:** E se o Crompressor fosse o motor de simulação de um agente que pensa em branches de futuro?
+
+**12 laboratórios experimentais validados:**
+
+| Lab | Resultado Principal |
+|:---|:---|
+| Lab01 — FPS Computacional | IA opera a 14.303x vs humano |
+| Lab03 — World Model | Erro < 5%, Energia Livre converge |
+| Lab06 — KV Cache Codebook | **94.2% redução real (GPT-2, Tesla T4)** |
+| Lab07 — Delta Branches | 99.9% economia de memória |
+| Lab10 — Active Inference | 12.7x speedup sobre random |
+
+> **Score:** 13 hipóteses confirmadas, 1 parcial, 0 refutadas
+
 ```
-pesquisas/tensor-vivo/
-├── CONCLUSOES.md              # Veredicto final com dados
-├── exp0_analise_estrutural/   # CDC sobre pesos (H1: refutada)
-├── exp1_roundtrip/            # Codebook quantization (H2: ✅)
-├── exp2_codebook_learning/    # Codebook learning (H3: ✅✅)
-└── dados/                     # JSONs com resultados
+pesquisa0/
+├── PLANEJAMENTO.md        # Checklist 124 itens (103 completos)
+├── CONCLUSOES.md          # Veredicto final
+├── labs/                  # 12 laboratórios + 3 blitz scripts
+├── papers/                # papel0.md, papel1.md, papel2.md, papel3.md
+└── resultados/            # JSONs de todos os experimentos
 ```
 
 ### ⚡ Cérebro-FUSE — *LLMs inteiros como neurônios via FUSE* `[PAUSADO]`

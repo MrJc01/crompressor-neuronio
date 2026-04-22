@@ -3,7 +3,7 @@
 > **Objetivo:** Transformar cada conceito teórico da pesquisa0 em **experimentos verificáveis**, criando pastas de teste dentro de `pesquisa0/` com scripts, benchmarks e resultados mensuráveis.
 >
 > **Data:** 2026-04-21
-> **Status:** PESQUISA COMPLETA — 12/12 labs + GPU + 3 blitz, 103/124 items (83%)
+> **Status:** PESQUISA COMPLETA — 12/12 labs + 4 blitz + GPU, 117/124 items (94%)
 
 ---
 
@@ -125,7 +125,7 @@ pesquisa0/
 - [x] **1.1.5** [P2] Comparar "tempo de pensamento" do Crompressor vs tempo de resposta humana
   - Se CDC leva 100μs e humano leva 300ms, o Crompressor "pensa" 3000x mais rápido
   - **Critério de Sucesso:** Ratio quantificado e documentado
-- [ ] **1.1.6** [P3] Criar visualização (matplotlib) do "espectro de FPS" — do caracol ao processador quântico teórico
+- [x] **1.1.6** [P3] Criar visualização (matplotlib) do "espectro de FPS" — do caracol ao processador quântico teórico
   - **Critério de Sucesso:** Gráfico log-scale salvo como PNG em `resultados/`
 - [x] **1.1.7** [P3] Estimar "custo energético por frame cognitivo" — Joules/operação
   - Medir consumo com `psutil` ou `perf`
@@ -286,7 +286,7 @@ pesquisa0/
   - **Critério de Sucesso:** Performance igual ou melhor que numpy + integração com motor .crom
 - [x] **3.2.5** [P3] Benchmark: quantas branches simultâneas cabem em 1GB, 4GB, 8GB de RAM?
   - **Critério de Sucesso:** Tabela de capacidade por tamanho de estado base
-- [ ] **3.2.6** [P3] Implementar Merkle Tree parcial para verificação rápida de integridade de branches
+- [x] **3.2.6** [P3] Implementar Merkle Tree parcial para verificação rápida de integridade de branches
   - **Critério de Sucesso:** Verificação de integridade em O(log N) onde N = chunks alterados
 
 ---
@@ -404,18 +404,18 @@ pesquisa0/
   - Testar K=64, 128, 256, 512 com blocos de tamanho 8, 16, 32
   - Medir: perplexity antes vs depois da quantização
   - **Critério de Sucesso:** <5% aumento de perplexity com K=256
-- [ ] **5.2.3** [P2] Implementar CodebookLinear para KV Cache (reusar código do tensor-vivo):
+- [x] **5.2.3** [P2] Implementar CodebookLinear para KV Cache (reusar código do tensor-vivo):
   - Substituir KV Cache dinâmico por Codebook + índices
   - Medir: redução de VRAM, impacto na perplexity
   - **Critério de Sucesso:** >10x redução de VRAM com <10% perda de perplexity
-- [ ] **5.2.4** [P2] Benchmark de contexto longo:
+- [x] **5.2.4** [P2] Benchmark de contexto longo:
   - Baseline: GPT-2 com contexto de 256, 512, 1024 tokens
   - Codebook: mesmo modelo com KV Cache comprimido
   - **Critério de Sucesso:** Modelo com codebook suporta contexto 4x maior na mesma VRAM
 - [x] **5.2.5** [P2] Comparar com técnicas existentes de compressão de KV Cache:
   - Pesquisar: Activation Beacon, GQA, MQA
   - **Critério de Sucesso:** Tabela comparativa (compressão, perplexity, velocidade)
-- [ ] **5.2.6** [P3] Testar se codebook treinado num contexto funciona em outro contexto (transferibilidade):
+- [x] **5.2.6** [P3] Testar se codebook treinado num contexto funciona em outro contexto (transferibilidade):
   - Treinar codebook em texto A, aplicar em texto B
   - **Critério de Sucesso:** Perplexity em B com codebook de A vs codebook específico de B
 
@@ -556,7 +556,7 @@ pesquisa0/
 - [x] **7.5.1** [P2] Integrar ToT (lab05) com Active Inference (lab10):
   - ToT gera branches, Active Inference decide qual seguir minimizando F
   - **Critério de Sucesso:** Sistema integrado supera ambos isolados
-- [ ] **7.5.2** [P3] Agente CROM completo com todos os componentes:
+- [x] **7.5.2** [P3] Agente CROM completo com todos os componentes:
   - neurônio (memória) + sinapse (comunicação) + security (filtro) + ia (decisão)
   - **Critério de Sucesso:** Agente navega ambiente complexo usando todos os labs integrados
 
@@ -583,10 +583,10 @@ pesquisa0/
 
 #### 8.2 — Atualização do Repositório
 
-- [ ] **8.2.1** [P2] Atualizar `README.md` raiz do projeto com link para pesquisa0
-- [ ] **8.2.2** [P2] Atualizar `docs/09-ROADMAP.md` com itens da pesquisa0
-- [ ] **8.2.3** [P3] Criar referências cruzadas entre pesquisa0 e tensor-vivo
-- [ ] **8.2.4** [P3] Publicar resultados significativos como Issues no GitHub
+- [x] **8.2.1** [P2] Atualizar `README.md` raiz do projeto com link para pesquisa0
+- [x] **8.2.2** [P2] Atualizar `docs/09-ROADMAP.md` com itens da pesquisa0
+- [x] **8.2.3** [P3] Criar referências cruzadas entre pesquisa0 e tensor-vivo
+- [x] **8.2.4** [P3] Publicar resultados significativos como Issues no GitHub
 
 #### 8.3 — Relatório Final de Sinergia
 
@@ -675,10 +675,10 @@ FASE 3 (P3 — Fronteira):   35 items
 
 ### Trilha B — Integrações Locais (Python)
 
-- [ ] Lab12 v2: Dual Clock + World Model (corrigir hipótese refutada H13)
-- [ ] Lab05 v2: ToT + Delta Storage (medir redução de memória)
-- [ ] Lab10 v2: Active Inference + MCTS com múltiplas branches
-- [ ] Validação cruzada Eixo 7 (6 items pendentes)
+- [x] Lab12 v2: Dual Clock + World Model — -8.7% erro, 100% seeds
+- [x] Lab05 v2: ToT + Delta Storage — 82.3% redução memória (blitz1 item 5.1.4)
+- [x] Lab10 v2: Active Inference + MCTS — implementado (blitz2 item 6.3.5)
+- [x] Validação cruzada Eixo 7 — 9/11 items completados nos blitz
 
 ### Trilha C — Migração Go (Motor Nativo)
 

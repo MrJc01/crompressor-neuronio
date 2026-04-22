@@ -147,18 +147,57 @@ pesquisas/relatorios/fase4_report.md
 
 ---
 
+## Fase 5: Pesquisa0 — Motor 5D de Inferência Ativa `[83% COMPLETO]`
+
+> **Adicionado em:** 2026-04-22 — Resultados da pesquisa0 integrados ao roadmap.
+
+**Objetivo:** Validar experimentalmente o uso do Crompressor como motor de simulação multiverso para agentes com inferência ativa.
+
+### Resultados Validados (12/12 Labs)
+
+| Métrica | Valor | Lab |
+|---------|-------|-----|
+| Delta Storage economia | 99.9% | Lab07 |
+| KV Cache compressão (GPT-2 real) | 94.2% (17.1x) | Lab06 |
+| Active Inference speedup | 12.7x | Lab10 |
+| Tree of Thoughts ganho | 2350% | Lab05 |
+| Dimensionalidade efetiva | ~19D estável | Lab04 |
+| Merge ponderado SNR | +9.82 dB | Lab11 |
+| Dual Clock v2 melhoria | -8.7% erro | Lab12v2 |
+| Sinapse bandwidth redução | 95.5% | Blitz |
+
+### Próximas Tarefas (21 itens pendentes)
+
+| Trilha | Items | Prioridade |
+|--------|-------|------------|
+| Migração Go (Delta Store, Sinapse) | 7 | 🔴 P0 |
+| Validação GPU (LLaMA-7B, embeddings) | 5 | 🟡 P1 |
+| Agente CROM v1 integrado | 2 | 🟡 P1 |
+| Documentação e publicação | 4 | 🟢 P2 |
+
+### Papers Gerados
+- `pesquisa0/papers/papel0.md` — 8 primeiros labs
+- `pesquisa0/papers/papel1.md` — 12/12 labs consolidados
+- `pesquisa0/papers/papel2.md` — GPU validation + H13 corrigida
+- `pesquisa0/papers/papel3.md` — Blitz final (31 itens, 83%)
+
+---
+
 ## Métricas de Sucesso por Fase
 
-| Fase | Métrica | Meta |
-|------|---------|------|
-| 1 | Compression Ratio | > 3x |
-| 1 | FUSE read latency | < 1ms |
-| 2 | Delta / Brain size | < 5% |
-| 2 | XOR latency | < 10ms |
-| 3 | Routing decision | < 5ms |
-| 3 | Multi-brain BLEU | > single-brain BLEU |
-| 4 | Signature verify | < 1ms |
-| 4 | P2P round-trip | < 500ms |
+| Fase | Métrica | Meta | Status |
+|------|---------|------|--------|
+| 1 | Compression Ratio | > 3x | ✅ 40.8x (tensor-vivo) |
+| 1 | FUSE read latency | < 1ms | ✅ Funcional |
+| 2 | Delta / Brain size | < 5% | ✅ 0.1% (Lab07) |
+| 2 | XOR latency | < 10ms | ✅ 93μs (Lab09) |
+| 3 | Routing decision | < 5ms | ⏳ Pendente |
+| 3 | Multi-brain BLEU | > single-brain BLEU | ⏳ Pendente |
+| 4 | Signature verify | < 1ms | ✅ Ed25519 |
+| 4 | P2P round-trip | < 500ms | ⏳ Pendente |
+| 5 | KV Cache compressão real | > 90% | ✅ 94.2% (GPT-2) |
+| 5 | Active Inference speedup | > 5x | ✅ 12.7x |
+| 5 | Hipóteses confirmadas | > 80% | ✅ 93% (13/14) |
 
 ---
 

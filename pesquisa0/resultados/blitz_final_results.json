@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T12:15:16.941531"
+  },
+  "items": {
+    "1.1.6": {
+      "Caracol": 0.25,
+      "Tartaruga": 1,
+      "Humano": 60,
+      "Mosca": 250,
+      "Falcão": 150,
+      "CPU i5": 1000000000.0,
+      "GPU T4": 65000000000000.0,
+      "SHA-256 Lab01": 47675,
+      "Teórico quântico": 1e+18
+    },
+    "3.2.6": {
+      "chunks": 64,
+      "build_ms": 0.957,
+      "verify_ms": 7.752,
+      "detectou_mudanca": true,
+      "steps_verificacao": 6
+    },
+    "5.2.3": {
+      "K": 256,
+      "in_dim": 64,
+      "out_dim": 768,
+      "forward_ms": 12.226,
+      "ratio": 2.9
+    },
+    "5.2.4": {
+      "256": {
+        "seq_len": 256,
+        "original_KB": 18432.0,
+        "codebook_KB": 1680.0
+      },
+      "512": {
+        "seq_len": 512,
+        "original_KB": 36864.0,
+        "codebook_KB": 1824.0
+      },
+      "1024": {
+        "seq_len": 1024,
+        "original_KB": 73728.0,
+        "codebook_KB": 2112.0
+      },
+      "2048": {
+        "seq_len": 2048,
+        "original_KB": 147456.0,
+        "codebook_KB": 2688.0
+      },
+      "4096": {
+        "seq_len": 4096,
+        "original_KB": 294912.0,
+        "codebook_KB": 3840.0
+      }
+    },
+    "5.2.6": {
+      "mse_treino": 0.616653,
+      "mse_transfer": 1.447558,
+      "degradacao_pct": 134.7,
+      "transferivel": false
+    },
+    "7.5.2": {
+      "steps": 200,
+      "tempo_total_ms": 954.0,
+      "erro_medio": 0.172991,
+      "branches_exploradas": 1000,
+      "alucinacoes_bloqueadas": 155,
+      "pipeline": "Sensor→WorldModel→BranchEngine(5×3)→Decision(weighted)→Firewall"
+    }
+  }
+}
