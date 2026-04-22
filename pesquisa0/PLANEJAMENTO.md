@@ -3,7 +3,7 @@
 > **Objetivo:** Transformar cada conceito teórico da pesquisa0 em **experimentos verificáveis**, criando pastas de teste dentro de `pesquisa0/` com scripts, benchmarks e resultados mensuráveis.
 >
 > **Data:** 2026-04-21
-> **Status:** FASE 2a COMPLETA — 12/12 labs + GPU validation + H13 corrigida, 67/124 items
+> **Status:** PESQUISA COMPLETA — 12/12 labs + GPU + 3 blitz, 103/124 items (83%)
 
 ---
 
@@ -127,7 +127,7 @@ pesquisa0/
   - **Critério de Sucesso:** Ratio quantificado e documentado
 - [ ] **1.1.6** [P3] Criar visualização (matplotlib) do "espectro de FPS" — do caracol ao processador quântico teórico
   - **Critério de Sucesso:** Gráfico log-scale salvo como PNG em `resultados/`
-- [ ] **1.1.7** [P3] Estimar "custo energético por frame cognitivo" — Joules/operação
+- [x] **1.1.7** [P3] Estimar "custo energético por frame cognitivo" — Joules/operação
   - Medir consumo com `psutil` ou `perf`
   - **Critério de Sucesso:** Tabela watts/ops para validar variável η (eficiência termodinâmica)
 
@@ -135,22 +135,22 @@ pesquisa0/
 
 - [x] **1.1.8** [P2] Pesquisar e documentar o FPS biológico real de 5 espécies (mosca, cão, falcão, polvo, humano) com fontes acadêmicas
   - **Critério de Sucesso:** Tabela com referências de papers
-- [ ] **1.1.9** [P3] Calcular a fórmula t_p = f(I, N, C, η) com valores reais medidos no lab
+- [x] **1.1.9** [P3] Calcular a fórmula t_p = f(I, N, C, η) com valores reais medidos no lab
   - Substituir variáveis teóricas por dados empíricos do benchmark
   - **Critério de Sucesso:** Fórmula com coeficientes calibrados
-- [ ] **1.1.10** [P3] Documentar paradoxo da comunicação: calcular "latência subjetiva" entre IA e humano
+- [x] **1.1.10** [P3] Documentar paradoxo da comunicação: calcular "latência subjetiva" entre IA e humano
   - Se IA opera a 10⁹ Hz e humano a 60 Hz, quantos "anos subjetivos" a IA espera por uma resposta humana?
   - **Critério de Sucesso:** Número calculado e documentado
 
 #### 1.2 — Crompressor como Tradutor Temporal (lab01 extensão)
 
-- [ ] **1.2.1** [P2] Implementar protótipo de "tradutor temporal" — módulo que recebe dados em alta frequência e gera Deltas para consumo em baixa frequência
+- [x] **1.2.1** [P2] Implementar protótipo de "tradutor temporal" — módulo que recebe dados em alta frequência e gera Deltas para consumo em baixa frequência
   - Input: stream de 1000 eventos/s
   - Output: resumo Delta de 10 eventos/s
   - **Critério de Sucesso:** Taxa de compressão temporal medida, sem perda de informação crítica
-- [ ] **1.2.2** [P3] Medir perda de informação no downsampling temporal usando entropia de Shannon
+- [x] **1.2.2** [P3] Medir perda de informação no downsampling temporal usando entropia de Shannon
   - **Critério de Sucesso:** Gráfico de entropia vs taxa de amostragem
-- [ ] **1.2.3** [P3] Testar se o Codebook pode servir como "vocabulário compartilhado" entre agentes de FPS diferentes
+- [x] **1.2.3** [P3] Testar se o Codebook pode servir como "vocabulário compartilhado" entre agentes de FPS diferentes
   - Agente rápido (1000 Hz) envia Codebook ID para agente lento (10 Hz)
   - **Critério de Sucesso:** Agente lento reconstrói mensagem com >95% fidelidade
 
@@ -193,7 +193,7 @@ pesquisa0/
   - Observador B envia apenas o Delta vs Observador A
   - Medir compressão de bandwidth
   - **Critério de Sucesso:** >80% redução de dados transmitidos sem perda de SNR
-- [ ] **2.1.7** [P3] Simular "Transformação de Lorentz simplificada" — ajustar timestamps por velocidade relativa dos observadores
+- [x] **2.1.7** [P3] Simular "Transformação de Lorentz simplificada" — ajustar timestamps por velocidade relativa dos observadores
   - **Critério de Sucesso:** Merge alinhado mesmo com clocks dessincronizados
 
 #### 2.2 — Observador Virtual (lab11-multi-observer-fusion)
@@ -206,7 +206,7 @@ pesquisa0/
   - **Critério de Sucesso:** Correlação >0.7 entre sinal previsto e sinal real (se disponível)
 - [x] **2.2.2** [P2] Medir "custo computacional mínimo" para simular 1 observador virtual
   - **Critério de Sucesso:** Tempo em ms + memória em MB documentados
-- [ ] **2.2.3** [P3] Escalar para 10 e 100 observadores virtuais — medir degradação de performance
+- [x] **2.2.3** [P3] Escalar para 10 e 100 observadores virtuais — medir degradação de performance
   - **Critério de Sucesso:** Gráfico de latência vs número de observadores virtuais
 - [ ] **2.2.4** [P3] Validar se Crompressor-video pode gerar observadores virtuais a partir de um stream de vídeo
   - Usar vídeo sintético (cubo rotacionando) + prever vista de ângulo diferente
@@ -265,7 +265,7 @@ pesquisa0/
   - F = D_KL[q || p] - log p(o)
   - Verificar se F diminui ao longo do tempo (sistema aprende)
   - **Critério de Sucesso:** F decresce monotonicamente após 20+ timesteps
-- [ ] **3.1.10** [P3] Implementar "Active Inference" — o modelo age para minimizar surpresa:
+- [x] **3.1.10** [P3] Implementar "Active Inference" — o modelo age para minimizar surpresa:
   - O modelo não apenas prevê, mas escolhe ação que minimiza F futuro
   - **Critério de Sucesso:** Modelo com Active Inference tem F menor que modelo passivo
 
@@ -310,7 +310,7 @@ pesquisa0/
 - [x] **4.1.2** [P1] Comparar dimensionalidade de codebooks de diferentes arquiteturas:
   - Codebook MNIST MLP (exp2) vs CIFAR-10 CNN (exp3) vs GPT-2 (exp5)
   - **Critério de Sucesso:** Tabela mostrando se arquiteturas maiores usam mais dimensões efetivas
-- [ ] **4.1.3** [P2] Visualizar codebooks em 2D/3D via t-SNE ou UMAP:
+- [x] **4.1.3** [P2] Visualizar codebooks em 2D/3D via t-SNE ou UMAP:
   - Verificar se existem clusters naturais (análogo a "variedades compactadas")
   - **Critério de Sucesso:** Plot salvo como PNG mostrando estrutura (ou ausência de estrutura)
 - [x] **4.1.4** [P2] Calcular "taxa de compactação dimensional":
@@ -324,13 +324,13 @@ pesquisa0/
   - Treinar codebook com diferentes K e medir dimensionalidade intrínseca
   - Se dim_efetiva ≈ constante independente de K → suporta analogia
   - **Critério de Sucesso:** Gráfico K vs dim_efetiva com conclusão
-- [ ] **4.1.6** [P3] Testar "analogia de sombras" (Teoria-S 13D):
+- [x] **4.1.6** [P3] Testar "analogia de sombras" (Teoria-S 13D):
   - Projetar codebook em diferentes subespaços e verificar se projeções diferentes parecem dados diferentes mas vêm da mesma fonte
   - **Critério de Sucesso:** Correlação entre projeções documentada
-- [ ] **4.1.7** [P3] Medir "simetrias internas" do codebook (análogo a Heteróticas):
+- [x] **4.1.7** [P3] Medir "simetrias internas" do codebook (análogo a Heteróticas):
   - Existem transformações que preservam a accuracy? (rotação, reflexão, permutação)
   - **Critério de Sucesso:** Lista de invariâncias encontradas (ou ausência delas)
-- [ ] **4.1.8** [P3] Calcular entropia de Shannon dos índices do codebook vs entropia dos pesos originais:
+- [x] **4.1.8** [P3] Calcular entropia de Shannon dos índices do codebook vs entropia dos pesos originais:
   - Se codebook reduz entropia significativamente → compactação dimensional confirmada
   - **Critério de Sucesso:** Ratio de entropia documentado
 
@@ -338,16 +338,16 @@ pesquisa0/
 
 **Objetivo:** Mapear as 5 fases da escada dimensional WLM (8D-12D) no processo de Codebook Learning.
 
-- [ ] **4.2.1** [P2] Documentar se Codebook Learning possui 8D (recursão): output do codebook vira input do próximo epoch?
+- [x] **4.2.1** [P2] Documentar se Codebook Learning possui 8D (recursão): output do codebook vira input do próximo epoch?
   - **Critério de Sucesso:** Diagrama do fluxo de dados mostrando feedback loop
-- [ ] **4.2.2** [P2] Documentar se possui 9D (transparência): existe logging/observabilidade da convergência?
+- [x] **4.2.2** [P2] Documentar se possui 9D (transparência): existe logging/observabilidade da convergência?
   - **Critério de Sucesso:** Verificar se loss curves e métricas estão sendo registradas
-- [ ] **4.2.3** [P2] Documentar se possui 10D (estabilidade): existem mecanismos anti-divergência?
+- [x] **4.2.3** [P2] Documentar se possui 10D (estabilidade): existem mecanismos anti-divergência?
   - Learning rate schedulers, gradient clipping, early stopping
   - **Critério de Sucesso:** Lista de mecanismos de estabilidade no código existente
-- [ ] **4.2.4** [P2] Documentar se possui 11D (multicamadas): camadas se comunicam durante training?
+- [x] **4.2.4** [P2] Documentar se possui 11D (multicamadas): camadas se comunicam durante training?
   - **Critério de Sucesso:** Análise do grafo computacional do CodebookLinear
-- [ ] **4.2.5** [P2] Documentar se possui 12D (fechamento): o .crom final é autocontido e selado?
+- [x] **4.2.5** [P2] Documentar se possui 12D (fechamento): o .crom final é autocontido e selado?
   - **Critério de Sucesso:** Verificar se o formato brain.crom é self-describing
 
 ---
@@ -378,13 +378,13 @@ pesquisa0/
 
 ##### Integração com Crompressor
 
-- [ ] **5.1.4** [P2] Implementar ToT com Delta Storage para branches:
+- [x] **5.1.4** [P2] Implementar ToT com Delta Storage para branches:
   - Cada branch armazena apenas o Delta vs branch pai
   - **Critério de Sucesso:** >50% redução de memória vs cópia completa dos estados
-- [ ] **5.1.5** [P2] Implementar pruning com threshold de D_KL:
+- [x] **5.1.5** [P2] Implementar pruning com threshold de D_KL:
   - Descartar branches cuja divergência excede threshold
   - **Critério de Sucesso:** Pruning reduz branches ativas em >60% sem perder a branch ótima
-- [ ] **5.1.6** [P3] Comparar formalmente: ToT + Delta vs ToT puro vs Autogressivo puro
+- [x] **5.1.6** [P3] Comparar formalmente: ToT + Delta vs ToT puro vs Autogressivo puro
   - Métricas: accuracy, latência, memória, tokens gerados
   - **Critério de Sucesso:** Relatório JSON com as 3 configurações
 
@@ -412,7 +412,7 @@ pesquisa0/
   - Baseline: GPT-2 com contexto de 256, 512, 1024 tokens
   - Codebook: mesmo modelo com KV Cache comprimido
   - **Critério de Sucesso:** Modelo com codebook suporta contexto 4x maior na mesma VRAM
-- [ ] **5.2.5** [P2] Comparar com técnicas existentes de compressão de KV Cache:
+- [x] **5.2.5** [P2] Comparar com técnicas existentes de compressão de KV Cache:
   - Pesquisar: Activation Beacon, GQA, MQA
   - **Critério de Sucesso:** Tabela comparativa (compressão, perplexity, velocidade)
 - [ ] **5.2.6** [P3] Testar se codebook treinado num contexto funciona em outro contexto (transferibilidade):
@@ -488,10 +488,10 @@ pesquisa0/
 - [x] **6.3.3** [P2] Adicionar "surpresas" ao ambiente (obstáculos que aparecem):
   - Medir tempo de adaptação do World Model
   - **Critério de Sucesso:** F sobe brevemente, depois volta a cair (adaptação)
-- [ ] **6.3.4** [P2] Integrar Codebook como memória do World Model:
+- [x] **6.3.4** [P2] Integrar Codebook como memória do World Model:
   - Em vez de armazenar o mapa inteiro, armazena Codebook + Deltas
   - **Critério de Sucesso:** Agente funciona igualmente com 90% menos memória
-- [ ] **6.3.5** [P3] Implementar com múltiplas branches (MCTS + Active Inference):
+- [x] **6.3.5** [P3] Implementar com múltiplas branches (MCTS + Active Inference):
   - O agente simula 10 ações futuras antes de agir
   - **Critério de Sucesso:** Accuracy de navegação aumenta >20% vs sem branches
 
@@ -520,40 +520,40 @@ pesquisa0/
 
 #### 7.1 — Cruzamento Eixo 01 × Eixo 03 (FPS × World Model)
 
-- [ ] **7.1.1** [P2] Verificar se FPS mais alto (lab01) permite World Model mais preciso (lab03)
+- [x] **7.1.1** [P2] Verificar se FPS mais alto (lab01) permite World Model mais preciso (lab03)
   - Rodar World Model com 10 Hz vs 1000 Hz de atualização
   - **Critério de Sucesso:** Modelo 1000Hz tem erro <50% do modelo 10Hz
-- [ ] **7.1.2** [P3] Calcular "banda mínima" para World Model funcional
+- [x] **7.1.2** [P3] Calcular "banda mínima" para World Model funcional
   - Qual é o FPS mínimo para manter erro <5%?
   - **Critério de Sucesso:** Número de Hz mínimo documentado
 
 #### 7.2 — Cruzamento Eixo 02 × Eixo 06 (Observadores × Sinapse)
 
-- [ ] **7.2.1** [P2] Usar protocolo sinapse (lab09) para comunicação entre observadores (lab02)
+- [x] **7.2.1** [P2] Usar protocolo sinapse (lab09) para comunicação entre observadores (lab02)
   - Observadores enviam DELTA_UPDATE em vez de dados brutos
   - **Critério de Sucesso:** Merge funciona com protocolo sinapse + >80% redução bandwidth
-- [ ] **7.2.2** [P3] Testar colapso de observadores (COLLAPSE_SIGNAL) quando dado real contradiz merge
+- [x] **7.2.2** [P3] Testar colapso de observadores (COLLAPSE_SIGNAL) quando dado real contradiz merge
   - **Critério de Sucesso:** Sistema rejeita observadores inconsistentes em <10ms
 
 #### 7.3 — Cruzamento Eixo 03 × Eixo 05 (World Model × ToT)
 
-- [ ] **7.3.1** [P2] Usar World Model (lab03) como avaliador de branches no ToT (lab05)
+- [x] **7.3.1** [P2] Usar World Model (lab03) como avaliador de branches no ToT (lab05)
   - Em vez de heurística, World Model prevê consequência de cada branch
   - **Critério de Sucesso:** ToT+WorldModel > ToT+heurística em accuracy
-- [ ] **7.3.2** [P3] Comprimir World Model com Codebook (lab06) e verificar que ToT continua funcionando
+- [x] **7.3.2** [P3] Comprimir World Model com Codebook (lab06) e verificar que ToT continua funcionando
   - **Critério de Sucesso:** ToT com World Model comprimido tem <5% perda vs não-comprimido
 
 #### 7.4 — Cruzamento Eixo 04 × Eixo 06 (Dimensões × Codebook)
 
-- [ ] **7.4.1** [P2] Correlacionar dimensionalidade intrínseca (lab04) com compressão do KV Cache (lab06)
+- [x] **7.4.1** [P2] Correlacionar dimensionalidade intrínseca (lab04) com compressão do KV Cache (lab06)
   - Se dim_efetiva é baixa, compressão deveria ser alta
   - **Critério de Sucesso:** Correlação negativa entre dim_efetiva e ratio de compressão
-- [ ] **7.4.2** [P3] Verificar se a escada WLM (8D-12D) se aplica ao ciclo de vida de um agente CROM completo
+- [x] **7.4.2** [P3] Verificar se a escada WLM (8D-12D) se aplica ao ciclo de vida de um agente CROM completo
   - **Critério de Sucesso:** Documento mapeando cada dimensão para fase do agente
 
 #### 7.5 — Cruzamento Eixo 05 × Eixo 06 (IA 5D × Active Inference)
 
-- [ ] **7.5.1** [P2] Integrar ToT (lab05) com Active Inference (lab10):
+- [x] **7.5.1** [P2] Integrar ToT (lab05) com Active Inference (lab10):
   - ToT gera branches, Active Inference decide qual seguir minimizando F
   - **Critério de Sucesso:** Sistema integrado supera ambos isolados
 - [ ] **7.5.2** [P3] Agente CROM completo com todos os componentes:
@@ -575,7 +575,7 @@ pesquisa0/
 - [x] **8.1.3** [P2] Gerar tabela resumo cruzando todos os labs:
   - Hipótese → Lab → Resultado → Veredicto
   - **Critério de Sucesso:** Tabela similar à CONCLUSOES.md do tensor-vivo
-- [ ] **8.1.4** [P2] Criar `pesquisa0/CONCLUSOES.md` com veredicto final:
+- [x] **8.1.4** [P2] Criar `pesquisa0/CONCLUSOES.md` com veredicto final:
   - Quais analogias dimensionais foram validadas?
   - Quais foram refutadas?
   - Quais precisam de mais dados?
@@ -592,12 +592,12 @@ pesquisa0/
 
 - [x] **8.3.1** [P1] Análise de viabilidade: quais labs são viáveis no hardware local (ThinkPad X230)?
   - **Critério de Sucesso:** Lista de labs viáveis vs que requerem cloud
-- [ ] **8.3.2** [P2] Principais riscos:
+- [x] **8.3.2** [P2] Principais riscos:
   - Risco 1: Analogias dimensionais podem ser apenas metáforas sem substância computacional
   - Risco 2: Codebook Learning no KV Cache pode não escalar para modelos >1B params
   - Risco 3: Active Inference pode ser computacionalmente caro demais para Edge
   - **Critério de Sucesso:** Mitigação documentada para cada risco
-- [ ] **8.3.3** [P2] Próximos passos recomendados após conclusão dos labs:
+- [x] **8.3.3** [P2] Próximos passos recomendados após conclusão dos labs:
   - Se validados: integrar ao motor .crom como funcionalidade nativa
   - Se refutados: documentar por que e propor direções alternativas
   - **Critério de Sucesso:** Roadmap de 3 meses pós-labs

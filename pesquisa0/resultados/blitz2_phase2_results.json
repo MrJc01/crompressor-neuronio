@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T11:49:11.113334",
+    "seed": 42
+  },
+  "items": {
+    "4.2.1-5_escada_wlm": {
+      "8D_recursao": {
+        "presente": true,
+        "evidencia": "Output do codebook (índices) é usado como input no próximo epoch de treinamento. O loss retroalimenta os centroids.",
+        "componente": "CodebookLinear.forward() → quantize() → straight-through estimator → backward()"
+      },
+      "9D_transparencia": {
+        "presente": true,
+        "evidencia": "Loss curves registradas por epoch. Métricas de accuracy pré/pós quantização são logadas. Labs geram JSONs de resultados.",
+        "componente": "train_codebook.py logs, resultados/*.json"
+      },
+      "10D_estabilidade": {
+        "presente": true,
+        "evidencia": "Learning rate scheduler (StepLR), EMA no codebook update, commitment loss para evitar mode collapse, early stopping implícito.",
+        "componente": "Commitment loss β=0.25, EMA decay=0.99"
+      },
+      "11D_multicamadas": {
+        "presente": true,
+        "evidencia": "CodebookLinear substitui nn.Linear em todas as camadas. Gradientes propagam through quantization via straight-through estimator.",
+        "componente": "Modelo inteiro é quantizado camada por camada, cada uma com codebook independente"
+      },
+      "12D_fechamento": {
+        "presente": true,
+        "evidencia": "Formato .crom é self-describing: contém codebook, índices, metadata, shape info. Pode ser carregado sem o modelo original.",
+        "componente": "brain.crom = {codebooks, indices, architecture_spec, version}"
+      },
+      "conclusao": "Codebook Learning implementa as 5 fases da escada WLM (8D-12D): recursão, transparência, estabilidade, multicamadas e fechamento."
+    },
+    "5.2.5_comparacao_kv_cache": {
+      "tecnicas": {
+        "FP8_Quantization": {
+          "metodo": "Reduzir precisão de FP32 para FP8",
+          "compressao": "4x",
+          "perplexity_loss": "<0.1%",
+          "complexidade": "Baixa (built-in vLLM)",
+          "referencia": "vLLM FP8 KV Cache (2024)"
+        },
+        "KIVI_2bit": {
+          "metodo": "Quantização assimétrica 2-bit (key per-channel, value per-token)",
+          "compressao": "16x",
+          "perplexity_loss": "<1%",
+          "complexidade": "Média",
+          "referencia": "KIVI (NeurIPS 2024)"
+        },
+        "CommVQ_Apple": {
+          "metodo": "Vector Quantization comutativa com RoPE",
+          "compressao": "16-32x",
+          "perplexity_loss": "<2%",
+          "complexidade": "Alta",
+          "referencia": "CommVQ (Apple Research, 2025)"
+        },
+        "KVQuant_NUQ": {
+          "metodo": "Non-Uniform Quantization + dense-and-sparse",
+          "compressao": "8-16x",
+          "perplexity_loss": "<1%",
+          "complexidade": "Alta",
+          "referencia": "KVQuant (SqueezeAILab, NeurIPS 2024)"
+        },
+        "Crompressor_Codebook": {
+          "metodo": "K-Means VQ com codebook fixo",
+          "compressao": "9-49x (K=512-64)",
+          "perplexity_loss": "MSE 0.23-0.63 (proxy)",
+          "complexidade": "Baixa (training-free)",
+          "referencia": "Este trabalho (Lab06, 2026)"
+        }
+      },
+      "vantagem_crompressor": "Training-free, compatível com Delta Storage, integrável com branch engine",
+      "desvantagem_crompressor": "Sem preservação de RoPE (CommVQ é superior para attention), K-Means simples vs NUQ"
+    },
+    "7.2.1_sinapse_observadores": {
+      "n_observadores": 3,
+      "n_steps": 100,
+      "mensagens_total": 300,
+      "bytes_brutos": 120000,
+      "bytes_delta": 5400,
+      "reducao_bandwidth_pct": 95.5,
+      "criterio_80pct": true
+    },
+    "7.3.1_world_model_avaliador_tot": {
+      "n_branches": 10,
+      "solucoes_encontradas": 0,
+      "top3_heuristica": [
+        0,
+        9,
+        1
+      ],
+      "top3_world_model": [
+        0,
+        9,
+        1
+      ],
+      "rankings_concordam": true
+    },
+    "7.5.1_tot_active_inference": {
+      "tot_ai_steps": 26,
+      "tot_ai_chegou": true,
+      "greedy_steps": 18,
+      "greedy_chegou": true,
+      "melhoria_pct": -44.4,
+      "integrado_melhor": false
+    },
+    "8.3.2_riscos": {
+      "R1_analogias_metaforas": {
+        "risco": "Analogias dimensionais podem ser metáforas sem substância computacional",
+        "status": "MITIGADO",
+        "evidencia": "Lab04 mostrou dimensionalidade estável em ~19D (quantificável). Lab12v1 refutou analogia mal implementada, Lab12v2 validou com modelo aprendido.",
+        "mitigacao": "Sempre testar com dados reais e aceitar refutações"
+      },
+      "R2_escala_codebook": {
+        "risco": "Codebook Learning no KV Cache pode não escalar para modelos >1B params",
+        "status": "PARCIALMENTE MITIGADO",
+        "evidencia": "GPT-2 (124M) validado com 94% redução. Extrapolação teórica mostra 170x para 7B.",
+        "mitigacao": "Validar com LLaMA-7B no Colab Pro. CommVQ da Apple mostra que VQ escala até 128k contexto."
+      },
+      "R3_active_inference_edge": {
+        "risco": "Active Inference computacionalmente caro para Edge",
+        "status": "MITIGADO",
+        "evidencia": "Lab10 rodou em CPU puro com 38 steps. MCTS com 10 simulações adiciona overhead mínimo.",
+        "mitigacao": "Limitar profundidade de busca e número de branches em Edge"
+      },
+      "R4_detector_recall": {
+        "risco": "Detector de alucinação com recall de 68% deixa passar 32% de alucinações",
+        "status": "ABERTO",
+        "evidencia": "N-gramas são insuficientes para semântica. Embeddings necessários.",
+        "mitigacao": "Implementar Lab08 v2 com sentence-transformers"
+      }
+    },
+    "8.3.3_roadmap_pos_labs": {
+      "mes_1": {
+        "foco": "Migração Go + Agente CROM v1",
+        "items": [
+          "Portar Delta Branch Store para Go nativo",
+          "Portar Protocolo Sinapse para goroutines",
+          "Integrar com motor .crom existente",
+          "Agente CROM v1 (sensores→WM→branches→decisão→firewall)"
+        ]
+      },
+      "mes_2": {
+        "foco": "Validação em escala + KV Cache real",
+        "items": [
+          "Validar Lab06 com LLaMA-7B (Colab Pro)",
+          "Implementar CommVQ-style codebook com RoPE awareness",
+          "Benchmark end-to-end: agente CROM em ambiente complexo",
+          "Detector alucinação v2 com embeddings semânticos"
+        ]
+      },
+      "mes_3": {
+        "foco": "Publicação + Open Source",
+        "items": [
+          "Publicar resultados como paper técnico",
+          "Open source do framework experimental",
+          "Criar benchmark suite reproduzível",
+          "Documentar API do Agente CROM"
+        ]
+      }
+    }
+  }
+}

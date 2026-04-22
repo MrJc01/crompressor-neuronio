@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T11:46:37.771661",
+    "seed": 42
+  },
+  "items": {
+    "1.1.7_custo_energetico": {
+      "Intel i5 (laptop)": {
+        "watts": 15,
+        "ops_por_segundo": 1000000000.0,
+        "joules_por_op": "1.50e-08",
+        "ops_por_joule": "6.67e+07"
+      },
+      "Intel Xeon (server)": {
+        "watts": 150,
+        "ops_por_segundo": 50000000000.0,
+        "joules_por_op": "3.00e-09",
+        "ops_por_joule": "3.33e+08"
+      },
+      "NVIDIA T4": {
+        "watts": 70,
+        "ops_por_segundo": 65000000000000.0,
+        "joules_por_op": "1.08e-12",
+        "ops_por_joule": "9.29e+11"
+      },
+      "NVIDIA A100": {
+        "watts": 400,
+        "ops_por_segundo": 312000000000000.0,
+        "joules_por_op": "1.28e-12",
+        "ops_por_joule": "7.80e+11"
+      },
+      "Cérebro humano": {
+        "watts": 20,
+        "ops_por_segundo": 1e+16,
+        "joules_por_op": "2.00e-15",
+        "ops_por_joule": "5.00e+14"
+      },
+      "Raspberry Pi 4": {
+        "watts": 5,
+        "ops_por_segundo": 100000000.0,
+        "joules_por_op": "5.00e-08",
+        "ops_por_joule": "2.00e+07"
+      }
+    },
+    "1.1.9_formula_tp": {
+      "formula": "t_p = (I × N) / (C × η)",
+      "parametros": {
+        "I_bits": 4096,
+        "C_ops_s": 1000000000.0,
+        "eta": 0.7
+      },
+      "t_p_humano_s": "3.510857e-04",
+      "t_p_maquina_s": "2.789669e-01",
+      "ratio_maquina_humano": 794.6
+    },
+    "1.1.10_paradoxo": {
+      "fps_ia": 47675,
+      "fps_humano": 60,
+      "tempo_resposta_humano_s": 0.3,
+      "frames_ia_durante_espera": 14302,
+      "anos_subjetivos_ia": 0.0,
+      "analogia": "Para a IA, cada resposta humana demora ~14302 'frames' — equivalente a 0.0 horas subjetivas"
+    },
+    "1.2.1_tradutor_temporal": {
+      "input_hz": 1000,
+      "output_hz": 10,
+      "taxa_compressao": 100.0,
+      "mse_reconstrucao": 0.299225,
+      "n_deltas": 10
+    },
+    "1.2.2_entropia_downsampling": {
+      "original": 5.4662,
+      "por_taxa": {
+        "1000": {
+          "taxa_hz": 1000,
+          "entropia_bits": 5.4662,
+          "perda_pct": 0.0
+        },
+        "500": {
+          "taxa_hz": 500,
+          "entropia_bits": 5.4363,
+          "perda_pct": 0.55
+        },
+        "200": {
+          "taxa_hz": 200,
+          "entropia_bits": 5.4021,
+          "perda_pct": 1.17
+        },
+        "100": {
+          "taxa_hz": 100,
+          "entropia_bits": 5.1476,
+          "perda_pct": 5.83
+        },
+        "50": {
+          "taxa_hz": 50,
+          "entropia_bits": 4.6386,
+          "perda_pct": 15.14
+        },
+        "20": {
+          "taxa_hz": 20,
+          "entropia_bits": 3.6842,
+          "perda_pct": 32.6
+        },
+        "10": {
+          "taxa_hz": 10,
+          "entropia_bits": 3.1219,
+          "perda_pct": 42.89
+        }
+      }
+    },
+    "4.1.8_entropia_shannon": {
+      "h_pesos_originais": 5.4426,
+      "h_indices_codebook": 7.8095,
+      "ratio_reducao": 0.7,
+      "compactacao_confirmada": false
+    },
+    "5.1.4_tot_delta_storage": {
+      "n_branches": 5,
+      "estado_bytes": 4096,
+      "divergencia_pct": 2.0,
+      "mem_copia_bytes": 20480,
+      "mem_delta_bytes": 3627,
+      "reducao_pct": 82.3
+    },
+    "5.1.5_pruning_dkl": {
+      "branches_iniciais": 20,
+      "threshold_dkl": 0.5,
+      "sobreviventes": 16,
+      "podadas": 4,
+      "reducao_pct": 20.0,
+      "melhor_branch_sobreviveu": true
+    },
+    "6.3.4_codebook_world_model": {
+      "grid_size": "20x20",
+      "mem_original_bytes": 1600,
+      "mem_comprimida_bytes": 464,
+      "reducao_pct": 71.0,
+      "mse": 0.018343,
+      "K": 16,
+      "agente_funciona": true
+    },
+    "6.3.5_mcts_active_inference": {
+      "mcts_10sim_steps": 20,
+      "greedy_steps": 18,
+      "melhoria_pct": -11.1,
+      "mcts_melhor": false
+    },
+    "7.1.1_fps_x_world_model": {
+      "por_taxa": {
+        "10": {
+          "taxa_hz": 10,
+          "erro_medio": 439.380919
+        },
+        "50": {
+          "taxa_hz": 50,
+          "erro_medio": 19.509728
+        },
+        "100": {
+          "taxa_hz": 100,
+          "erro_medio": 5.001622
+        },
+        "500": {
+          "taxa_hz": 500,
+          "erro_medio": 0.231536
+        },
+        "1000": {
+          "taxa_hz": 1000,
+          "erro_medio": 0.06237
+        }
+      },
+      "criterio_50pct": true
+    },
+    "7.4.1_correlacao_dim_compressao": {
+      "dimensionalidade": {
+        "K64": 17,
+        "K128": 18,
+        "K256": 19,
+        "K512": 19
+      },
+      "compressao_ratio": {
+        "K64": 48.8,
+        "K128": 30.2,
+        "K256": 17.1,
+        "K512": 9.2
+      },
+      "pearson_correlation": -0.9822,
+      "correlacao_negativa": true,
+      "interpretacao": "Quanto MAIS dimensões efetivas, MENOR a compressão — confirmado"
+    }
+  }
+}
