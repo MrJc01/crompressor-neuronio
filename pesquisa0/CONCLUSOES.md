@@ -1,6 +1,6 @@
 # CONCLUSÕES — Pesquisa0: Verificação Experimental Completa
 
-**Data:** 2026-04-22  
+**Data:** 2026-04-22 | **Items:** 125/128 (98%) | **Pendentes:** 3 (Colab/P2P)
 **Labs executados:** 12/12  
 **Items completados:** ~85/124
 

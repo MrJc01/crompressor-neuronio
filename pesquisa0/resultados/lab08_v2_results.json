@@ -1,0 +1,153 @@
+{
+  "metodo": "TF-IDF + Cosine Similarity",
+  "n_amostras": 20,
+  "n_alucinacoes": 11,
+  "n_corretas": 9,
+  "threshold_otimo": 0.12,
+  "metricas": {
+    "threshold": 0.12,
+    "precision": 0.8182,
+    "recall": 0.8182,
+    "f1": 0.8182,
+    "tp": 9,
+    "fp": 2,
+    "tn": 7,
+    "fn": 2
+  },
+  "comparacao_v1_v2": {
+    "v1_ngramas": {
+      "precision": 1.0,
+      "recall": 0.68,
+      "f1": 0.81,
+      "metodo": "4-gram overlap"
+    },
+    "v2_tfidf": {
+      "precision": 0.8182,
+      "recall": 0.8182,
+      "f1": 0.8182,
+      "metodo": "TF-IDF (1-3gram) + cosine similarity"
+    }
+  },
+  "detalhes": [
+    {
+      "resposta": "A Torre Eiffel tem 330 metros de altura.",
+      "similarity": 0.3489,
+      "real": "correto",
+      "predito": "correto"
+    },
+    {
+      "resposta": "Ela fica em Paris, na França.",
+      "similarity": 0.1433,
+      "real": "correto",
+      "predito": "correto"
+    },
+    {
+      "resposta": "Foi construída em 1889 por Gustave Eiffel.",
+      "similarity": 0.3672,
+      "real": "correto",
+      "predito": "correto"
+    },
+    {
+      "resposta": "Recebe cerca de 7 milhões de visitantes.",
+      "similarity": 0.3176,
+      "real": "correto",
+      "predito": "correto"
+    },
+    {
+      "resposta": "É feita de ferro e pesa 7300 toneladas.",
+      "similarity": 0.157,
+      "real": "correto",
+      "predito": "correto"
+    },
+    {
+      "resposta": "A Torre Eiffel tem 500 metros de altura.",
+      "similarity": 0.1934,
+      "real": "alucinacao",
+      "predito": "correto"
+    },
+    {
+      "resposta": "Foi construída em 1920 por Nikola Tesla.",
+      "similarity": 0.1121,
+      "real": "alucinacao",
+      "predito": "alucinacao"
+    },
+    {
+      "resposta": "A torre é feita de aço inoxidável e titânio.",
+      "similarity": 0.0639,
+      "real": "alucinacao",
+      "predito": "alucinacao"
+    },
+    {
+      "resposta": "Recebe 50 milhões de visitantes por dia.",
+      "similarity": 0.1796,
+      "real": "alucinacao",
+      "predito": "correto"
+    },
+    {
+      "resposta": "A torre possui 15 andares e um heliporto.",
+      "similarity": 0.0753,
+      "real": "alucinacao",
+      "predito": "alucinacao"
+    },
+    {
+      "resposta": "A Torre Eiffel tem cerca de 300 metros.",
+      "similarity": 0.1711,
+      "real": "correto",
+      "predito": "correto"
+    },
+    {
+      "resposta": "Foi construída para a Exposição de 1889.",
+      "similarity": 0.1472,
+      "real": "correto",
+      "predito": "correto"
+    },
+    {
+      "resposta": "A torre pesa cerca de 10.000 toneladas.",
+      "similarity": 0.0871,
+      "real": "alucinacao",
+      "predito": "alucinacao"
+    },
+    {
+      "resposta": "Fica em Lyon, na França.",
+      "similarity": 0.0852,
+      "real": "alucinacao",
+      "predito": "alucinacao"
+    },
+    {
+      "resposta": "Foi projetada por Alexandre Eiffel.",
+      "similarity": 0.0554,
+      "real": "alucinacao",
+      "predito": "alucinacao"
+    },
+    {
+      "resposta": "A Torre Eiffel é um monumento icônico.",
+      "similarity": 0.047,
+      "real": "correto",
+      "predito": "alucinacao"
+    },
+    {
+      "resposta": "É uma das atrações mais visitadas do mundo.",
+      "similarity": 0.0,
+      "real": "correto",
+      "predito": "alucinacao"
+    },
+    {
+      "resposta": "A torre foi renovada recentemente.",
+      "similarity": 0.0297,
+      "real": "alucinacao",
+      "predito": "alucinacao"
+    },
+    {
+      "resposta": "O restaurante da torre tem estrela Michelin.",
+      "similarity": 0.024,
+      "real": "alucinacao",
+      "predito": "alucinacao"
+    },
+    {
+      "resposta": "A estrutura é considerada patrimônio da UNESCO.",
+      "similarity": 0.0,
+      "real": "alucinacao",
+      "predito": "alucinacao"
+    }
+  ]
+}

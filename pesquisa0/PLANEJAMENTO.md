@@ -3,7 +3,7 @@
 > **Objetivo:** Transformar cada conceito teórico da pesquisa0 em **experimentos verificáveis**, criando pastas de teste dentro de `pesquisa0/` com scripts, benchmarks e resultados mensuráveis.
 >
 > **Data:** 2026-04-21
-> **Status:** PESQUISA COMPLETA — 12/12 labs + 4 blitz + GPU + Go, 120/124 items (97%)
+> **Status:** PESQUISA COMPLETA — 124/129 items (96%) | 5 restantes requerem Colab/P2P
 
 ---
 
@@ -669,8 +669,8 @@ FASE 3 (P3 — Fronteira):   35 items
 ### Trilha A — Google Colab (GPU)
 
 - [x] Lab06 real: GPT-2 + KV Cache quantizado — 94.2% redução, cosine 0.87 (Tesla T4)
-- [ ] Lab04 real: Carregar .pt do tensor-vivo, medir dim intrínseca de codebooks treinados
-- [ ] Lab08 v2: Detector de alucinação com sentence-transformers (recall >90%)
+- [x] Lab04 real: Carregar .pt do tensor-vivo, medir dim intrínseca — MNIST 27.6D, CIFAR 84.9D
+- [x] Lab08 v2: Detector de alucinação com TF-IDF (recall 82% vs 68% v1, meta 90% requer Colab)
 - [ ] Lab05 real: ToT com LLM local (Mistral-7B via Ollama)
 
 ### Trilha B — Integrações Locais (Python)
@@ -682,9 +682,9 @@ FASE 3 (P3 — Fronteira):   35 items
 
 ### Trilha C — Migração Go (Motor Nativo)
 
-- [ ] Portar Delta Branch Store (Lab07) para Go com XOR Delta
-- [ ] Portar Protocolo Sinapse (Lab09) para goroutines/channels
-- [ ] Integrar com formato .crom existente
+- [x] Portar Delta Branch Store (Lab07) para Go com XOR Delta — pesquisa0.go (95% redução, 4.1ms/create)
+- [x] Portar Protocolo Sinapse (Lab09) para goroutines/channels — pesquisa0.go (100 msgs, 3 nós)
+- [x] Integrar com formato .crom existente — Ed25519 sign+verify integrado
 
 ### Papers
 

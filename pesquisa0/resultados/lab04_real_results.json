@@ -1,0 +1,70 @@
+{
+  "mnist_mlp": {
+    "camadas": {
+      "layer_0": {
+        "shape": [
+          256,
+          784
+        ],
+        "dim_intrinseca": 44.18,
+        "dim_ambient": 784
+      },
+      "layer_1": {
+        "shape": [
+          128,
+          256
+        ],
+        "dim_intrinseca": 21.18,
+        "dim_ambient": 256
+      },
+      "layer_2": {
+        "shape": [
+          10,
+          128
+        ],
+        "dim_intrinseca": 17.37,
+        "dim_ambient": 128
+      }
+    },
+    "dim_media": 27.58,
+    "dim_std": 11.84
+  },
+  "cifar_cnn": {
+    "camadas": {
+      "layer_0": {
+        "shape": [
+          32,
+          27
+        ],
+        "dim_intrinseca": 13.12,
+        "dim_ambient": 27
+      },
+      "layer_1": {
+        "shape": [
+          64,
+          288
+        ],
+        "dim_intrinseca": 16.41,
+        "dim_ambient": 288
+      },
+      "layer_2": {
+        "shape": [
+          256,
+          4096
+        ],
+        "dim_intrinseca": 298.66,
+        "dim_ambient": 4096
+      },
+      "layer_3": {
+        "shape": [
+          10,
+          256
+        ],
+        "dim_intrinseca": 11.5,
+        "dim_ambient": 256
+      }
+    },
+    "dim_media": 84.92,
+    "dim_std": 123.41
+  }
+}
