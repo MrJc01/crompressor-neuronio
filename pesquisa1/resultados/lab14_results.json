@@ -1,0 +1,13 @@
+{
+  "model": "mistralai/Mistral-7B-v0.1",
+  "context_tokens": 398,
+  "k_clusters": 256,
+  "metrics": {
+    "original_mb": 49.75,
+    "compressed_mb": 4.1943359375,
+    "compression_pct": 91.56917399497488,
+    "cosine_similarity": 0.9453125,
+    "kl_divergence": 0.984375,
+    "mse": 1.1015625
+  }
+}

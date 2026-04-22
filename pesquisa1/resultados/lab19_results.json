@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-04-22T17:08:43-03:00",
+  "lab": "lab19-crom-format-v2",
+  "roundtrip_lossless": true,
+  "load_time_k256_d64_us": 558.197,
+  "file_size_kb": 64.0322265625,
+  "verdict": "PASS — load \u003c 1ms"
+}

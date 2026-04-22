@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-22T17:07:26-03:00",
+  "lab": "lab17-codebook-training-go",
+  "kmeans_converged": true,
+  "kmeans_iterations": 19,
+  "inertia": 2732.48659858601,
+  "vq_encode_k256_d64_us": 21.9944,
+  "vq_reconstruction_mse": 686.0718994172457,
+  "verdict": "PASS — K-Means converges, VQ \u003c40μs"
+}

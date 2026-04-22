@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-22T17:03:36-03:00",
+  "lab": "lab13-agent-crom-v2",
+  "hardware": "local-cpu",
+  "step_latency_us": 0.8475,
+  "branch_explore_15_us": 0.2868,
+  "sign_time_us": 47.508,
+  "verify_time_us": 108.662,
+  "worldmodel_error_pct": 20.63614341597505,
+  "firewall_block_rate_pct": 100,
+  "nav_final_distance": 3,
+  "steps_run": 200,
+  "verdict": "PASS — all criteria met"
+}
