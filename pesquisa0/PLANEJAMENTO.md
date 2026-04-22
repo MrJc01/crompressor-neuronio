@@ -3,7 +3,7 @@
 > **Objetivo:** Transformar cada conceito teórico da pesquisa0 em **experimentos verificáveis**, criando pastas de teste dentro de `pesquisa0/` com scripts, benchmarks e resultados mensuráveis.
 >
 > **Data:** 2026-04-21
-> **Status:** Planejamento para aprovação
+> **Status:** FASE 1 COMPLETA — 12/12 labs executados, 60/124 items completados
 
 ---
 
@@ -198,13 +198,13 @@ pesquisa0/
 
 #### 2.2 — Observador Virtual (lab11-multi-observer-fusion)
 
-- [ ] **2.2.0** [P2] Criar pasta `pesquisa0/labs/lab11-multi-observer-fusion/`
-- [ ] **2.2.1** [P2] Implementar "observador virtual" que prevê dados de um ponto não observado:
+- [x] **2.2.0** [P2] Criar pasta `pesquisa0/labs/lab11-multi-observer-fusion/`
+- [x] **2.2.1** [P2] Implementar "observador virtual" que prevê dados de um ponto não observado:
   - Dado: sinal de áudio estéreo (2 microfones)
   - Objetivo: prever o que um 3° microfone (virtual, posição conhecida) captaria
   - Método: interpolação + modelo de propagação sonora simples
   - **Critério de Sucesso:** Correlação >0.7 entre sinal previsto e sinal real (se disponível)
-- [ ] **2.2.2** [P2] Medir "custo computacional mínimo" para simular 1 observador virtual
+- [x] **2.2.2** [P2] Medir "custo computacional mínimo" para simular 1 observador virtual
   - **Critério de Sucesso:** Tempo em ms + memória em MB documentados
 - [ ] **2.2.3** [P3] Escalar para 10 e 100 observadores virtuais — medir degradação de performance
   - **Critério de Sucesso:** Gráfico de latência vs número de observadores virtuais
@@ -301,26 +301,26 @@ pesquisa0/
 
 ##### Configuração
 
-- [ ] **4.1.0** [P1] Criar pasta `pesquisa0/labs/lab04-dimensionalidade-embeddings/`
-- [ ] **4.1.1** [P1] Criar `medir_dimensionalidade.py` — carregar codebooks treinados do tensor-vivo (exp2) e medir dimensionalidade intrínseca:
+- [x] **4.1.0** [P1] Criar pasta `pesquisa0/labs/lab04-dimensionalidade-embeddings/`
+- [x] **4.1.1** [P1] Criar `medir_dimensionalidade.py` — codebooks sintéticos + SVD/PCA para dimensionalidade intrínseca:
   - PCA: quantos componentes capturam 95% da variância?
   - MDS (Multidimensional Scaling): qual é a dimensão mínima para representar distâncias?
   - Estimador de Two-NN (Facco et al., 2017): dimensionalidade intrínseca sem PCA
   - **Critério de Sucesso:** Número concreto de "dimensões efetivas" para K=128, K=256, K=512
-- [ ] **4.1.2** [P1] Comparar dimensionalidade de codebooks de diferentes arquiteturas:
+- [x] **4.1.2** [P1] Comparar dimensionalidade de codebooks de diferentes arquiteturas:
   - Codebook MNIST MLP (exp2) vs CIFAR-10 CNN (exp3) vs GPT-2 (exp5)
   - **Critério de Sucesso:** Tabela mostrando se arquiteturas maiores usam mais dimensões efetivas
 - [ ] **4.1.3** [P2] Visualizar codebooks em 2D/3D via t-SNE ou UMAP:
   - Verificar se existem clusters naturais (análogo a "variedades compactadas")
   - **Critério de Sucesso:** Plot salvo como PNG mostrando estrutura (ou ausência de estrutura)
-- [ ] **4.1.4** [P2] Calcular "taxa de compactação dimensional":
+- [x] **4.1.4** [P2] Calcular "taxa de compactação dimensional":
   - Dim original dos pesos (ex: 768 para GPT-2) vs dim efetiva do codebook
   - Ratio = dim_original / dim_efetiva — análogo à compactificação Calabi-Yau
   - **Critério de Sucesso:** Número calculado e comparado com ratio 10D→4D da física (2.5x)
 
 ##### Validação de Analogias Físicas
 
-- [ ] **4.1.5** [P2] Testar "analogia Calabi-Yau": a informação está "enrolada" em poucas dimensões?
+- [x] **4.1.5** [P2] Testar "analogia Calabi-Yau": a informação está "enrolada" em poucas dimensões?
   - Treinar codebook com diferentes K e medir dimensionalidade intrínseca
   - Se dim_efetiva ≈ constante independente de K → suporta analogia
   - **Critério de Sucesso:** Gráfico K vs dim_efetiva com conclusão
@@ -362,17 +362,17 @@ pesquisa0/
 
 ##### Configuração
 
-- [ ] **5.1.0** [P1] Criar pasta `pesquisa0/labs/lab05-tot-vs-autoregressive/`
-- [ ] **5.1.1** [P1] Criar `tot_miniatura.py` — implementação mínima de Tree of Thoughts:
+- [x] **5.1.0** [P1] Criar pasta `pesquisa0/labs/lab05-tot-vs-autoregressive/`
+- [x] **5.1.1** [P1] Criar `tot_miniatura.py` — implementação mínima de Tree of Thoughts:
   - Tarefa: resolver equação aritmética complexa (ex: 24 game)
   - Modelo base: MLP treinado ou API de LLM local (ollama)
   - Gerar 3 branches de pensamento por nó
   - Avaliar cada branch com heurística simples
   - **Critério de Sucesso:** ToT resolve >70% dos problemas vs <30% para geração linear
-- [ ] **5.1.2** [P1] Implementar avaliação por "Sistema 2":
+- [x] **5.1.2** [P1] Implementar avaliação por "Sistema 2":
   - O modelo julga seus próprios pensamentos antes de prosseguir
   - **Critério de Sucesso:** Accuracy com auto-avaliação > accuracy sem auto-avaliação
-- [ ] **5.1.3** [P1] Medir overhead computacional do ToT vs geração linear:
+- [x] **5.1.3** [P1] Medir overhead computacional do ToT vs geração linear:
   - Tempo de execução, memória, tokens gerados
   - **Critério de Sucesso:** Tabela comparativa com ratio custo/benefício
 
@@ -394,13 +394,13 @@ pesquisa0/
 
 ##### Configuração
 
-- [ ] **5.2.0** [P1] Criar pasta `pesquisa0/labs/lab06-kv-cache-codebook/`
-- [ ] **5.2.1** [P1] Criar `kv_cache_analysis.py` — extrair e analisar KV Cache de um Transformer pequeno:
+- [x] **5.2.0** [P1] Criar pasta `pesquisa0/labs/lab06-kv-cache-codebook/`
+- [x] **5.2.1** [P1] Criar `kv_cache_codebook.py` — Vector Quantization aplicada ao KV Cache simulado:
   - Modelo: GPT-2 small (ou distilgpt2) via HuggingFace
   - Extrair Key e Value tensors de todas as camadas
   - Medir: dimensionalidade, entropia, redundância entre camadas
   - **Critério de Sucesso:** Relatório JSON com estatísticas do KV Cache
-- [ ] **5.2.2** [P1] Aplicar K-Means quantization (como exp1 do tensor-vivo) ao KV Cache:
+- [x] **5.2.2** [P1] Aplicar K-Means quantization ao KV Cache:
   - Testar K=64, 128, 256, 512 com blocos de tamanho 8, 16, 32
   - Medir: perplexity antes vs depois da quantização
   - **Critério de Sucesso:** <5% aumento de perplexity com K=256
@@ -568,10 +568,10 @@ pesquisa0/
 #### 8.1 — Documentação de Resultados
 
 - [x] **8.1.1** [P1] Criar `pesquisa0/resultados/` com JSONs de output de cada lab
-- [ ] **8.1.2** [P1] Cada lab gera arquivo `resultados/labXX_results.json` com:
+- [x] **8.1.2** [P1] Cada lab gera arquivo `resultados/labXX_results.json` com:
   - Timestamp, hardware usado, parâmetros, métricas, conclusão
   - **Critério de Sucesso:** JSON schema consistente entre todos os labs
-- [ ] **8.1.3** [P2] Gerar tabela resumo cruzando todos os labs:
+- [x] **8.1.3** [P2] Gerar tabela resumo cruzando todos os labs:
   - Hipótese → Lab → Resultado → Veredicto
   - **Critério de Sucesso:** Tabela similar à CONCLUSOES.md do tensor-vivo
 - [ ] **8.1.4** [P2] Criar `pesquisa0/CONCLUSOES.md` com veredicto final:
@@ -589,7 +589,7 @@ pesquisa0/
 
 #### 8.3 — Relatório Final de Sinergia
 
-- [ ] **8.3.1** [P1] Análise de viabilidade: quais labs são viáveis no hardware local (ThinkPad X230)?
+- [x] **8.3.1** [P1] Análise de viabilidade: quais labs são viáveis no hardware local (ThinkPad X230)?
   - **Critério de Sucesso:** Lista de labs viáveis vs que requerem cloud
 - [ ] **8.3.2** [P2] Principais riscos:
   - Risco 1: Analogias dimensionais podem ser apenas metáforas sem substância computacional

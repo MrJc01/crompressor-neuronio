@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T09:46:46.406622",
+    "seed": 42
+  },
+  "experimentos": {
+    "compressao": {
+      "config": {
+        "seq_len": 1024,
+        "n_heads": 12,
+        "head_dim": 64,
+        "mem_original_bytes": 6291456
+      },
+      "por_k": {
+        "64": {
+          "K": 64,
+          "mse_k": 0.153631,
+          "mse_v": 0.150354,
+          "mse_medio": 0.151993,
+          "mem_indices_bytes": 49152,
+          "mem_codebook_bytes": 32768,
+          "mem_total_comprimida": 81920,
+          "reducao_pct": 98.7,
+          "ratio_x": 76.8,
+          "tempo_ms": 132.16
+        },
+        "128": {
+          "K": 128,
+          "mse_k": 0.137494,
+          "mse_v": 0.138189,
+          "mse_medio": 0.137841,
+          "mem_indices_bytes": 49152,
+          "mem_codebook_bytes": 65536,
+          "mem_total_comprimida": 114688,
+          "reducao_pct": 98.18,
+          "ratio_x": 54.86,
+          "tempo_ms": 246.89
+        },
+        "256": {
+          "K": 256,
+          "mse_k": 0.129919,
+          "mse_v": 0.1291,
+          "mse_medio": 0.12951,
+          "mem_indices_bytes": 49152,
+          "mem_codebook_bytes": 131072,
+          "mem_total_comprimida": 180224,
+          "reducao_pct": 97.14,
+          "ratio_x": 34.91,
+          "tempo_ms": 544.5
+        },
+        "512": {
+          "K": 512,
+          "mse_k": 0.120578,
+          "mse_v": 0.119912,
+          "mse_medio": 0.120245,
+          "mem_indices_bytes": 49152,
+          "mem_codebook_bytes": 262144,
+          "mem_total_comprimida": 311296,
+          "reducao_pct": 95.05,
+          "ratio_x": 20.21,
+          "tempo_ms": 1137.9
+        }
+      }
+    },
+    "extrapolacao": {
+      "GPT2-small": {
+        "mem_original_MB": 6.3,
+        "mem_comprimida_MB": 0.2,
+        "reducao_pct": 97.1,
+        "ratio_x": 34.9
+      },
+      "LLaMA-7B": {
+        "mem_original_MB": 134.2,
+        "mem_comprimida_MB": 0.8,
+        "reducao_pct": 99.4,
+        "ratio_x": 170.7
+      },
+      "LLaMA-70B": {
+        "mem_original_MB": 536.9,
+        "mem_comprimida_MB": 2.4,
+        "reducao_pct": 99.6,
+        "ratio_x": 227.6
+      }
+    }
+  }
+}

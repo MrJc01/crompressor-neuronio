@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T09:47:05.625078",
+    "seed": 42
+  },
+  "experimentos": {
+    "merge_ponderado_vs_simples": {
+      "confiancas": [
+        0.9975,
+        0.9991,
+        0.1689
+      ],
+      "snr_melhor_individual_db": 28.84,
+      "snr_merge_simples_db": 8.43,
+      "snr_merge_ponderado_db": 18.25,
+      "ponderado_melhor": true
+    },
+    "observador_virtual": {
+      "snr_a_db": 26.35,
+      "snr_b_db": 26.55,
+      "snr_virtual_db": 29.46,
+      "virtual_viavel": true
+    },
+    "escalabilidade": {
+      "1": {
+        "n_obs": 1,
+        "snr_db": 30.73
+      },
+      "3": {
+        "n_obs": 3,
+        "snr_db": 17.8
+      },
+      "5": {
+        "n_obs": 5,
+        "snr_db": 18.21
+      },
+      "10": {
+        "n_obs": 10,
+        "snr_db": 13.62
+      },
+      "20": {
+        "n_obs": 20,
+        "snr_db": 16.12
+      },
+      "50": {
+        "n_obs": 50,
+        "snr_db": 20.81
+      }
+    }
+  }
+}
