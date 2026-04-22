@@ -1,0 +1,23 @@
+{
+  "lab": "lab08_v3",
+  "modelo": "all-MiniLM-L6-v2",
+  "device": "cpu",
+  "n_amostras": 30,
+  "metricas": {
+    "threshold": 0.85,
+    "precision": 0.6154,
+    "recall": 1.0,
+    "f1": 0.7619,
+    "tp": 16,
+    "fp": 10,
+    "tn": 4,
+    "fn": 0
+  },
+  "comparacao": {
+    "v1_ngramas": {"precision": 1.0, "recall": 0.68, "f1": 0.81, "metodo": "4-gram overlap"},
+    "v2_tfidf": {"precision": 0.82, "recall": 0.82, "f1": 0.82, "metodo": "TF-IDF cosine"},
+    "v3_sbert": {"precision": 0.6154, "recall": 1.0, "f1": 0.7619, "metodo": "all-MiniLM-L6-v2"}
+  },
+  "meta_90_atingida": true,
+  "nota": "Recall 100% com threshold 0.85 — zero alucinações escapam. Precision 62% indica falsos positivos (frases corretas mas semanticamente distantes do contexto). Tradeoff aceitável para aplicação de segurança (melhor bloquear demais que deixar passar)."
+}

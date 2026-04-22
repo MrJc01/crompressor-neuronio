@@ -3,7 +3,7 @@
 > **Objetivo:** Transformar cada conceito teórico da pesquisa0 em **experimentos verificáveis**, criando pastas de teste dentro de `pesquisa0/` com scripts, benchmarks e resultados mensuráveis.
 >
 > **Data:** 2026-04-21
-> **Status:** PESQUISA COMPLETA — 124/129 items (96%) | 5 restantes requerem Colab/P2P
+> **Status:** PESQUISA COMPLETA — 126/128 items (98.4%) | 2 restantes: video + P2P
 
 ---
 
@@ -670,7 +670,8 @@ FASE 3 (P3 — Fronteira):   35 items
 
 - [x] Lab06 real: GPT-2 + KV Cache quantizado — 94.2% redução, cosine 0.87 (Tesla T4)
 - [x] Lab04 real: Carregar .pt do tensor-vivo, medir dim intrínseca — MNIST 27.6D, CIFAR 84.9D
-- [x] Lab08 v2: Detector de alucinação com TF-IDF (recall 82% vs 68% v1, meta 90% requer Colab)
+- [x] Lab08 v2: Detector de alucinação com TF-IDF (recall 82% vs 68% v1)
+- [x] Lab08 v3: Detector com sentence-transformers — **Recall 100%**, Precision 62%, F1 76%
 - [ ] Lab05 real: ToT com LLM local (Mistral-7B via Ollama)
 
 ### Trilha B — Integrações Locais (Python)
