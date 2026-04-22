@@ -3,7 +3,7 @@
 > **Objetivo:** Transformar cada conceito teórico da pesquisa0 em **experimentos verificáveis**, criando pastas de teste dentro de `pesquisa0/` com scripts, benchmarks e resultados mensuráveis.
 >
 > **Data:** 2026-04-21
-> **Status:** FASE 1 COMPLETA — 12/12 labs executados, 60/124 items completados
+> **Status:** FASE 2a COMPLETA — 12/12 labs + GPU validation + H13 corrigida, 67/124 items
 
 ---
 
@@ -507,9 +507,10 @@ pesquisa0/
   - **Critério de Sucesso:** Dois clocks rodando, sincronização funcional
 - [x] **6.4.2** [P2] Medir "vantagem temporal": quantos timesteps à frente o Clock 2 consegue explorar
   - **Critério de Sucesso:** Clock 2 explora >100 timesteps enquanto Clock 1 avança 1
-- [ ] **6.4.3** [P3] Integrar dual clock com World Model do lab03:
+- [x] **6.4.3** [P3] Integrar dual clock com World Model do lab03:
   - Clock 1 roda o modelo real, Clock 2 roda simulações de branches
   - **Critério de Sucesso:** Sistema dual-clock tem melhor accuracy que single-clock
+  - **RESULTADO:** v2 com World Model: -8.7% erro vs baseline, 100% vitórias em 10 seeds
 
 ---
 
@@ -667,7 +668,7 @@ FASE 3 (P3 — Fronteira):   35 items
 
 ### Trilha A — Google Colab (GPU)
 
-- [ ] Lab06 real: GPT-2 + KV Cache quantizado, medir perplexity
+- [x] Lab06 real: GPT-2 + KV Cache quantizado — 94.2% redução, cosine 0.87 (Tesla T4)
 - [ ] Lab04 real: Carregar .pt do tensor-vivo, medir dim intrínseca de codebooks treinados
 - [ ] Lab08 v2: Detector de alucinação com sentence-transformers (recall >90%)
 - [ ] Lab05 real: ToT com LLM local (Mistral-7B via Ollama)
@@ -689,3 +690,4 @@ FASE 3 (P3 — Fronteira):   35 items
 
 - `pesquisa0/papers/papel0.md` — Resultados dos 8 primeiros labs
 - `pesquisa0/papers/papel1.md` — Fase 1 completa (12/12 labs) + consolidação
+- `pesquisa0/papers/papel2.md` — Validação GPU (GPT-2 real) + correção H13
