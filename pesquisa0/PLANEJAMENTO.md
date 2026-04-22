@@ -186,7 +186,7 @@ pesquisa0/
 
 - [x] **2.1.4** [P2] Variar número de observadores (1, 2, 5, 10, 50) e plotar curva de ganho
   - **Critério de Sucesso:** Curva de saturação (retornos decrescentes após N observadores)
-- [ ] **2.1.5** [P2] Testar com observadores que registram dados **contraditórios** (ruído ou erro)
+- [x] **2.1.5** [P2] Testar com observadores que registram dados **contraditórios** (ruído ou erro)
   - Adicionar 1 observador com 10% de dados corrompidos
   - **Critério de Sucesso:** Algoritmo de merge identifica e descarta dados inconsistentes
 - [x] **2.1.6** [P2] Implementar merge usando **Deltas do Crompressor** em vez de dados brutos:
@@ -605,17 +605,17 @@ pesquisa0/
 
 ## 📊 RESUMO QUANTITATIVO DO CHECKLIST
 
-| Eixo | Items P1 | Items P2 | Items P3 | Total |
-|:-----|:---------|:---------|:---------|:------|
-| 01 — Percepção Temporal | 4 | 6 | 6 | **16** |
-| 02 — Observadores | 4 | 6 | 4 | **14** |
-| 03 — Simulação/World Models | 9 | 7 | 4 | **20** |
-| 04 — Dimensões | 3 | 8 | 4 | **15** |
-| 05 — IA Dimensional | 5 | 6 | 3 | **14** |
-| 06 — Integração Crompressor | 7 | 9 | 6 | **22** |
-| 07 — Validação Cruzada | 0 | 6 | 5 | **11** |
-| 08 — Documentação | 3 | 6 | 3 | **12** |
-| **TOTAL** | **35** | **54** | **35** | **124** |
+| Eixo | Items P1 | Items P2 | Items P3 | Total | Feitos |
+|:-----|:---------|:---------|:---------|:------|:-------|
+| 01 — Percepção Temporal | 4 | 6 | 6 | **16** | 8 |
+| 02 — Observadores | 4 | 6 | 4 | **14** | 11 |
+| 03 — Simulação/World Models | 9 | 7 | 4 | **20** | 14 |
+| 04 — Dimensões | 3 | 8 | 4 | **15** | 5 |
+| 05 — IA Dimensional | 5 | 6 | 3 | **14** | 6 |
+| 06 — Integração Crompressor | 7 | 9 | 6 | **22** | 16 |
+| 07 — Validação Cruzada | 0 | 6 | 5 | **11** | 0 |
+| 08 — Documentação | 3 | 6 | 3 | **12** | 5 |
+| **TOTAL** | **35** | **54** | **35** | **124** | **65** |
 
 ### Ordem de Execução Recomendada
 
@@ -645,3 +645,47 @@ FASE 3 (P3 — Fronteira):   35 items
 ---
 
 *"O neurônio que comprime é o neurônio que pensa."*
+
+---
+
+## 🚀 FASE 2 — ROADMAP DE INTEGRAÇÃO E VALIDAÇÃO COM GPU
+
+> **Adicionado em:** 2026-04-22
+> **Pré-requisito:** Todos os 12 labs executados (Fase 1 completa)
+
+### Resultados-Chave da Fase 1
+
+| Métrica | Valor | Lab |
+|---------|-------|-----|
+| Delta Storage economia | 99.9% | Lab07 |
+| KV Cache compressão (LLaMA-7B) | 170x | Lab06 |
+| Active Inference speedup | 12.7x | Lab10 |
+| ToT ganho sobre linear | 2350% | Lab05 |
+| Dimensionalidade efetiva | ~19D estável | Lab04 |
+| Merge ponderado ganho SNR | +9.82 dB | Lab11 |
+| Hipóteses: 11 ✅, 2 ⚠️, 1 ❌ | | |
+
+### Trilha A — Google Colab (GPU)
+
+- [ ] Lab06 real: GPT-2 + KV Cache quantizado, medir perplexity
+- [ ] Lab04 real: Carregar .pt do tensor-vivo, medir dim intrínseca de codebooks treinados
+- [ ] Lab08 v2: Detector de alucinação com sentence-transformers (recall >90%)
+- [ ] Lab05 real: ToT com LLM local (Mistral-7B via Ollama)
+
+### Trilha B — Integrações Locais (Python)
+
+- [ ] Lab12 v2: Dual Clock + World Model (corrigir hipótese refutada H13)
+- [ ] Lab05 v2: ToT + Delta Storage (medir redução de memória)
+- [ ] Lab10 v2: Active Inference + MCTS com múltiplas branches
+- [ ] Validação cruzada Eixo 7 (6 items pendentes)
+
+### Trilha C — Migração Go (Motor Nativo)
+
+- [ ] Portar Delta Branch Store (Lab07) para Go com XOR Delta
+- [ ] Portar Protocolo Sinapse (Lab09) para goroutines/channels
+- [ ] Integrar com formato .crom existente
+
+### Papers
+
+- `pesquisa0/papers/papel0.md` — Resultados dos 8 primeiros labs
+- `pesquisa0/papers/papel1.md` — Fase 1 completa (12/12 labs) + consolidação
