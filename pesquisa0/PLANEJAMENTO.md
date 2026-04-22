@@ -3,7 +3,7 @@
 > **Objetivo:** Transformar cada conceito teórico da pesquisa0 em **experimentos verificáveis**, criando pastas de teste dentro de `pesquisa0/` com scripts, benchmarks e resultados mensuráveis.
 >
 > **Data:** 2026-04-21
-> **Status:** PESQUISA COMPLETA — 12/12 labs + 4 blitz + GPU, 117/124 items (94%)
+> **Status:** PESQUISA COMPLETA — 12/12 labs + 4 blitz + GPU + Go, 120/124 items (97%)
 
 ---
 
@@ -282,7 +282,7 @@ pesquisa0/
   - **Critério de Sucesso:** Delta usa <10% da memória da cópia completa para divergência <1%
 - [x] **3.2.3** [P2] Implementar "Colapso" — quando dado real chega, descartar branches incompatíveis
   - **Critério de Sucesso:** Tempo de colapso <1ms para 100 branches
-- [ ] **3.2.4** [P2] Implementar usando XOR Delta do Crompressor (Go) em vez de numpy
+- [x] **3.2.4** [P2] Implementar usando XOR Delta do Crompressor (Go) em vez de numpy
   - **Critério de Sucesso:** Performance igual ou melhor que numpy + integração com motor .crom
 - [x] **3.2.5** [P3] Benchmark: quantas branches simultâneas cabem em 1GB, 4GB, 8GB de RAM?
   - **Critério de Sucesso:** Tabela de capacidade por tamanho de estado base
@@ -446,7 +446,7 @@ pesquisa0/
   - Muito baixo = criatividade bloqueada (falsos positivos)
   - Muito alto = alucinações passam (falsos negativos)
   - **Critério de Sucesso:** Curva ROC com ponto ótimo identificado
-- [ ] **6.1.5** [P3] Integrar com crompressor-security (Ed25519 sign):
+- [x] **6.1.5** [P3] Integrar com crompressor-security (Ed25519 sign):
   - Assinar estados verificados para impedir alteração retroativa
   - **Critério de Sucesso:** Estado assinado → tentativa de alteração → rejeição
 
@@ -465,7 +465,7 @@ pesquisa0/
   - Cada branch roda em coroutine separada
   - Orquestrador central recebe mensagens e gerencia lifecycle
   - **Critério de Sucesso:** 5 branches comunicando, collapse funcional
-- [ ] **6.2.3** [P2] Implementar em Go (goroutines + channels):
+- [x] **6.2.3** [P2] Implementar em Go (goroutines + channels):
   - Mesma lógica, mas com performance nativa
   - **Critério de Sucesso:** Benchmark Go vs Python (esperado: Go 10x+ mais rápido)
 - [x] **6.2.4** [P2] Testar escalabilidade: 10, 50, 100, 500 branches simultâneas
