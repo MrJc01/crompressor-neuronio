@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>CROM WebAssembly Engine</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #f8fafc; padding: 2rem; }
+        .glass { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; }
+        button { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;}
+        button:hover { background: #2563eb; }
+        pre { background: #1e293b; padding: 10px; border-radius: 6px; overflow-x: auto;}
+    </style>
+</head>
+<body>
+    <h1>CROM 5D Inference Engine — WASM</h1>
+    <div class="glass">
+        <p>Motor Go compilado para WebAssembly rodando diretamente no seu Browser com 0% latência de rede.</p>
+        <button onclick="runCromStep()">Executar Inferência (Step)</button>
+        <button onclick="runBenchmark()">Rodar Benchmark (1000 steps)</button>
+        <button onclick="cromInit()" style="background: #ef4444;">Reset Memory</button>
+        
+        <h3>Log de Ativação:</h3>
+        <pre id="log">Aguardando WASM carregar...</pre>
+    </div>
+
+    <!-- O wasm_exec.js é nativo da instalação do Go e necessário para carregar módulos do TinyGo/Go -->
+    <script src="wasm_exec.js"></script>
+    <script>
+        const go = new Go();
+        
+        // Carrega o binário crom.wasm e executa
+        WebAssembly.instantiateStreaming(fetch("crom.wasm"), go.importObject).then((result) => {
+            go.run(result.instance);
+            document.getElementById("log").innerText = "WASM Engine Loaded and Ready.\n";
+        }).catch((err) => {
+            console.error(err);
+            document.getElementById("log").innerText = "Falha ao carregar crom.wasm: " + err;
+        });
+
+        function runCromStep() {
+            // Chama a função exportada do Go "cromStep" com uma observação randômica
+            const observation = Math.random();
+            const result = cromStep(observation);
+            
+            let logMsg = `Step: Obs=${observation.toFixed(4)} | Pred=${result.prediction.toFixed(4)} | FreeEnergy=${result.free_energy.toFixed(6)} | Action=${result.action.toFixed(4)}\n`;
+            
+            const logBox = document.getElementById("log");
+            logBox.innerText = logMsg + logBox.innerText;
+        }
+
+        function runBenchmark() {
+            const start = performance.now();
+            for(let i=0; i<1000; i++) {
+                cromStep(Math.random());
+            }
+            const end = performance.now();
+            
+            let timeMs = end - start;
+            let timeUsPerStep = (timeMs * 1000) / 1000.0;
+            
+            let logMsg = `BENCHMARK: 1000 steps concluídos em ${timeMs.toFixed(2)}ms (${timeUsPerStep.toFixed(2)} μs/step).\n`;
+            
+            const logBox = document.getElementById("log");
+            logBox.innerText = logMsg + logBox.innerText;
+        }
+    </script>
+</body>
+</html>
