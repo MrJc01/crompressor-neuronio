@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T07:43:09.324884",
+    "seed": 42
+  },
+  "experimentos": {
+    "3_observadores": {
+      "n_observadores": 3,
+      "amostras_A": 100,
+      "amostras_B": 10000,
+      "amostras_merge": 10000,
+      "snr_A_db": 23.29,
+      "snr_B_db": 24.65,
+      "snr_merge_db": 17.98,
+      "snr_merge_maior": false,
+      "eventos_detectados_A": 0,
+      "eventos_detectados_B": 28,
+      "eventos_detectados_merge": 28,
+      "cobertura_A_pct": 0.0,
+      "cobertura_B_pct": 100.0,
+      "cobertura_merge_pct": 100.0
+    },
+    "saturacao": {
+      "3": {
+        "n_observadores": 3,
+        "amostras_A": 100,
+        "amostras_B": 10000,
+        "amostras_merge": 10000,
+        "snr_A_db": 23.29,
+        "snr_B_db": 24.65,
+        "snr_merge_db": 17.98,
+        "snr_merge_maior": false,
+        "eventos_detectados_A": 0,
+        "eventos_detectados_B": 28,
+        "eventos_detectados_merge": 28,
+        "cobertura_A_pct": 0.0,
+        "cobertura_B_pct": 100.0,
+        "cobertura_merge_pct": 100.0
+      },
+      "5": {
+        "n_observadores": 5,
+        "amostras_A": 100,
+        "amostras_B": 10000,
+        "amostras_merge": 15704,
+        "snr_A_db": 23.29,
+        "snr_B_db": 24.65,
+        "snr_merge_db": 16.64,
+        "snr_merge_maior": false,
+        "eventos_detectados_A": 0,
+        "eventos_detectados_B": 28,
+        "eventos_detectados_merge": 46,
+        "cobertura_A_pct": 0.0,
+        "cobertura_B_pct": 100.0,
+        "cobertura_merge_pct": 100.0
+      },
+      "8": {
+        "n_observadores": 8,
+        "amostras_A": 100,
+        "amostras_B": 10000,
+        "amostras_merge": 22429,
+        "snr_A_db": 23.29,
+        "snr_B_db": 24.65,
+        "snr_merge_db": 15.93,
+        "snr_merge_maior": false,
+        "eventos_detectados_A": 0,
+        "eventos_detectados_B": 28,
+        "eventos_detectados_merge": 65,
+        "cobertura_A_pct": 0.0,
+        "cobertura_B_pct": 100.0,
+        "cobertura_merge_pct": 100.0
+      },
+      "13": {
+        "n_observadores": 13,
+        "amostras_A": 100,
+        "amostras_B": 10000,
+        "amostras_merge": 24923,
+        "snr_A_db": 23.29,
+        "snr_B_db": 24.65,
+        "snr_merge_db": 16.31,
+        "snr_merge_maior": false,
+        "eventos_detectados_A": 0,
+        "eventos_detectados_B": 28,
+        "eventos_detectados_merge": 73,
+        "cobertura_A_pct": 0.0,
+        "cobertura_B_pct": 100.0,
+        "cobertura_merge_pct": 100.0
+      },
+      "23": {
+        "n_observadores": 23,
+        "amostras_A": 100,
+        "amostras_B": 10000,
+        "amostras_merge": 39764,
+        "snr_A_db": 23.29,
+        "snr_B_db": 24.65,
+        "snr_merge_db": 16.65,
+        "snr_merge_maior": false,
+        "eventos_detectados_A": 0,
+        "eventos_detectados_B": 28,
+        "eventos_detectados_merge": 122,
+        "cobertura_A_pct": 0.0,
+        "cobertura_B_pct": 100.0,
+        "cobertura_merge_pct": 100.0
+      },
+      "50": {
+        "n_observadores": 50,
+        "amostras_A": 100,
+        "amostras_B": 10000,
+        "amostras_merge": 54676,
+        "snr_A_db": 23.29,
+        "snr_B_db": 24.65,
+        "snr_merge_db": 17.12,
+        "snr_merge_maior": false,
+        "eventos_detectados_A": 0,
+        "eventos_detectados_B": 28,
+        "eventos_detectados_merge": 175,
+        "cobertura_A_pct": 0.0,
+        "cobertura_B_pct": 100.0,
+        "cobertura_merge_pct": 100.0
+      }
+    },
+    "delta_merge": {
+      "bytes_brutos_B": 80000,
+      "bytes_delta": 79200,
+      "reducao_pct": 1.0,
+      "amostras_bruto": 10000,
+      "amostras_delta": 9900
+    }
+  }
+}

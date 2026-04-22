@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T08:14:48.884916",
+    "seed": 42,
+    "numpy": true
+  },
+  "experimentos": {
+    "medicoes_pca": {
+      "mnist": {
+        "D": 64,
+        "dim_efetiva": 9
+      },
+      "gpt2": {
+        "D": 768,
+        "dim_efetiva": 32
+      }
+    },
+    "calabi_yau": {
+      "64": {
+        "K": 64,
+        "D_original": 768,
+        "dim_intrínseca_real": 20,
+        "dim_efetiva_medida": 17,
+        "compactacao_ratio": 45.18,
+        "preservou_topologia": true
+      },
+      "128": {
+        "K": 128,
+        "D_original": 768,
+        "dim_intrínseca_real": 20,
+        "dim_efetiva_medida": 18,
+        "compactacao_ratio": 42.67,
+        "preservou_topologia": true
+      },
+      "256": {
+        "K": 256,
+        "D_original": 768,
+        "dim_intrínseca_real": 20,
+        "dim_efetiva_medida": 19,
+        "compactacao_ratio": 40.42,
+        "preservou_topologia": true
+      },
+      "512": {
+        "K": 512,
+        "D_original": 768,
+        "dim_intrínseca_real": 20,
+        "dim_efetiva_medida": 19,
+        "compactacao_ratio": 40.42,
+        "preservou_topologia": true
+      },
+      "1024": {
+        "K": 1024,
+        "D_original": 768,
+        "dim_intrínseca_real": 20,
+        "dim_efetiva_medida": 19,
+        "compactacao_ratio": 40.42,
+        "preservou_topologia": true
+      }
+    },
+    "ratio_compressao": {
+      "ratio_medido": 24.0,
+      "criterio_10x": true
+    }
+  }
+}

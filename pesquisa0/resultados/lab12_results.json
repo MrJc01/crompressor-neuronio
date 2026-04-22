@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T07:44:47.664599",
+    "seed": 42
+  },
+  "experimentos": {
+    "dual_clock": {
+      "erro_medio": 0.049688,
+      "timesteps_explorados": 10000,
+      "ratio_exploracao": 100,
+      "n_steps_reais": 100
+    },
+    "single_clock": {
+      "erro_medio": 0.035044
+    },
+    "comparacao": {
+      "melhoria_pct": -41.8,
+      "dual_melhor": false,
+      "criterio_100x": false
+    }
+  }
+}

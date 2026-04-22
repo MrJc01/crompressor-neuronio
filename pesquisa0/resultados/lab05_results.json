@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T08:16:08.862502",
+    "seed": 42
+  },
+  "experimentos": {
+    "benchmark_24_game": {
+      "n_jogos": 1000,
+      "autoregressivo": {
+        "taxa_sucesso": 0.008,
+        "tempo_medio_ms": 0.15,
+        "nos_explorados_media": 2.99
+      },
+      "tree_of_thoughts": {
+        "taxa_sucesso": 0.196,
+        "tempo_medio_ms": 2.8,
+        "nos_explorados_media": 53.54
+      },
+      "comparacao": {
+        "ganho_accuracy_pct": 2350.0,
+        "overhead_computacional_x": 17.9
+      }
+    }
+  }
+}

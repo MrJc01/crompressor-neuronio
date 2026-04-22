@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T07:36:48.998534",
+    "seed": 42
+  },
+  "experimentos": {
+    "grid_limpo": {
+      "ai_passos": 38,
+      "ai_chegou": true,
+      "ai_F_inicial": 26.6725,
+      "ai_F_final": 0.5,
+      "random_media_passos": 484.2,
+      "random_trials": 50,
+      "speedup_x": 12.7,
+      "criterio_5x": true
+    },
+    "grid_obstaculos": {
+      "ai_passos": 38,
+      "ai_chegou": true,
+      "ai_F_inicial": 26.6725,
+      "ai_F_final": 0.5,
+      "random_media_passos": 496.4,
+      "random_trials": 50,
+      "speedup_x": 13.1,
+      "criterio_5x": true
+    },
+    "grid_surpresas": {
+      "ai_passos": 38,
+      "ai_chegou": true,
+      "surpresas": 0,
+      "F_media_antes_surpresa": 13.6026,
+      "F_media_depois_surpresa": 13.6026,
+      "adaptou": true
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T07:38:15.014776",
+    "seed": 42
+  },
+  "experimentos": {
+    "deteccao": {
+      "por_threshold": {
+        "0.3": {
+          "threshold": 0.3,
+          "tp": 34,
+          "fp": 0,
+          "tn": 50,
+          "fn": 16,
+          "precision": 1.0,
+          "recall": 0.68,
+          "f1": 0.81,
+          "accuracy": 0.84
+        },
+        "0.4": {
+          "threshold": 0.4,
+          "tp": 24,
+          "fp": 0,
+          "tn": 50,
+          "fn": 26,
+          "precision": 1.0,
+          "recall": 0.48,
+          "f1": 0.649,
+          "accuracy": 0.74
+        },
+        "0.5": {
+          "threshold": 0.5,
+          "tp": 12,
+          "fp": 0,
+          "tn": 50,
+          "fn": 38,
+          "precision": 1.0,
+          "recall": 0.24,
+          "f1": 0.387,
+          "accuracy": 0.62
+        },
+        "0.6": {
+          "threshold": 0.6,
+          "tp": 7,
+          "fp": 0,
+          "tn": 50,
+          "fn": 43,
+          "precision": 1.0,
+          "recall": 0.14,
+          "f1": 0.246,
+          "accuracy": 0.57
+        },
+        "0.7": {
+          "threshold": 0.7,
+          "tp": 7,
+          "fp": 0,
+          "tn": 50,
+          "fn": 43,
+          "precision": 1.0,
+          "recall": 0.14,
+          "f1": 0.246,
+          "accuracy": 0.57
+        },
+        "0.8": {
+          "threshold": 0.8,
+          "tp": 4,
+          "fp": 0,
+          "tn": 50,
+          "fn": 46,
+          "precision": 1.0,
+          "recall": 0.08,
+          "f1": 0.148,
+          "accuracy": 0.54
+        }
+      },
+      "melhor_threshold": 0.3,
+      "melhor_f1": 0.81
+    },
+    "sandbox": {
+      "threshold": 0.3,
+      "aceitas": 30,
+      "bloqueadas": 20,
+      "contaminacoes": 5,
+      "zero_contaminacao": false
+    }
+  },
+  "dataset": {
+    "verdadeiras": 50,
+    "alucinadas": 50,
+    "total": 100
+  }
+}

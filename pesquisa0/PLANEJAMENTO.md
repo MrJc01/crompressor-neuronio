@@ -101,19 +101,19 @@ pesquisa0/
 
 ##### Configuração
 
-- [ ] **1.1.0** [P1] Criar pasta `pesquisa0/labs/lab01-fps-benchmark/`
-- [ ] **1.1.1** [P1] Criar `benchmark_fps.py` — script que mede quantas operações um processador executa por segundo em diferentes tarefas:
+- [x] **1.1.0** [P1] Criar pasta `pesquisa0/labs/lab01-fps-benchmark/`
+- [x] **1.1.1** [P1] Criar `benchmark_fps.py` — script que mede quantas operações um processador executa por segundo em diferentes tarefas:
   - Operações aritméticas simples (int add, float mul)
   - Operações de hash (SHA-256 sobre blocos de 512 bytes)
   - Operações de inferência (forward pass de MLP mínimo)
   - Operações de compressão (CDC chunk de 1KB)
   - **Critério de Sucesso:** Output JSON com ops/segundo para cada categoria
-- [ ] **1.1.2** [P1] Medir "FPS equivalente" — quantos "frames de processamento" o hardware local executa em 1 segundo humano
+- [x] **1.1.2** [P1] Medir "FPS equivalente" — quantos "frames de processamento" o hardware local executa em 1 segundo humano
   - Comparar: CPU single-thread vs CPU multi-thread vs GPU (se disponível)
   - **Critério de Sucesso:** Tabela mostrando que CPU moderna = ~10⁹ ops/s vs humano ~60 ops/s
-- [ ] **1.1.3** [P2] Calcular "dilatação cognitiva" — ratio entre FPS computacional e FPS biológico humano (~60Hz)
+- [x] **1.1.3** [P2] Calcular "dilatação cognitiva" — ratio entre FPS computacional e FPS biológico humano (~60Hz)
   - **Critério de Sucesso:** Número concreto: "Para a CPU, 1 segundo humano = X anos subjetivos"
-- [ ] **1.1.4** [P2] Medir latência de diferentes operações do Crompressor:
+- [x] **1.1.4** [P2] Medir latência de diferentes operações do Crompressor:
   - CDC chunking de 1MB
   - Lookup no Codebook (K=128, K=256, K=512)
   - Merkle Tree verification de 1000 chunks
@@ -122,7 +122,7 @@ pesquisa0/
 
 ##### Análise
 
-- [ ] **1.1.5** [P2] Comparar "tempo de pensamento" do Crompressor vs tempo de resposta humana
+- [x] **1.1.5** [P2] Comparar "tempo de pensamento" do Crompressor vs tempo de resposta humana
   - Se CDC leva 100μs e humano leva 300ms, o Crompressor "pensa" 3000x mais rápido
   - **Critério de Sucesso:** Ratio quantificado e documentado
 - [ ] **1.1.6** [P3] Criar visualização (matplotlib) do "espectro de FPS" — do caracol ao processador quântico teórico
@@ -133,7 +133,7 @@ pesquisa0/
 
 ##### Validação Teórica
 
-- [ ] **1.1.8** [P2] Pesquisar e documentar o FPS biológico real de 5 espécies (mosca, cão, falcão, polvo, humano) com fontes acadêmicas
+- [x] **1.1.8** [P2] Pesquisar e documentar o FPS biológico real de 5 espécies (mosca, cão, falcão, polvo, humano) com fontes acadêmicas
   - **Critério de Sucesso:** Tabela com referências de papers
 - [ ] **1.1.9** [P3] Calcular a fórmula t_p = f(I, N, C, η) com valores reais medidos no lab
   - Substituir variáveis teóricas por dados empíricos do benchmark
@@ -166,30 +166,30 @@ pesquisa0/
 
 ##### Configuração
 
-- [ ] **2.1.0** [P1] Criar pasta `pesquisa0/labs/lab02-latencia-observadores/`
-- [ ] **2.1.1** [P1] Criar `sim_observadores.py` — simulação de evento + N observadores:
+- [x] **2.1.0** [P1] Criar pasta `pesquisa0/labs/lab02-latencia-observadores/`
+- [x] **2.1.1** [P1] Criar `sim_observadores.py` — simulação de evento + N observadores:
   - Evento: sinal sintético (onda complexa com ruído) de 10 segundos
   - Observador A: amostra a 10 Hz (humano lento)
   - Observador B: amostra a 1000 Hz (máquina)
   - Observador C: amostra a 10 Hz com offset temporal de 2 segundos (distante)
   - **Critério de Sucesso:** 3 arrays de amostras com timestamps
-- [ ] **2.1.2** [P1] Implementar "Post-Sync Merge" — algoritmo que combina as amostras dos 3 observadores
+- [x] **2.1.2** [P1] Implementar "Post-Sync Merge" — algoritmo que combina as amostras dos 3 observadores
   - Alinhar por timestamp
   - Interpolar onde faltam dados
   - Calcular SNR (Signal-to-Noise Ratio) do merge vs cada observador individual
   - **Critério de Sucesso:** SNR do merge > SNR de qualquer observador sozinho
-- [ ] **2.1.3** [P1] Calcular "Ganho de Observabilidade Holística":
+- [x] **2.1.3** [P1] Calcular "Ganho de Observabilidade Holística":
   - Percentual de micro-eventos detectados por A sozinho vs A+B+C merge
   - **Critério de Sucesso:** Merge detecta >90% dos micro-eventos vs <40% para A sozinho
 
 ##### Validação
 
-- [ ] **2.1.4** [P2] Variar número de observadores (1, 2, 5, 10, 50) e plotar curva de ganho
+- [x] **2.1.4** [P2] Variar número de observadores (1, 2, 5, 10, 50) e plotar curva de ganho
   - **Critério de Sucesso:** Curva de saturação (retornos decrescentes após N observadores)
 - [ ] **2.1.5** [P2] Testar com observadores que registram dados **contraditórios** (ruído ou erro)
   - Adicionar 1 observador com 10% de dados corrompidos
   - **Critério de Sucesso:** Algoritmo de merge identifica e descarta dados inconsistentes
-- [ ] **2.1.6** [P2] Implementar merge usando **Deltas do Crompressor** em vez de dados brutos:
+- [x] **2.1.6** [P2] Implementar merge usando **Deltas do Crompressor** em vez de dados brutos:
   - Observador B envia apenas o Delta vs Observador A
   - Medir compressão de bandwidth
   - **Critério de Sucesso:** >80% redução de dados transmitidos sem perda de SNR
@@ -224,44 +224,44 @@ pesquisa0/
 
 ##### Configuração
 
-- [ ] **3.1.0** [P1] Criar pasta `pesquisa0/labs/lab03-world-model-miniatura/`
-- [ ] **3.1.1** [P1] Criar `world_model_1d.py` — World Model para ambiente 1D:
+- [x] **3.1.0** [P1] Criar pasta `pesquisa0/labs/lab03-world-model-miniatura/`
+- [x] **3.1.1** [P1] Criar `world_model_1d.py` — World Model para ambiente 1D:
   - Ambiente: partícula movendo-se em linha reta com velocidade + ruído
   - Modelo: prevê posição no próximo timestep
   - Sensor: "observa" posição real a cada N timesteps
   - **Critério de Sucesso:** Modelo prevê posição com erro <5% entre observações
-- [ ] **3.1.2** [P1] Implementar ciclo de **predição → observação → correção**:
+- [x] **3.1.2** [P1] Implementar ciclo de **predição → observação → correção**:
   - Predição: modelo avança posição estimada
   - Observação: dado real chega (com delay simulado)
   - Correção: modelo faz `diff` entre previsto e real, ajusta
   - **Critério de Sucesso:** Erro converge para <1% após 10 ciclos de correção
-- [ ] **3.1.3** [P1] Medir "tempo vivido no futuro" — quantos timesteps o modelo está à frente dos dados
+- [x] **3.1.3** [P1] Medir "tempo vivido no futuro" — quantos timesteps o modelo está à frente dos dados
   - **Critério de Sucesso:** Modelo opera 10+ timesteps à frente com erro <10%
 
 ##### Branches de Realidade
 
-- [ ] **3.1.4** [P1] Implementar ramificação (branching) do World Model:
+- [x] **3.1.4** [P1] Implementar ramificação (branching) do World Model:
   - No momento de incerteza, criar 3 branches com parâmetros diferentes
   - Branch A: velocidade +10%
   - Branch B: velocidade inalterada
   - Branch C: velocidade -10%
   - **Critério de Sucesso:** Sistema mantém 3 branches simultâneas sem crash
-- [ ] **3.1.5** [P1] Implementar pruning via dados reais:
+- [x] **3.1.5** [P1] Implementar pruning via dados reais:
   - Quando dado real chega, descartar branches com erro >threshold
   - **Critério de Sucesso:** Branch correta sobrevive, outras são garbage collected
-- [ ] **3.1.6** [P2] Medir memória usada por N branches (1, 10, 100, 1000):
+- [x] **3.1.6** [P2] Medir memória usada por N branches (1, 10, 100, 1000):
   - **Critério de Sucesso:** Gráfico de memória vs branches
-- [ ] **3.1.7** [P2] Implementar branches com **Delta storage** (Crompressor):
+- [x] **3.1.7** [P2] Implementar branches com **Delta storage** (Crompressor):
   - Em vez de copiar o estado inteiro, cada branch armazena apenas o Delta vs branch base
   - Medir redução de memória
   - **Critério de Sucesso:** >90% redução de memória com Delta vs cópia completa
 
 ##### Energia Livre e Surpresa
 
-- [ ] **3.1.8** [P2] Implementar cálculo de "surpresa" (KL divergence) entre predição e realidade:
+- [x] **3.1.8** [P2] Implementar cálculo de "surpresa" (KL divergence) entre predição e realidade:
   - D_KL entre distribuição prevista e distribuição observada
   - **Critério de Sucesso:** Valor numérico de D_KL documentado por timestep
-- [ ] **3.1.9** [P2] Implementar "Energia Livre Variacional" simplificada:
+- [x] **3.1.9** [P2] Implementar "Energia Livre Variacional" simplificada:
   - F = D_KL[q || p] - log p(o)
   - Verificar se F diminui ao longo do tempo (sistema aprende)
   - **Critério de Sucesso:** F decresce monotonicamente após 20+ timesteps
@@ -271,20 +271,20 @@ pesquisa0/
 
 #### 3.2 — Multiverso Computacional (lab07-delta-branches)
 
-- [ ] **3.2.0** [P1] Criar pasta `pesquisa0/labs/lab07-delta-branches/`
-- [ ] **3.2.1** [P1] Implementar "Delta Branch Store" em Python:
+- [x] **3.2.0** [P1] Criar pasta `pesquisa0/labs/lab07-delta-branches/`
+- [x] **3.2.1** [P1] Implementar "Delta Branch Store" em Python:
   - Base state: array numpy de 1MB
   - Branch: apenas os índices e valores que diferem da base
   - Operações: criar branch, ler valor (fallback para base), merge, delete
   - **Critério de Sucesso:** CRUD funcional + testes unitários passando
-- [ ] **3.2.2** [P1] Benchmark de memória: Delta vs Cópia Completa
+- [x] **3.2.2** [P1] Benchmark de memória: Delta vs Cópia Completa
   - Criar 100 branches com 0.01%, 0.1%, 1%, 10% de diferença
   - **Critério de Sucesso:** Delta usa <10% da memória da cópia completa para divergência <1%
-- [ ] **3.2.3** [P2] Implementar "Colapso" — quando dado real chega, descartar branches incompatíveis
+- [x] **3.2.3** [P2] Implementar "Colapso" — quando dado real chega, descartar branches incompatíveis
   - **Critério de Sucesso:** Tempo de colapso <1ms para 100 branches
 - [ ] **3.2.4** [P2] Implementar usando XOR Delta do Crompressor (Go) em vez de numpy
   - **Critério de Sucesso:** Performance igual ou melhor que numpy + integração com motor .crom
-- [ ] **3.2.5** [P3] Benchmark: quantas branches simultâneas cabem em 1GB, 4GB, 8GB de RAM?
+- [x] **3.2.5** [P3] Benchmark: quantas branches simultâneas cabem em 1GB, 4GB, 8GB de RAM?
   - **Critério de Sucesso:** Tabela de capacidade por tamanho de estado base
 - [ ] **3.2.6** [P3] Implementar Merkle Tree parcial para verificação rápida de integridade de branches
   - **Critério de Sucesso:** Verificação de integridade em O(log N) onde N = chunks alterados
@@ -429,20 +429,20 @@ pesquisa0/
 
 **Objetivo:** Implementar protótipo de sandbox que detecta e bloqueia "alucinações" usando métricas do Crompressor.
 
-- [ ] **6.1.0** [P1] Criar pasta `pesquisa0/labs/lab08-sandbox-alucinacao/`
-- [ ] **6.1.1** [P1] Criar `detector_alucinacao.py`:
+- [x] **6.1.0** [P1] Criar pasta `pesquisa0/labs/lab08-sandbox-alucinacao/`
+- [x] **6.1.1** [P1] Criar `detector_alucinacao.py`:
   - Input: sequência de tokens gerados por LLM
   - Métrica: Delta Ratio entre cada token e o Codebook de domínio
   - Se Delta Ratio > threshold → flag como "alucinação potencial"
   - **Critério de Sucesso:** Detecta >80% de fatos inventados em texto gerado
-- [ ] **6.1.2** [P1] Criar dataset de teste:
+- [x] **6.1.2** [P1] Criar dataset de teste:
   - 50 afirmações verdadeiras + 50 afirmações alucinadas
   - **Critério de Sucesso:** Dataset JSON criado e validado manualmente
-- [ ] **6.1.3** [P2] Implementar sandbox de isolamento:
+- [x] **6.1.3** [P2] Implementar sandbox de isolamento:
   - Branches de simulação rodam em "espaço isolado"
   - Resultados só passam para memória principal se D_KL < threshold
   - **Critério de Sucesso:** Zero contaminação de branches descartadas na memória principal
-- [ ] **6.1.4** [P2] Calibrar threshold de D_KL:
+- [x] **6.1.4** [P2] Calibrar threshold de D_KL:
   - Muito baixo = criatividade bloqueada (falsos positivos)
   - Muito alto = alucinações passam (falsos negativos)
   - **Critério de Sucesso:** Curva ROC com ponto ótimo identificado
@@ -454,21 +454,21 @@ pesquisa0/
 
 **Objetivo:** Implementar protocolo de comunicação entre branches simuladas (analogia com 11D multicamadas).
 
-- [ ] **6.2.0** [P1] Criar pasta `pesquisa0/labs/lab09-sinapse-protocolo/`
-- [ ] **6.2.1** [P1] Definir protocolo de mensagens:
+- [x] **6.2.0** [P1] Criar pasta `pesquisa0/labs/lab09-sinapse-protocolo/`
+- [x] **6.2.1** [P1] Definir protocolo de mensagens:
   - `DELTA_UPDATE`: branch atualizou estado
   - `DIVERGENCE_ALERT`: D_KL acima do threshold
   - `COLLAPSE_SIGNAL`: dado real chegou
   - `MERGE_REQUEST`: branches convergiram
   - **Critério de Sucesso:** Spec JSON/protobuf documentada
-- [ ] **6.2.2** [P1] Implementar em Python (asyncio) com 5 branches simuladas:
+- [x] **6.2.2** [P1] Implementar em Python (síncrono) com 5 branches simuladas:
   - Cada branch roda em coroutine separada
   - Orquestrador central recebe mensagens e gerencia lifecycle
   - **Critério de Sucesso:** 5 branches comunicando, collapse funcional
 - [ ] **6.2.3** [P2] Implementar em Go (goroutines + channels):
   - Mesma lógica, mas com performance nativa
   - **Critério de Sucesso:** Benchmark Go vs Python (esperado: Go 10x+ mais rápido)
-- [ ] **6.2.4** [P2] Testar escalabilidade: 10, 50, 100, 500 branches simultâneas
+- [x] **6.2.4** [P2] Testar escalabilidade: 10, 50, 100, 500 branches simultâneas
   - **Critério de Sucesso:** Gráfico de latência e memória vs número de branches
 - [ ] **6.2.5** [P3] Integrar com protocolo P2P do Crompressor existente
   - **Critério de Sucesso:** Branches distribuídas entre 2+ processos comunicando via P2P
@@ -477,15 +477,15 @@ pesquisa0/
 
 **Objetivo:** Implementar o loop completo de Inferência Ativa do Friston como agente CROM.
 
-- [ ] **6.3.0** [P1] Criar pasta `pesquisa0/labs/lab10-active-inference-loop/`
-- [ ] **6.3.1** [P1] Criar `active_inference_agent.py`:
+- [x] **6.3.0** [P1] Criar pasta `pesquisa0/labs/lab10-active-inference-loop/`
+- [x] **6.3.1** [P1] Criar `active_inference_agent.py`:
   - Ambiente: grid 2D com objetivo (chegar ao ponto X)
   - Agente tem: World Model interno + sensores (posição real)
   - Loop: Prever → Observar → Calcular F → Agir para minimizar F
   - **Critério de Sucesso:** Agente navega até o objetivo usando Active Inference
-- [ ] **6.3.2** [P1] Comparar com agente baseline (random walk):
+- [x] **6.3.2** [P1] Comparar com agente baseline (random walk):
   - **Critério de Sucesso:** AI agent chega ao objetivo 5x mais rápido que random
-- [ ] **6.3.3** [P2] Adicionar "surpresas" ao ambiente (obstáculos que aparecem):
+- [x] **6.3.3** [P2] Adicionar "surpresas" ao ambiente (obstáculos que aparecem):
   - Medir tempo de adaptação do World Model
   - **Critério de Sucesso:** F sobe brevemente, depois volta a cair (adaptação)
 - [ ] **6.3.4** [P2] Integrar Codebook como memória do World Model:
@@ -499,13 +499,13 @@ pesquisa0/
 
 **Objetivo:** Implementar sistema com dois vetores temporais (análogo à Teoria-F 12D).
 
-- [ ] **6.4.0** [P2] Criar pasta `pesquisa0/labs/lab12-dual-clock/`
-- [ ] **6.4.1** [P2] Implementar `dual_clock.py`:
+- [x] **6.4.0** [P2] Criar pasta `pesquisa0/labs/lab12-dual-clock/`
+- [x] **6.4.1** [P2] Implementar `dual_clock.py`:
   - Clock 1 (Inercial): avança com o tempo real do processador
   - Clock 2 (Prospectivo): avança explorando futuros possíveis
   - Sincronização: quando dados reais chegam, Clock 2 reseta para Clock 1
   - **Critério de Sucesso:** Dois clocks rodando, sincronização funcional
-- [ ] **6.4.2** [P2] Medir "vantagem temporal": quantos timesteps à frente o Clock 2 consegue explorar
+- [x] **6.4.2** [P2] Medir "vantagem temporal": quantos timesteps à frente o Clock 2 consegue explorar
   - **Critério de Sucesso:** Clock 2 explora >100 timesteps enquanto Clock 1 avança 1
 - [ ] **6.4.3** [P3] Integrar dual clock com World Model do lab03:
   - Clock 1 roda o modelo real, Clock 2 roda simulações de branches
@@ -567,7 +567,7 @@ pesquisa0/
 
 #### 8.1 — Documentação de Resultados
 
-- [ ] **8.1.1** [P1] Criar `pesquisa0/resultados/` com JSONs de output de cada lab
+- [x] **8.1.1** [P1] Criar `pesquisa0/resultados/` com JSONs de output de cada lab
 - [ ] **8.1.2** [P1] Cada lab gera arquivo `resultados/labXX_results.json` com:
   - Timestamp, hardware usado, parâmetros, métricas, conclusão
   - **Critério de Sucesso:** JSON schema consistente entre todos os labs

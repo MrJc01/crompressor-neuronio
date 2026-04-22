@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "timestamp": "2026-04-21T23:10:53.547306",
+    "hardware": {
+      "processor": "x86_64",
+      "machine": "x86_64",
+      "python": "3.12.3",
+      "os": "Linux 6.17.0-20-generic"
+    },
+    "duracao_teste_s": 2.0,
+    "seed": 42
+  },
+  "benchmarks": {
+    "int_add": {
+      "nome": "Adição Inteira (batched)",
+      "ops_total": 2852000,
+      "tempo_real_s": 2.0001,
+      "ops_por_segundo": 1425906.95,
+      "latencia_media_us": 0.7013
+    },
+    "float_mul": {
+      "nome": "Multiplicação Float (batched)",
+      "ops_total": 13548000,
+      "tempo_real_s": 2.0,
+      "ops_por_segundo": 6773904.74,
+      "latencia_media_us": 0.1476
+    },
+    "sha256_512b": {
+      "nome": "SHA-256 (512 bytes)",
+      "ops_total": 95516,
+      "tempo_real_s": 2.0035,
+      "ops_por_segundo": 47675.28,
+      "latencia_media_us": 20.9752
+    },
+    "xor_delta_4kb": {
+      "nome": "XOR Delta (4KB)",
+      "ops_total": 1009,
+      "tempo_real_s": 2.0008,
+      "ops_por_segundo": 504.3,
+      "latencia_media_us": 1982.9415
+    },
+    "mlp_forward_32x128x10": {
+      "nome": "MLP Forward (32→128→10)",
+      "ops_total": 518,
+      "tempo_real_s": 2.041,
+      "ops_por_segundo": 253.8,
+      "latencia_media_us": 3940.1541
+    },
+    "cdc_rolling_1kb": {
+      "nome": "CDC Rolling Hash (1KB)",
+      "ops_total": 1353,
+      "tempo_real_s": 2.0061,
+      "ops_por_segundo": 674.44,
+      "latencia_media_us": 1482.7091
+    },
+    "codebook_lookup_k128": {
+      "nome": "Codebook Lookup (K=128, dim=16)",
+      "ops_total": 647,
+      "tempo_real_s": 2.0126,
+      "ops_por_segundo": 321.47,
+      "latencia_media_us": 3110.6907
+    },
+    "codebook_lookup_k256": {
+      "nome": "Codebook Lookup (K=256, dim=16)",
+      "ops_total": 306,
+      "tempo_real_s": 2.0254,
+      "ops_por_segundo": 151.08,
+      "latencia_media_us": 6618.9723
+    },
+    "codebook_lookup_k512": {
+      "nome": "Codebook Lookup (K=512, dim=16)",
+      "ops_total": 186,
+      "tempo_real_s": 2.0827,
+      "ops_por_segundo": 89.31,
+      "latencia_media_us": 11197.5578
+    },
+    "merkle_64_chunks": {
+      "nome": "Merkle Tree (64 chunks)",
+      "ops_total": 2160,
+      "tempo_real_s": 2.0061,
+      "ops_por_segundo": 1076.73,
+      "latencia_media_us": 928.7395
+    }
+  },
+  "fps_biologicos": {
+    "humano": {
+      "fps": 60,
+      "fonte": "Tobii — Speed of Visual Perception",
+      "latencia_ms": "80-300ms"
+    },
+    "mosca": {
+      "fps": 250,
+      "fonte": "Autrum, H. (1950) — Insect Vision",
+      "latencia_ms": "~4ms"
+    },
+    "falcao_peregrino": {
+      "fps": 129,
+      "fonte": "Potier et al. (2020) — CFF in raptors",
+      "latencia_ms": "~8ms"
+    },
+    "cao": {
+      "fps": 80,
+      "fonte": "Miller & Murphy (1995) — Canine CFF",
+      "latencia_ms": "~12ms"
+    },
+    "polvo": {
+      "fps": 30,
+      "fonte": "Messenger (1981) — Cephalopod vision (estimativa)",
+      "latencia_ms": "~33ms"
+    }
+  },
+  "dilatacao_cognitiva": {
+    "maquina_vs_humano": {
+      "ratio": 794.588,
+      "frames_maquina_em_1s_humano": 47675.28,
+      "anos_subjetivos_por_segundo_humano": 2.5178974319973634e-05,
+      "descricao": "Para a máquina, 1 segundo humano = 0.0000 anos subjetivos"
+    },
+    "maquina_vs_mosca": {
+      "ratio": 190.70112,
+      "frames_maquina_em_1s_humano": 47675.28,
+      "anos_subjetivos_por_segundo_humano": 6.042953836793673e-06,
+      "descricao": "Para a máquina, 1 segundo humano = 0.0000 anos subjetivos"
+    },
+    "maquina_vs_falcao_peregrino": {
+      "ratio": 369.57581395348836,
+      "frames_maquina_em_1s_humano": 47675.28,
+      "anos_subjetivos_por_segundo_humano": 1.1711150846499364e-05,
+      "descricao": "Para a máquina, 1 segundo humano = 0.0000 anos subjetivos"
+    },
+    "maquina_vs_cao": {
+      "ratio": 595.941,
+      "frames_maquina_em_1s_humano": 47675.28,
+      "anos_subjetivos_por_segundo_humano": 1.8884230739980227e-05,
+      "descricao": "Para a máquina, 1 segundo humano = 0.0000 anos subjetivos"
+    },
+    "maquina_vs_polvo": {
+      "ratio": 1589.176,
+      "frames_maquina_em_1s_humano": 47675.28,
+      "anos_subjetivos_por_segundo_humano": 5.035794863994727e-05,
+      "descricao": "Para a máquina, 1 segundo humano = 0.0001 anos subjetivos"
+    }
+  },
+  "latencias_crompressor": {
+    "xor_delta_4kb": {
+      "latencia_us": 1982.9415,
+      "ops_por_segundo": 504.3,
+      "ratio_vs_humano": 151.29
+    },
+    "cdc_rolling_1kb": {
+      "latencia_us": 1482.7091,
+      "ops_por_segundo": 674.44,
+      "ratio_vs_humano": 202.33
+    },
+    "codebook_lookup_k128": {
+      "latencia_us": 3110.6907,
+      "ops_por_segundo": 321.47,
+      "ratio_vs_humano": 96.44
+    },
+    "codebook_lookup_k256": {
+      "latencia_us": 6618.9723,
+      "ops_por_segundo": 151.08,
+      "ratio_vs_humano": 45.32
+    },
+    "codebook_lookup_k512": {
+      "latencia_us": 11197.5578,
+      "ops_por_segundo": 89.31,
+      "ratio_vs_humano": 26.79
+    },
+    "merkle_64_chunks": {
+      "latencia_us": 928.7395,
+      "ops_por_segundo": 1076.73,
+      "ratio_vs_humano": 323.02
+    },
+    "sha256_512b": {
+      "latencia_us": 20.9752,
+      "ops_por_segundo": 47675.28,
+      "ratio_vs_humano": 14302.6
+    }
+  }
+}
