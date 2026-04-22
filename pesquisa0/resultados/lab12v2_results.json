@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T09:55:19.708589",
+    "seed": 42
+  },
+  "experimentos": {
+    "principal": {
+      "single_clock": {
+        "erro_medio": 0.056885,
+        "erro_max": 0.260756
+      },
+      "dual_clock_v1_refutado": {
+        "erro_medio": 0.069301,
+        "erro_max": 0.294288
+      },
+      "dual_clock_v2_world_model": {
+        "erro_medio": 0.051939,
+        "erro_max": 0.268077,
+        "timesteps_explorados": 9950
+      },
+      "comparacao": {
+        "v2_vs_single_pct": 8.7,
+        "v2_vs_v1_pct": 25.05,
+        "v2_melhor_que_single": true,
+        "v2_melhor_que_v1": true
+      }
+    },
+    "robustez": {
+      "n_seeds": 10,
+      "vitorias_v2": 10,
+      "taxa_vitoria_pct": 100
+    }
+  },
+  "hipotese_h13_corrigida": true
+}
