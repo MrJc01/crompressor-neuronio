@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "timestamp": "2026-04-22T10:32:00",
+    "model": "gpt2",
+    "params": 124439808,
+    "seq_len": 421,
+    "n_layers": 12,
+    "n_heads": 12,
+    "head_dim": 64,
+    "device": "cuda",
+    "gpu": "Tesla T4",
+    "plataforma": "Google Colab",
+    "seed": 42
+  },
+  "kv_cache_original": {
+    "memoria_KB": 30312.0,
+    "memoria_MB": 29.6
+  },
+  "quantizacao": {
+    "64": {
+      "K": 64,
+      "mse": 0.63001392,
+      "cosine_similarity": 0.775524,
+      "mem_comprimida_KB": 620.8,
+      "reducao_pct": 98.0,
+      "ratio": 48.8
+    },
+    "128": {
+      "K": 128,
+      "mse": 0.47603593,
+      "cosine_similarity": 0.826128,
+      "mem_comprimida_KB": 1004.8,
+      "reducao_pct": 96.7,
+      "ratio": 30.2
+    },
+    "256": {
+      "K": 256,
+      "mse": 0.34108729,
+      "cosine_similarity": 0.874627,
+      "mem_comprimida_KB": 1772.8,
+      "reducao_pct": 94.2,
+      "ratio": 17.1
+    },
+    "512": {
+      "K": 512,
+      "mse": 0.23209351,
+      "cosine_similarity": 0.929357,
+      "mem_comprimida_KB": 3308.8,
+      "reducao_pct": 89.1,
+      "ratio": 9.2
+    }
+  },
+  "perplexity_original": {
+    "prosa": 1.41,
+    "religioso": 1.25,
+    "codigo": 1.15
+  },
+  "conclusao": "Codebook no KV Cache REAL do GPT-2 confirma 89-98% de redução com cosine similarity de 0.78-0.93. K=256 oferece melhor trade-off: 94.2% redução (17.1x) com 0.87 cosine similarity."
+}
