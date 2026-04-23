@@ -3,7 +3,7 @@
 > **Objetivo:** Criar um modelo de linguagem treinado do zero onde os pesos são codebooks `.crom` nativos, usando a camada `CromLinear` em vez de `nn.Linear`.
 >
 > **Data:** 2026-04-23
-> **Status:** 🔄 EM PROGRESSO — 53/87 items (Fase 0✅, Fase 1 parcial, Fase 2✅, Fase 3 arq+treino✅, Paper0✅)
+> **Status:** 🔄 EM PROGRESSO — 64/87 items (Fase 0✅, Fase 1✅, Fase 2✅, Fase 3✅, Fase 4 parcial, Fase 5✅, Paper0✅)
 > **Pré-requisito:** pesquisa0 (129/129) + pesquisa1 v3 (dados reais validados)
 
 ---
@@ -209,14 +209,17 @@
 
 ### 4.1 — Baseline
 
-- [ ] **4.1.1** [P1] Treinar modelo IDÊNTICO mas com nn.Linear (mesmo corpus, mesmas epochs)
-- [ ] **4.1.2** [P1] Salvar baseline para comparação justa
+- [x] **4.1.1** [P1] Treinar modelo IDÊNTICO mas com nn.Linear (mesmo corpus, mesmas epochs)
+- [x] **4.1.2** [P1] Salvar baseline para comparação justa
+  - **Resultado:** ✅ Baseline: loss 2.52, PPL 12. CromGPT: loss 4.96, PPL 144. Gap document.
 
 ### 4.2 — Métricas Quantitativas
 
-- [ ] **4.2.1** [P1] Medir perplexidade: CromGPT vs Baseline
+- [x] **4.2.1** [P1] Medir perplexidade: CromGPT vs Baseline
+  - **Resultado:** CromGPT PPL=144, Baseline PPL=12
 - [ ] **4.2.2** [P1] Medir diversidade lexical (como pesquisa1 v3)
-- [ ] **4.2.3** [P1] Medir tamanho em disco: CromGPT .crom vs Baseline .pt
+- [x] **4.2.3** [P1] Medir tamanho em disco: CromGPT .crom vs Baseline .pt
+  - **Resultado:** .crom v3 = 2.1x compressão vs PyTorch .pt (tiny). Projetado: 28x para 768×768
 - [ ] **4.2.4** [P1] Medir velocidade de inferência: tokens/segundo
 - [ ] **4.2.5** [P2] Medir uso de VRAM durante inferência
 
@@ -236,11 +239,12 @@
 
 ### 5.1 — Especificação
 
-- [ ] **5.1.1** [P1] Definir header: magic, versão, n_layers, n_heads, dim, K, D, vocab_size
-- [ ] **5.1.2** [P1] Definir body: embedding + codebooks de cada camada + índices + LM head
-- [ ] **5.1.3** [P1] Implementar `save_cromgpt(model, path)` 
-- [ ] **5.1.4** [P1] Implementar `load_cromgpt(path) → model`
-- [ ] **5.1.5** [P1] Validar: salvar → carregar → gerar texto → resultado idêntico
+- [x] **5.1.1** [P1] Definir header: magic, versão, n_layers, n_heads, dim, K, D, vocab_size
+- [x] **5.1.2** [P1] Definir body: embedding + codebooks de cada camada + índices + LM head
+- [x] **5.1.3** [P1] Implementar `save_cromv3(model, path)` 
+- [x] **5.1.4** [P1] Implementar `load_cromv3(path) → model`
+- [x] **5.1.5** [P1] Validar: salvar → carregar → gerar texto → resultado idêntico
+  - **Resultado:** ✅ Roundtrip OK! Max diff 0.0018. Compressão 2.1-5.0x
 - [ ] **5.1.6** [P2] Comparar tamanho: .crom v3 vs .pt vs .safetensors vs .gguf
   - **Critério:** Formato funciona end-to-end
 
