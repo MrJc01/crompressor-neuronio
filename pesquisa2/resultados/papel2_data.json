@@ -1,0 +1,198 @@
+{
+  "sensitivity": [
+    {
+      "K": 32,
+      "D": 8,
+      "loss_start": 11.109467506408691,
+      "loss_end": 6.5726518630981445,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 32,
+      "D": 16,
+      "loss_start": 11.115900039672852,
+      "loss_end": 6.595396995544434,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 32,
+      "D": 32,
+      "loss_start": 11.134662628173828,
+      "loss_end": 6.639082908630371,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 32,
+      "D": 64,
+      "loss_start": 11.126075744628906,
+      "loss_end": 6.568729877471924,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 64,
+      "D": 8,
+      "loss_start": 11.089048385620117,
+      "loss_end": 6.6358866691589355,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 64,
+      "D": 16,
+      "loss_start": 11.102560997009277,
+      "loss_end": 6.6490960121154785,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 64,
+      "D": 32,
+      "loss_start": 11.103745460510254,
+      "loss_end": 6.662509441375732,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 64,
+      "D": 64,
+      "loss_start": 11.147109985351562,
+      "loss_end": 6.6143107414245605,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 128,
+      "D": 8,
+      "loss_start": 11.094245910644531,
+      "loss_end": 6.710709571838379,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 128,
+      "D": 16,
+      "loss_start": 11.168410301208496,
+      "loss_end": 6.776403427124023,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 128,
+      "D": 32,
+      "loss_start": 11.112275123596191,
+      "loss_end": 6.671533107757568,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 128,
+      "D": 64,
+      "loss_start": 11.070516586303711,
+      "loss_end": 6.65008544921875,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 256,
+      "D": 8,
+      "loss_start": 11.13802719116211,
+      "loss_end": 6.640720367431641,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 256,
+      "D": 16,
+      "loss_start": 11.149628639221191,
+      "loss_end": 6.762812614440918,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 256,
+      "D": 32,
+      "loss_start": 11.094000816345215,
+      "loss_end": 6.550699234008789,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    },
+    {
+      "K": 256,
+      "D": 64,
+      "loss_start": 11.102275848388672,
+      "loss_end": 6.688737869262695,
+      "cb_util": 1.0,
+      "params": 3326784,
+      "converged": true
+    }
+  ],
+  "compression": [
+    {
+      "model": "Tiny",
+      "dim": 64,
+      "layers": 2,
+      "K": 256,
+      "D": 64,
+      "linear_MB": 0.196608,
+      "crom_MB": 0.396288,
+      "ratio": 0.49612403100775193
+    },
+    {
+      "model": "Small",
+      "dim": 768,
+      "layers": 12,
+      "K": 256,
+      "D": 64,
+      "linear_MB": 169.869312,
+      "crom_MB": 3.796992,
+      "ratio": 44.737864077669904
+    },
+    {
+      "model": "Medium",
+      "dim": 1024,
+      "layers": 24,
+      "K": 256,
+      "D": 64,
+      "linear_MB": 603.979776,
+      "crom_MB": 9.732096,
+      "ratio": 62.06060606060606
+    },
+    {
+      "model": "Large",
+      "dim": 1280,
+      "layers": 36,
+      "K": 256,
+      "D": 64,
+      "linear_MB": 1415.5776,
+      "crom_MB": 18.690048,
+      "ratio": 75.7396449704142
+    }
+  ],
+  "speed_cromgpt": {
+    "tok_per_sec": 13.083140649476473,
+    "ms_50tok": 3821.712334950765
+  },
+  "speed_baseline": {
+    "tok_per_sec": 12.514209241548086,
+    "ms_50tok": 3995.458205540975
+  }
+}
