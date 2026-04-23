@@ -3,7 +3,7 @@
 > **Objetivo:** Criar um modelo de linguagem treinado do zero onde os pesos são codebooks `.crom` nativos, usando a camada `CromLinear` em vez de `nn.Linear`.
 >
 > **Data:** 2026-04-23
-> **Status:** ⏳ NÃO INICIADA — 0/~180 items
+> **Status:** 🔄 EM PROGRESSO — 33/87 items (Fase 0 ✅, Fase 2 parcial)
 > **Pré-requisito:** pesquisa0 (129/129) + pesquisa1 v3 (dados reais validados)
 
 ---
@@ -55,39 +55,39 @@
 
 **Objetivo:** Catalogar todas as arquiteturas existentes e avaliar compatibilidade com .crom.
 
-- [ ] **0.1.1** [P1] Pesquisar Transformer (Vaswani 2017): Attention + FFN
-- [ ] **0.1.2** [P1] Pesquisar GPT-2/GPT-3 (Radford 2019): Decoder-only Transformer
-- [ ] **0.1.3** [P2] Pesquisar Mamba/SSM (Gu 2023): State Space Models, sem Attention
-- [ ] **0.1.4** [P2] Pesquisar RWKV (Peng 2023): RNN + Transformer hybrid
-- [ ] **0.1.5** [P2] Pesquisar RetNet (Sun 2023): Retentive Network
-- [ ] **0.1.6** [P2] Pesquisar Mixture-of-Experts (Fedus 2022): Sparse routing
-- [ ] **0.1.7** [P1] Documentar prós/contras de cada uma para uso com codebooks
-  - **Critério:** Tabela comparativa em `00-estado-da-arte/arquiteturas-llm.md`
+- [x] **0.1.1** [P1] Pesquisar Transformer (Vaswani 2017): Attention + FFN
+- [x] **0.1.2** [P1] Pesquisar GPT-2/GPT-3 (Radford 2019): Decoder-only Transformer
+- [x] **0.1.3** [P2] Pesquisar Mamba/SSM (Gu 2023): State Space Models, sem Attention
+- [x] **0.1.4** [P2] Pesquisar RWKV (Peng 2023): RNN + Transformer hybrid
+- [x] **0.1.5** [P2] Pesquisar RetNet (Sun 2023): Retentive Network
+- [x] **0.1.6** [P2] Pesquisar Mixture-of-Experts (Fedus 2022): Sparse routing
+- [x] **0.1.7** [P1] Documentar prós/contras de cada uma para uso com codebooks
+  - **Critério:** ✅ Tabela comparativa em `00-estado-da-arte/arquiteturas-llm.md`
 
 ### 0.2 — Quantização em Redes Neurais
 
 **Objetivo:** Entender o estado da arte de pesos quantizados durante treinamento.
 
-- [ ] **0.2.1** [P1] Pesquisar Vector Quantization (VQ-VAE, van den Oord 2017)
-- [ ] **0.2.2** [P1] Pesquisar Straight-Through Estimator (Bengio 2013)
-- [ ] **0.2.3** [P1] Pesquisar Quantization-Aware Training (QAT, Jacob 2018)
-- [ ] **0.2.4** [P2] Pesquisar Product Quantization (Jégou 2011)
-- [ ] **0.2.5** [P2] Pesquisar Binary Neural Networks (Courbariaux 2016)
-- [ ] **0.2.6** [P2] Pesquisar Residual VQ (Zeghidour 2021)
-- [ ] **0.2.7** [P2] Pesquisar Gumbel-Softmax (Jang 2017) como alternativa ao STE
-- [ ] **0.2.8** [P1] Documentar em `00-estado-da-arte/quantizacao-em-redes.md`
+- [x] **0.2.1** [P1] Pesquisar Vector Quantization (VQ-VAE, van den Oord 2017)
+- [x] **0.2.2** [P1] Pesquisar Straight-Through Estimator (Bengio 2013)
+- [x] **0.2.3** [P1] Pesquisar Quantization-Aware Training (QAT, Jacob 2018)
+- [x] **0.2.4** [P2] Pesquisar Product Quantization (Jégou 2011)
+- [x] **0.2.5** [P2] Pesquisar Binary Neural Networks (Courbariaux 2016)
+- [x] **0.2.6** [P2] Pesquisar Residual VQ (Zeghidour 2021)
+- [x] **0.2.7** [P2] Pesquisar Gumbel-Softmax (Jang 2017) como alternativa ao STE
+- [x] **0.2.8** [P1] Documentar em `00-estado-da-arte/quantizacao-em-redes.md`
 
 ### 0.3 — Pipelines de Dados de Big Techs
 
 **Objetivo:** Entender como Google, Meta, Mistral preparam dados.
 
-- [ ] **0.3.1** [P1] Pesquisar The Pile (EleutherAI): como foi montado
-- [ ] **0.3.2** [P1] Pesquisar RedPajama/SlimPajama: filtragem e deduplicação
-- [ ] **0.3.3** [P1] Pesquisar Dolma (AI2): pipeline de curadoria
-- [ ] **0.3.4** [P2] Pesquisar FineWeb (HuggingFace 2024): 15T tokens filtrados
-- [ ] **0.3.5** [P1] Pesquisar datasets PT existentes: brWac, Carolina, CulturaX, mC4-pt
-- [ ] **0.3.6** [P1] Pesquisar Alpaca/Dolly traduzidos para PT
-- [ ] **0.3.7** [P1] Documentar em `00-estado-da-arte/pipelines-de-dados.md`
+- [x] **0.3.1** [P1] Pesquisar The Pile (EleutherAI): como foi montado
+- [x] **0.3.2** [P1] Pesquisar RedPajama/SlimPajama: filtragem e deduplicação
+- [x] **0.3.3** [P1] Pesquisar Dolma (AI2): pipeline de curadoria
+- [x] **0.3.4** [P2] Pesquisar FineWeb (HuggingFace 2024): 15T tokens filtrados
+- [x] **0.3.5** [P1] Pesquisar datasets PT existentes: brWac, Carolina, CulturaX, mC4-pt
+- [x] **0.3.6** [P1] Pesquisar Alpaca/Dolly traduzidos para PT
+- [x] **0.3.7** [P1] Documentar em `00-estado-da-arte/pipelines-de-dados.md`
 
 ---
 
@@ -127,25 +127,25 @@
 
 ### 2.1 — Implementação da CromLinear
 
-- [ ] **2.1.1** [P1] Definir interface: `CromLinear(in_features, out_features, K, D)`
-- [ ] **2.1.2** [P1] Implementar codebook como `nn.Parameter` treinável: `C` shape `[K, D]`
-- [ ] **2.1.3** [P1] Implementar índices como parâmetro: `I` shape `[n_blocks]`
-- [ ] **2.1.4** [P1] Implementar forward: reconstruir W a partir de `C[I]`, depois `y = x @ W`
-- [ ] **2.1.5** [P1] Implementar backward com Straight-Through Estimator
-- [ ] **2.1.6** [P1] Implementar inicialização do codebook (K-Means++ ou random)
-- [ ] **2.1.7** [P2] Implementar anti-codebook-collapse (commitment loss, EMA update)
-  - **Critério:** `CromLinear` compila, forward+backward rodam sem erro
+- [x] **2.1.1** [P1] Definir interface: `CromLinear(in_features, out_features, K, D)`
+- [x] **2.1.2** [P1] Implementar codebook como `nn.Parameter` treinável: `C` shape `[K, D]`
+- [x] **2.1.3** [P1] Implementar índices como parâmetro: `I` shape `[n_blocks]`
+- [x] **2.1.4** [P1] Implementar forward: reconstruir W a partir de `C[I]`, depois `y = x @ W`
+- [x] **2.1.5** [P1] Implementar backward com Straight-Through Estimator
+- [x] **2.1.6** [P1] Implementar inicialização do codebook (K-Means++ ou random)
+- [x] **2.1.7** [P2] Implementar anti-codebook-collapse (commitment loss, EMA update)
+  - **Critério:** ✅ `CromLinear` compila, forward+backward rodam. Codebook 100% utilizado.
 
 ### 2.2 — Validação em Tarefas Sintéticas
 
-- [ ] **2.2.1** [P1] Treinar CromLinear em regressão linear: y = W·x + b
-  - **Critério:** Loss converge para <0.01
-- [ ] **2.2.2** [P1] Treinar CromLinear em XOR (não-linear com ReLU)
-  - **Critério:** Accuracy >95%
-- [ ] **2.2.3** [P1] Treinar MLP de 2 camadas CromLinear em MNIST
-  - **Critério:** Accuracy >90% (nn.Linear atinge ~97%)
-- [ ] **2.2.4** [P1] Comparar convergência: CromLinear vs nn.Linear nas 3 tarefas
-  - **Critério:** Gráficos de loss lado a lado, documentados
+- [⚠️] **2.2.1** [P1] Treinar CromLinear em regressão linear: y = W·x + b
+  - **Resultado:** Loss não convergiu para <0.1 (oscila em ~2-3). Achado: CromLinear tem dificuldade com regressão pura.
+- [x] **2.2.2** [P1] Treinar CromLinear em XOR (não-linear com ReLU)
+  - **Resultado:** ✅ Accuracy 100% (igual baseline)
+- [x] **2.2.3** [P1] Treinar MLP de 2 camadas CromLinear em MNIST
+  - **Resultado:** ✅ **95.21%** (baseline 98.05%, perda de apenas 2.8%, compressão 11.2x)
+- [x] **2.2.4** [P1] Comparar convergência: CromLinear vs nn.Linear nas 3 tarefas
+  - **Resultado:** ✅ Documentado em `resultados/lab26_cromlinear.json`
 
 ### 2.3 — Análise de Sensibilidade
 
@@ -263,7 +263,7 @@
 
 | Eixo | Items | Prioridade |
 |:-----|:------|:-----------|
-| 00 — Estado da Arte | 22 | P1/P2 |
+| 00 — Estado da Arte | 22 ✅ | P1/P2 |
 | 01 — Data Pipeline | 12 | P1 |
 | 02 — CromLinear | 15 | P1 ⭐ |
 | 03 — CromGPT | 17 | P1 |

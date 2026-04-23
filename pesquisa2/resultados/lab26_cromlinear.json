@@ -1,0 +1,26 @@
+{
+  "forward_backward": {
+    "passed": true
+  },
+  "regression": {
+    "passed": false
+  },
+  "xor": {
+    "passed": true
+  },
+  "mnist": {
+    "passed": true,
+    "test": "mnist",
+    "crom_accuracy": 0.9521,
+    "baseline_accuracy": 0.9805,
+    "accuracy_gap": 0.028400000000000092,
+    "compressions": [
+      11.180035650623886,
+      2.318840579710145
+    ],
+    "codebook_utilization": [
+      1.0,
+      1.0
+    ]
+  }
+}

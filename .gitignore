@@ -63,3 +63,5 @@ Thumbs.db
 *.swp
 *.swo
 .gemini/
+pesquisa2/.venv/
+pesquisa2/labs/lab26-crom-linear/.mnist_data/
