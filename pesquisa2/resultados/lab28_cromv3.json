@@ -1,0 +1,14 @@
+{
+  "new_model": {
+    "passed": true,
+    "crom_bytes": 164830,
+    "pt_bytes": 817077,
+    "ratio": 4.957089122125827
+  },
+  "trained_model": {
+    "passed": true,
+    "crom_bytes": 6469727,
+    "pt_bytes": 13427142,
+    "ratio": 2.0753799967139264
+  }
+}
