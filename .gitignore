@@ -65,3 +65,5 @@ Thumbs.db
 .gemini/
 pesquisa2/.venv/
 pesquisa2/labs/lab26-crom-linear/.mnist_data/
+pesquisa2/data/
+pesquisa2/checkpoints/

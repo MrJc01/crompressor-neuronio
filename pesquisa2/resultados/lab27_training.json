@@ -1,0 +1,22 @@
+{
+  "train_loss_start": 11.112751960754395,
+  "train_loss_end": 4.851675987243652,
+  "val_loss": 4.972396224737167,
+  "steps": 500,
+  "converged": true,
+  "params": 3326784,
+  "samples": [
+    {
+      "prompt": "O Brasil é",
+      "output": "O Brasil é a. tem o,. do oA, é do são nos.A do O de e da a, e. ricaA uma e planeta de doA como"
+    },
+    {
+      "prompt": "A inteligência artificial",
+      "output": "A inteligência artificial e Brasil e do a é.AA de nos. a mundo Brasil. Com e rica..A de.A mundo.. do é. é planeta é. e de eO"
+    },
+    {
+      "prompt": "A cidade de São Paulo",
+      "output": "A cidade de São Paulo a. umaA dos em aoO do maior brasileira éA brasileira, ao, dos,. é do.. o. país e. a. Brasil planeta de e o BrasilO"
+    }
+  ]
+}

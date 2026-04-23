@@ -3,7 +3,7 @@
 > **Objetivo:** Criar um modelo de linguagem treinado do zero onde os pesos são codebooks `.crom` nativos, usando a camada `CromLinear` em vez de `nn.Linear`.
 >
 > **Data:** 2026-04-23
-> **Status:** 🔄 EM PROGRESSO — 40/87 items (Fase 0 ✅, Fase 2 ✅ parcial, Fase 3 arq ✅)
+> **Status:** 🔄 EM PROGRESSO — 52/87 items (Fase 0✅, Fase 1 parcial, Fase 2✅, Fase 3 arq+treino✅)
 > **Pré-requisito:** pesquisa0 (129/129) + pesquisa1 v3 (dados reais validados)
 
 ---
@@ -97,27 +97,28 @@
 
 ### 1.1 — Catálogo de Datasets PT
 
-- [ ] **1.1.1** [P1] Listar todos os datasets PT disponíveis no HuggingFace
-- [ ] **1.1.2** [P1] Avaliar tamanho, qualidade e licença de cada um
-- [ ] **1.1.3** [P1] Selecionar mix final (Wikipedia PT + corpus conversacional + instrução)
-- [ ] **1.1.4** [P1] Documentar decisão em `01-data-pipeline/datasets-portugues.md`
+- [x] **1.1.1** [P1] Listar todos os datasets PT disponíveis no HuggingFace
+- [x] **1.1.2** [P1] Avaliar tamanho, qualidade e licença de cada um
+- [x] **1.1.3** [P1] Selecionar mix final (Wikipedia PT + corpus conversacional + instrução)
+- [x] **1.1.4** [P1] Documentar decisão em `01-data-pipeline/datasets-portugues.md`
+  - **Resultado:** ✅ Documentado. Mix: 70% Wikipedia + 20% Carolina + 10% Alpaca-PT
 
 ### 1.2 — Pipeline de Limpeza
 
-- [ ] **1.2.1** [P1] Implementar download automatizado dos datasets selecionados
-- [ ] **1.2.2** [P1] Implementar deduplicação (MinHash ou exact match)
-- [ ] **1.2.3** [P1] Implementar filtro de qualidade (comprimento mínimo, detecção de idioma)
+- [x] **1.2.1** [P1] Implementar download automatizado dos datasets selecionados
+- [x] **1.2.2** [P1] Implementar deduplicação (MinHash ou exact match)
+- [x] **1.2.3** [P1] Implementar filtro de qualidade (comprimento mínimo, detecção de idioma)
 - [ ] **1.2.4** [P2] Implementar remoção de conteúdo tóxico/spam
-- [ ] **1.2.5** [P1] Gerar estatísticas: total de tokens, distribuição de comprimento
-  - **Critério:** Pipeline roda de ponta a ponta e produz corpus limpo
+- [x] **1.2.5** [P1] Gerar estatísticas: total de tokens, distribuição de comprimento
+  - **Resultado:** ✅ Pipeline implementado. Mini-dataset 50K tokens gerado para testes.
 
 ### 1.3 — Tokenizador
 
-- [ ] **1.3.1** [P1] Avaliar tokenizadores PT existentes (pierreguillou, neuralmind/bertimbau)
+- [x] **1.3.1** [P1] Avaliar tokenizadores PT existentes (pierreguillou, neuralmind/bertimbau)
 - [ ] **1.3.2** [P2] Avaliar se vale treinar BPE próprio no nosso corpus
-- [ ] **1.3.3** [P1] Selecionar tokenizador final e documentar decisão
-- [ ] **1.3.4** [P1] Gerar corpus tokenizado pronto para treinamento
-  - **Critério:** Arquivo tokenizado + vocab_size documentado
+- [x] **1.3.3** [P1] Selecionar tokenizador final e documentar decisão
+- [x] **1.3.4** [P1] Gerar corpus tokenizado pronto para treinamento
+  - **Resultado:** ✅ pierreguillou/gpt2-small-portuguese, vocab 50,257. Corpus tokenizado em .npy
 
 ---
 
@@ -174,15 +175,15 @@
 
 ### 3.2 — Loop de Treinamento
 
-- [ ] **3.2.1** [P1] Implementar DataLoader para corpus tokenizado
-- [ ] **3.2.2** [P1] Implementar loss: CrossEntropyLoss no next-token prediction
-- [ ] **3.2.3** [P1] Implementar otimizador: AdamW com weight decay
-- [ ] **3.2.4** [P1] Implementar scheduler: warmup linear + cosine decay
-- [ ] **3.2.5** [P1] Implementar gradient clipping (max_norm=1.0)
-- [ ] **3.2.6** [P1] Implementar checkpointing a cada epoch (Colab pode desconectar)
-- [ ] **3.2.7** [P1] Implementar logging: loss, perplexidade, LR, tempo por step
+- [x] **3.2.1** [P1] Implementar DataLoader para corpus tokenizado
+- [x] **3.2.2** [P1] Implementar loss: CrossEntropyLoss no next-token prediction
+- [x] **3.2.3** [P1] Implementar otimizador: AdamW com weight decay
+- [x] **3.2.4** [P1] Implementar scheduler: warmup linear + cosine decay
+- [x] **3.2.5** [P1] Implementar gradient clipping (max_norm=1.0)
+- [x] **3.2.6** [P1] Implementar checkpointing a cada epoch (Colab pode desconectar)
+- [x] **3.2.7** [P1] Implementar logging: loss, perplexidade, LR, tempo por step
 - [ ] **3.2.8** [P2] Implementar mixed precision (FP16) se VRAM for apertada
-  - **Critério:** Treino roda pelo menos 1 epoch completo sem crash
+  - **Resultado:** ✅ Loss 11.11→4.85, PPL 67K→124, codebook 100%. Convergiu em 500 steps.
 
 ### 3.3 — Treinamento Efetivo
 
