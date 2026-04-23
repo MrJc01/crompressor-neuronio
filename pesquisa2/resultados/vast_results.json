@@ -1,0 +1,86 @@
+{
+  "dataset": {
+    "tokenizer": "pierreguillou/gpt2-small-portuguese",
+    "vocab_size": 50257,
+    "total_tokens": 64132545,
+    "train_tokens": 60925917,
+    "val_tokens": 3206628,
+    "documents": 47900
+  },
+  "max_steps": 8000,
+  "ppl": {
+    "cromgpt": 792.1342235623932,
+    "baseline": 213.2721593898834
+  },
+  "speed": {
+    "cromgpt": 72.98003164674796,
+    "baseline": 136.80690260504647
+  },
+  "disk": {
+    "cromv3_bytes": 82845685,
+    "pt_base_bytes": 495732273,
+    "compression": 5.983803175747777
+  },
+  "diversity": {
+    "cromgpt": 0.3780487804878049,
+    "baseline": 0.4232209737827715
+  },
+  "loss_curve": {
+    "cromgpt_start": 11.567901611328125,
+    "cromgpt_end": 6.276155948638916,
+    "baseline_start": 11.02900505065918,
+    "baseline_end": 4.653071880340576
+  },
+  "samples": [
+    {
+      "prompt": "O Brasil é",
+      "cromgpt": "O Brasil é de saúde (2) e       1,1% de    5. A primeira vez na última metade da Região Metropolitana de Janeiro,              -            ",
+      "baseline": "O Brasil é considerado o mais importante do mundo, desde a década de 1990, quando o governo brasileiro é o único estado da América Latina a ser o 6.º maior produtor mundial de petróleo, sendo o maior produtor mundial de feijão, o maior produtor mundial de leite de milho, o 6.º maior produtor mundial"
+    },
+    {
+      "prompt": "A inteligência artificial",
+      "cromgpt": "A inteligência artificial de uma vez que a ser o primeiro fim de uma série de um novo resultado. O governo foi \"O nome de seu irmão de um filme de \"o a um dos \"o a \"a\". O livro de \"o de seu primeiro álbum de um \"The of the the \"D\"",
+      "baseline": "A inteligência artificial é uma teoria da ciência, mas é possível determinar-se que a física pode ser um espaço de estudo, ou seja, não se a informação se dá a ideia de que a ciência é um elemento de computação e não-intenticamente, ou seja, se ele possa acontecer para um programa."
+    },
+    {
+      "prompt": "A cidade de São Paulo",
+      "cromgpt": "A cidade de São Paulo e José Grande do Rio de Janeiro. O município de Janeiro e a cidade, do município de município de 2012. O município de   Anos, que foi de cidade de município de     habitantes. O município de São Jorge Antônio do município de   , um município de São",
+      "baseline": "A cidade de São Paulo é um dos principais centros de serviços de saúde do município, o que liga os municípios de Santa Catarina, São Paulo e Bom Jesus.  A cidade possui uma área de 11,1 km². É uma cidade com 4,753 habitantes (cerca de 1.820 habitantes). A"
+    },
+    {
+      "prompt": "O futebol brasileiro",
+      "cromgpt": "O futebol brasileiro, foi a ser a maior parte do Norte. Em 1997, a primeira década de 2005, em 2006, o futebol do Brasil (0). Após a primeira metade do Rio de Janeiro, o Rio de Janeiro, foi a Copa do Brasil, a Segunda Guerra dos Estados Unidos. O Sul. O",
+      "baseline": "O futebol brasileiro. O clube também é o primeiro clube de futebol do Brasil que tem como principal time do futebol da região. O clube de futebol de futebol brasileiro é o \"Rio de Janeiro\", que também é o maior clube de futebol do mundo. A Copa do Brasil de 2014, no qual o clube se formou"
+    },
+    {
+      "prompt": "A educação no Brasil",
+      "cromgpt": "A educação no Brasil, o Estado. A sede de  a freguesia de São Sebastião de São Paulo e a freguesia de Santo a sua freguesia de São Paulo e a uma freguesia de Santa Luzia. A denominação de São João de São Miguel. O território é extinta, tendo de São José de Portugal. A freguesia em São",
+      "baseline": "A educação no Brasil. Em 2009, a educação de educação foi de 3,5%, e a taxa de mortalidade infantil de 6,2% em 2009. Em 2010, a população de São Paulo era de 2,2% em 2010, de 8,1% em 2012 e de 0,8% em 2010"
+    },
+    {
+      "prompt": "O planeta Terra",
+      "cromgpt": "O planeta Terra de um determinado tipo de uma área de acordo com uma importante de um número de um de um número de alta de energia, que o mesmo tempo de uma superfície para o estado de uma cidade, em uma altitude de uma área de  km. Um tipo do município a ser estimada em 1,",
+      "baseline": "O planeta Terra A Terra é uma das mais baixas que há um terço da superfície de uma superfície. A teoria de Newton, onde as partículas são consideradas como um estado de física, apresenta-se a posição de um objeto em que as partículas são mais elevadas nas duas condições. Um dos elementos da física quântica é a"
+    },
+    {
+      "prompt": "A música brasileira",
+      "cromgpt": "A música brasileira, no Brasil, o Brasil em 2016 e em 2006. A equipe tinha um país, em 2005, já em 2012, a equipe se tornou a equipe de futebol, o trabalho de sua primeira temporada, o governo de 2010, foi o número de 2009. Em 2016, a primeira vez, a",
+      "baseline": "A música brasileira foi criada em 15 de outubro de 2009, e a música rock brasileira se tornou um dos maiores artistas da América Latina. O single \"No Mundo\" foi um dos principais artistas brasileiros de São Paulo. O álbum foi lançado em outubro de 2007 e lançado no dia 6 de Janeiro, no Rio de Janeiro"
+    },
+    {
+      "prompt": "O Rio de Janeiro",
+      "cromgpt": "O Rio de Janeiro, que o ensino de serviços, o crescimento do Brasil, no ano, a 2. A 2,2, 3ª 1 de 1. A população é o distrito de 1,0% 1,0% da região do município de 2010,7% do município de 0,3% do",
+      "baseline": "O Rio de Janeiro, o Rio de Janeiro, a Avenida do Rio de Janeiro, a Rua São José do Príncipe, a Rua São João das D. Pedro, a Rua do Rio, a Praça do Rio de Janeiro, a Praça do Rio de Janeiro, a Rua de São José, a Rua de São José,"
+    },
+    {
+      "prompt": "A tecnologia moderna",
+      "cromgpt": "A tecnologia moderna, o \"A é o grupo de sua primeira temporada. No final foi nomeado a sua temporada em 11 de outubro de 2005. Em outubro de abril foi o clube, o álbum do seu segundo seu primeiro ano. O álbum e o jogador de outubro de maio de novembro. Após a Copa do torneio",
+      "baseline": "A tecnologia moderna é o mais importante para as técnicas de software e o desenvolvimento do software.  A capacidade para a produção de um software para a criação de sistemas de software pode ser visto como um dos mais importantes do que os sistemas de controle de software ou o sistema de comunicação que permite que não sejam usados. O"
+    },
+    {
+      "prompt": "A história do Brasil",
+      "cromgpt": "A história do Brasil, do Rio de Janeiro, José de Janeiro, Rio de Janeiro. Em 2006, o país, a sua equipe foi a empresa para a presidência, o início da Copa do Brasil, em 2012, que foi a 1. Em 2010, o Campeonato Brasileiro de maio de 2018, o clube de 2000",
+      "baseline": "A história do Brasil, além de um dos maiores e mais ricos do Brasil, é conhecida pela história do Brasil, como \"Os Dotas do Brasil\". Para a tradição de João Paulo II, o \"o homem da Revolução Brasileira de 1930 não é uma referência para a \"O Rio de Janeiro\". Em um romance,"
+    }
+  ]
+}
