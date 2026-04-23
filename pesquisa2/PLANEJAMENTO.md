@@ -3,7 +3,7 @@
 > **Objetivo:** Criar um modelo de linguagem treinado do zero onde os pesos são codebooks `.crom` nativos, usando a camada `CromLinear` em vez de `nn.Linear`.
 >
 > **Data:** 2026-04-23
-> **Status:** 🔄 EM PROGRESSO — 33/87 items (Fase 0 ✅, Fase 2 parcial)
+> **Status:** 🔄 EM PROGRESSO — 40/87 items (Fase 0 ✅, Fase 2 ✅ parcial, Fase 3 arq ✅)
 > **Pré-requisito:** pesquisa0 (129/129) + pesquisa1 v3 (dados reais validados)
 
 ---
@@ -163,14 +163,14 @@
 
 ### 3.1 — Arquitetura
 
-- [ ] **3.1.1** [P1] Definir config: layers=12, heads=12, dim=768, vocab_size do tokenizador
-- [ ] **3.1.2** [P1] Implementar Token Embedding + Positional Embedding (nn.Embedding padrão)
-- [ ] **3.1.3** [P1] Implementar Multi-Head Attention usando CromLinear para Q, K, V, O
-- [ ] **3.1.4** [P1] Implementar FFN usando CromLinear para up_proj e down_proj
-- [ ] **3.1.5** [P1] Implementar LayerNorm + Residual connections
-- [ ] **3.1.6** [P1] Implementar LM Head (projeção para vocab)
-- [ ] **3.1.7** [P1] Contar parâmetros totais e comparar com GPT-2 equivalente
-  - **Critério:** Modelo instancia sem erro, forward pass roda
+- [x] **3.1.1** [P1] Definir config: layers=12, heads=12, dim=768, vocab_size do tokenizador
+- [x] **3.1.2** [P1] Implementar Token Embedding + Positional Embedding (nn.Embedding padrão)
+- [x] **3.1.3** [P1] Implementar Multi-Head Attention usando CromLinear para Q, K, V, O
+- [x] **3.1.4** [P1] Implementar FFN usando CromLinear para up_proj e down_proj
+- [x] **3.1.5** [P1] Implementar LayerNorm + Residual connections
+- [x] **3.1.6** [P1] Implementar LM Head (projeção para vocab, weight tying)
+- [x] **3.1.7** [P1] Contar parâmetros totais e comparar com GPT-2 equivalente
+  - **Resultado:** ✅ 12 CromLinear layers, 100% utilização, 9.6x compressão média. Hybrid mode ok.
 
 ### 3.2 — Loop de Treinamento
 

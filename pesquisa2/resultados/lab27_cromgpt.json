@@ -1,0 +1,16 @@
+{
+  "full_cromgpt": {
+    "passed": true,
+    "params": {
+      "total": 174336,
+      "trainable": 174336,
+      "embedding": 68096,
+      "crom_layers": 104448,
+      "layer_norm": 640
+    }
+  },
+  "hybrid_mode": {
+    "passed": true
+  },
+  "crom_layers": 12
+}
