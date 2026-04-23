@@ -3,7 +3,7 @@
 > **Objetivo:** Criar um modelo de linguagem treinado do zero onde os pesos são codebooks `.crom` nativos, usando a camada `CromLinear` em vez de `nn.Linear`.
 >
 > **Data:** 2026-04-23
-> **Status:** 🔄 EM PROGRESSO — 52/87 items (Fase 0✅, Fase 1 parcial, Fase 2✅, Fase 3 arq+treino✅)
+> **Status:** 🔄 EM PROGRESSO — 53/87 items (Fase 0✅, Fase 1 parcial, Fase 2✅, Fase 3 arq+treino✅, Paper0✅)
 > **Pré-requisito:** pesquisa0 (129/129) + pesquisa1 v3 (dados reais validados)
 
 ---
@@ -252,7 +252,8 @@
 
 ### 6.1 — Documentação Final
 
-- [ ] **6.1.1** [P1] Escrever `papel0.md`: CromLinear — teoria, implementação, convergência
+- [x] **6.1.1** [P1] Escrever `papel0.md`: CromLinear — teoria, implementação, convergência
+  - **Resultado:** ✅ Paper completo: 10 seções, 7 hipóteses, 5 experimentos, 8 referências
 - [ ] **6.1.2** [P1] Escrever `papel1.md`: CromGPT — treinamento completo, comparação, análise
 - [ ] **6.1.3** [P2] Consolidar `CONCLUSOES.md` com veredictos finais
 - [ ] **6.1.4** [P2] Atualizar `REFERENCIAS.md` com papers citados
