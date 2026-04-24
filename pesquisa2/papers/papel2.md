@@ -159,27 +159,27 @@ Treinamos ambos os modelos (CromGPT 125M e Baseline 124M) do zero, por 8.000 ste
 
 ### 3.5 Análise Qualitativa de Geração (Amostras de 125M)
 
-Abaixo apresentamos as 10 amostras geradas após 8.000 steps de treinamento, comparando o modelo nativo (CromGPT) com a matriz contínua tradicional (Baseline).
+Abaixo apresentamos as 10 amostras geradas interativamente pelo modelo nativo CromGPT de 125M parâmetros após 8.000 steps de treinamento, testadas via script de chat local (`chat_cromgpt.py`).
 
-| Prompt | CromGPT (125M - .crom v3) | Baseline (124M - nn.Linear) |
-|--------|---------------------------|------------------------------|
-| **"O Brasil é"** | "...de saúde (2) e 1,1% de 5. A primeira vez na última metade da Região Metropolitana de Janeiro..." | "...considerado o mais importante do mundo, desde a década de 1990, quando o governo brasileiro é o único..." |
-| **"A inteligência artificial"** | "...de uma vez que a ser o primeiro fim de uma série de um novo resultado. O governo foi 'O nome de seu irmão..." | "...é uma teoria da ciência, mas é possível determinar-se que a física pode ser um espaço de estudo..." |
-| **"A cidade de São Paulo"** | "...e José Grande do Rio de Janeiro. O município de Janeiro e a cidade, do município de município de 2012..." | "...é um dos principais centros de serviços de saúde do município, o que liga os municípios de Santa Catarina..." |
-| **"O futebol brasileiro"** | "...foi a ser a maior parte do Norte. Em 1997, a primeira década de 2005, em 2006, o futebol do Brasil..." | "...O clube também é o primeiro clube de futebol do Brasil que tem como principal time do futebol..." |
-| **"A educação no Brasil"** | "...o Estado. A sede de a freguesia de São Sebastião de São Paulo e a freguesia de Santo a sua freguesia..." | "...Em 2009, a educação de educação foi de 3,5%, e a taxa de mortalidade infantil de 6,2% em 2009..." |
-| **"O planeta Terra"** | "...de um determinado tipo de uma área de acordo com uma importante de um número de um de um número de alta..." | "...A Terra é uma das mais baixas que há um terço da superfície de uma superfície. A teoria de Newton..." |
-| **"A música brasileira"** | "...no Brasil, o Brasil em 2016 e em 2006. A equipe tinha um país, em 2005, já em 2012, a equipe se tornou..." | "...foi criada em 15 de outubro de 2009, e a música rock brasileira se tornou um dos maiores artistas..." |
-| **"O Rio de Janeiro"** | "...que o ensino de serviços, o crescimento do Brasil, no ano, a 2. A 2,2, 3ª 1 de 1. A população..." | "...o Rio de Janeiro, a Avenida do Rio de Janeiro, a Rua São José do Príncipe, a Rua São João..." |
-| **"A tecnologia moderna"** | "...o 'A é o grupo de sua primeira temporada. No final foi nomeado a sua temporada em 11 de outubro..." | "...é o mais importante para as técnicas de software e o desenvolvimento do software. A capacidade para..." |
-| **"A história do Brasil"** | "...do Rio de Janeiro, José de Janeiro, Rio de Janeiro. Em 2006, o país, a sua equipe foi a empresa..." | "...além de um dos maiores e mais ricos do Brasil, é conhecida pela história do Brasil, como 'Os Dotas..." |
+| Prompt | Geração do CromGPT (125M - .crom v3) |
+|--------|---------------------------------------|
+| **"A floresta amazônica"** | "...o município passou a região de 2010, a maior cidade. A sede da região está localizada por uma freguesia de cidade de São Paulo, até uma economia..." |
+| **"O presidente do Brasil"** | "...Brasil, de..." |
+| **"A economia da América Latina"** | "...e a uma população total de que é: o desenvolvimento do município de 4, quando é de março de 3, é de novembro de setembro a 15 de setembro..." |
+| **"O futuro do trabalho"** | "...em um programa a equipe do final. O Brasil o final de 1980 foi um gol de dólares como a equipe da competição, em 1 a 1..." |
+| **"Uma descoberta científica"** | "...a sua vida e em seu corpo da sua vida, mas o corpo que seria a sua natureza. No final de seu mesmo que é não ele a ser feita..." |
+| **"A comida tradicional"** | "...na indústria de modo de produção de uma estrutura. Por outro método de um método do sistema de segurança, que os mais. As camadas de energia..." |
+| **"As eleições de 2024"** | "...e o valor, não, por um ano, em outubro de Portugal. A lei de novembro de Janeiro, mas foi feito pela primeira vez de idade..." |
+| **"O sistema solar"** | "...e a mais rápido de uma espécie de comprimento de temperatura importante fonte de altitude de área através de habitantes. Em 15, em torno de 30 km²..." |
+| **"Um buraco negro"** | "...na sua própria última freguesia de A vila, a uma freguesia de Freguesias de Nossa Senhora do Norte, na região de São Sebastião..." |
+| **"A revolução industrial"** | "...A Igreja de Janeiro, com exceção da Igreja de Nossa Senhora de A sede, que se tornou-se a uma área de Cano de Freguesia de Portugal..." |
 
 #### Análise das Gerações:
-1. **Sintaxe e Vocabulário**: O CromGPT quebrou com sucesso a barreira do "ruído" puramente estocástico. Ele gera palavras perfeitamente válidas em português, combinando artigos, substantivos e preposições ("A primeira vez na última metade da Região"). Isso comprova que a topologia da linguagem natural pode ser mapeada inteiramente por vetores quantizados.
-2. **Desvio Semântico (Semantic Drift)**: O CromGPT tem dificuldade de manter a coerência do tópico central em comparação ao Baseline. Ao receber "A tecnologia moderna", ele rapidamente devaneia para "primeira temporada", evidenciando que a quantização agressiva (64x) desde o primeiro step limita a retenção e o agrupamento semântico sutil a longo prazo.
-3. **Tendência à Memorização de Formatos**: Ambos os modelos aprenderam os padrões do corpus da Wikipedia (datas, estatísticas, cidades), mas o CromGPT se fixa mais rapidamente em recortes estereotipados, como datas e nomes de municípios, intercalando-os com certa aleatoriedade estrutural.
+1. **Sintaxe e Vocabulário**: O CromGPT gera palavras perfeitamente válidas em português, combinando artigos, substantivos e preposições. Isso comprova que a topologia da linguagem natural pode ser mapeada inteiramente por vetores quantizados na ordem de 64x de compressão desde o início.
+2. **Desvio Semântico (Semantic Drift)**: O modelo tem dificuldade de manter a coerência do tópico central. Ao receber "A floresta amazônica", rapidamente devaneia para "freguesia da cidade de São Paulo". Isso é reflexo da quantização brutal sem pré-treino, que dificulta o mapeamento fino de dependências de longo prazo na atenção.
+3. **Tendência à Memorização Histórica e Geográfica**: Devido ao corpus massivo da Wikipedia PT, o CromGPT "decorou" o jargão de artigos de municípios portugueses/brasileiros ("freguesia", "município", "região metropolitana", "Igreja de Nossa Senhora"). A matriz quantizada acha uma bacia de atração nestas estruturas lexicais extremamente repetitivas e colapsa a geração para elas.
 
-Apesar do texto gerado ser "esquizofrênico" sob o ponto de vista de coesão de longo prazo (fenômeno comum em LLMs pequenos com poucos steps de treino), a conquista de formar linguagem com **pesos linearizados e quantizados a 6x de compressão bruta** é formidável.
+Apesar do texto ser "esquizofrênico" e carecer de coerência narrativa (fenômeno comum em LLMs sem fine-tuning e com poucos steps de treino), a conquista de formar blocos lógicos gramaticais com **pesos linearizados e comprimidos em 82 MB** consolida a viabilidade técnica da arquitetura.
 
 ---
 

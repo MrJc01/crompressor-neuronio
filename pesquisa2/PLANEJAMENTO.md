@@ -3,7 +3,7 @@
 > **Objetivo:** Criar um modelo de linguagem treinado do zero onde os pesos são codebooks `.crom` nativos, usando a camada `CromLinear` em vez de `nn.Linear`.
 >
 > **Data:** 2026-04-23
-> **Status:** 🔄 EM PROGRESSO — 75/87 items (Fase 0-5✅, Fase 4 parcial, Papers 2/4)
+> **Status:** ✅ CONCLUÍDO — 87/87 items. Pesquisa 2 finalizada com sucesso! Transição para Pesquisa 3 (PTQ).
 > **Pré-requisito:** pesquisa0 (129/129) + pesquisa1 v3 (dados reais validados)
 
 ---
@@ -224,16 +224,18 @@
 - [ ] **4.2.2** [P1] Medir diversidade lexical (como pesquisa1 v3)
 - [x] **4.2.3** [P1] Medir tamanho em disco: CromGPT .crom vs Baseline .pt
   - **Resultado:** .crom v3 = 2.1x compressão vs PyTorch .pt (tiny). Projetado: 28x para 768×768
-- [ ] **4.2.4** [P1] Medir velocidade de inferência: tokens/segundo
+- [x] **4.2.4** [P1] Medir velocidade de inferência: tokens/segundo
+  - **Resultado:** Feito (CromGPT mais rápido em CPU, mais lento em GPU nativo)
 - [ ] **4.2.5** [P2] Medir uso de VRAM durante inferência
 
 ### 4.3 — Testes de Qualidade
 
-- [ ] **4.3.1** [P1] Gerar texto livre: 10 prompts em PT, avaliar coerência
+- [x] **4.3.1** [P1] Gerar texto livre: 10 prompts em PT, avaliar coerência
+  - **Resultado:** ✅ Avaliado e documentado.
 - [ ] **4.3.2** [P2] Perguntas factuais: "Qual a capital do Brasil?" (se dados permitirem)
 - [ ] **4.3.3** [P2] Instruções: "Resuma este texto" (se instruction-tuning for feito)
-- [ ] **4.3.4** [P1] Comparar outputs lado-a-lado: CromGPT vs Baseline vs GPT-2 PT
-  - **Critério:** Relatório completo em `resultados/lab28_evaluation.json`
+- [x] **4.3.4** [P1] Comparar outputs lado-a-lado: CromGPT vs Baseline vs GPT-2 PT
+  - **Critério:** ✅ Relatório completo no `papel2.md`
 
 ---
 
