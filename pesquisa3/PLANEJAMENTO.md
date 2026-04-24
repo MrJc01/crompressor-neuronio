@@ -52,10 +52,10 @@
 - [ ] **1.1.3** [P1] Validar quanta RAM é necessária para carregar o FP16 bruto no PyTorch.
 
 ### 1.2 Algoritmo de Compressão (K-Means)
-- [ ] **1.2.1** [P1] Escrever o compressor `ptq_compressor.py`.
-- [ ] **1.2.2** [P1] Implementar extração bloco a bloco (dimensão `D`) para agrupar pesos.
-- [ ] **1.2.3** [P1] Integrar o `faiss` (K-Means cluster) para encontrar os melhores Codebooks.
-- [ ] **1.2.4** [P1] Reconstruir a matriz comprimida (Loss MSE) e documentar o erro médio da quantização.
+- [x] **1.2.1** [P1] Escrever o compressor `ptq_compressor.py`.
+- [x] **1.2.2** [P1] Implementar extração bloco a bloco (dimensão `D`) para agrupar pesos.
+- [x] **1.2.3** [P1] Integrar o `faiss` (K-Means cluster) para encontrar os melhores Codebooks.
+- [x] **1.2.4** [P1] Reconstruir a matriz comprimida (Loss MSE) e documentar o erro médio da quantização.
 - [ ] **1.2.5** [P2] Testar valores menores de `D` (ex: D=8 ou D=16) para garantir retenção de QI do modelo.
 
 ---
@@ -82,14 +82,14 @@
 ## ═══════════════════════════════════════════════════════════
 
 ### 3.1 Kernel C++ Nativo (Sem GPU)
-- [ ] **3.1.1** [P1] Criar pasta `pesquisa3/kernels`.
-- [ ] **3.1.2** [P1] Escrever `crom_linear_cpu.cpp`: Receber `X` (vetor FP32), `Codebook` (FP16), e `Indices` (uint16_t).
-- [ ] **3.1.3** [P1] Fazer a reconstrução implícita e a soma matemática em um único loop em C++ (`O(N)` super rápido).
-- [ ] **3.1.4** [P2] Adicionar diretivas de paralelismo `#pragma omp parallel for` para usar múltiplos núcleos do processador (Intel/AMD).
+- [x] **3.1.1** [P1] Criar pasta `pesquisa3/kernels`.
+- [x] **3.1.2** [P1] Escrever `crom_linear_cpu.cpp`: Receber `X` (vetor FP32), `Codebook` (FP16), e `Indices` (uint16_t).
+- [x] **3.1.3** [P1] Fazer a reconstrução implícita e a soma matemática em um único loop em C++ (`O(N)` super rápido).
+- [x] **3.1.4** [P2] Adicionar diretivas de paralelismo `#pragma omp parallel for` para usar múltiplos núcleos do processador (Intel/AMD).
 
 ### 3.2 Binding Python (JIT)
-- [ ] **3.2.1** [P1] Escrever `setup.py` ou carregador Just-in-Time usando `torch.utils.cpp_extension`.
-- [ ] **3.2.2** [P1] Criar a classe autograd `CromLinearCPUFunction` que chama a função C++ em vez do `index_select` lerdo do PyTorch.
+- [x] **3.2.1** [P1] Escrever `setup.py` ou carregador Just-in-Time usando `torch.utils.cpp_extension`.
+- [x] **3.2.2** [P1] Criar a classe autograd `CromLinearCPUFunction` que chama a função C++ em vez do `index_select` lerdo do PyTorch.
 
 ---
 
@@ -98,11 +98,11 @@
 ## ═══════════════════════════════════════════════════════════
 
 ### 4.1 Script de Chat
-- [ ] **4.1.1** [P1] Escrever `local_chat.py`.
-- [ ] **4.1.2** [P1] Implementar `load_cromv3_sota()` que instancia o Llama-3/Phi-3 vazio e injeta os nossos Codebooks e Índices, aplicando o nosso Kernel C++.
-- [ ] **4.1.3** [P1] Carregar o Tokenizer oficial da HF (`AutoTokenizer`).
-- [ ] **4.1.4** [P2] Inserir `apply_chat_template` padrão da Meta/Microsoft para que o modelo entenda os turnos "system", "user" e "assistant".
-- [ ] **4.1.5** [P1] Gerenciar geração autoregressiva com KV Cache para não recalcular a história a cada token (essencial para velocidade).
+- [x] **4.1.1** [P1] Escrever `local_chat.py`.
+- [x] **4.1.2** [P1] Implementar `load_cromv3_sota()` que instancia o Llama-3/Phi-3 vazio e injeta os nossos Codebooks e Índices, aplicando o nosso Kernel C++.
+- [x] **4.1.3** [P1] Carregar o Tokenizer oficial da HF (`AutoTokenizer`).
+- [x] **4.1.4** [P2] Inserir `apply_chat_template` padrão da Meta/Microsoft para que o modelo entenda os turnos "system", "user" e "assistant".
+- [x] **4.1.5** [P1] Gerenciar geração autoregressiva com KV Cache para não recalcular a história a cada token (essencial para velocidade).
 
 ### 4.2 Benchmark Local
 - [ ] **4.2.1** [P1] Monitorar RAM durante a carga (deve cravar em <3GB).

@@ -67,3 +67,13 @@ pesquisa2/.venv/
 pesquisa2/labs/lab26-crom-linear/.mnist_data/
 pesquisa2/data/
 pesquisa2/checkpoints/
+pesquisa3/phi3_crom.cromv3
+.gitignore
+pesquisa3/kernels/crom_cpu.cpython-312-x86_64-linux-gnu.so
+pesquisa3/kernels/build/lib.linux-x86_64-cpython-312/crom_cpu.cpython-312-x86_64-linux-gnu.so
+pesquisa3/kernels/build/temp.linux-x86_64-cpython-312/.ninja_deps
+pesquisa3/kernels/build/temp.linux-x86_64-cpython-312/.ninja_log
+pesquisa3/kernels/build/temp.linux-x86_64-cpython-312/build.ninja
+pesquisa3/kernels/build/temp.linux-x86_64-cpython-312/crom_linear_cpu.o
+.gitignore
+pesquisa3/tiny_teste.cromv3
